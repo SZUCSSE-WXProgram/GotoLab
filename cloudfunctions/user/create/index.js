@@ -21,10 +21,59 @@ exports.main = async (event, context) => {
     status: 200,
     info: [],
   }
-  //用户输入的信息
-  infoPre = {}
 
+  info = {
+    stuid:event.info.stuid,
+    name:event.info.name,
+    phone:event.info.phone,
+    class:event.info.class,
+    openid:wxContext.OPENID,
+  }
 
-  return ret
-
+  // 学号不能重复
+  const cnt= await db.collection('User').where({
+    stuid:stuid
+  }).count();
+  if(cnt>0){
+    return {
+      code: 'fail',
+      des: '该学号已被注册！',
+      status: 402,
+    }
+  }
+  //检验班级存在
+  const _class = await db.collection('Class').where({
+    _id:info.class
+  }).count()
+  if(_class === 0){
+    return {
+      code: 'fail',
+      des: '该班级不存在！',
+      status: 402,
+    }
+  }
+  await db.collection('User').add({
+    data:{
+      openid:info.openid,
+      name:info.name,
+      stuid:info.stuid,
+      phone:info.phone,
+      permission:0,
+      class:info.class,
+      groups:[],
+    }
+  }).then(res=>{
+    return{
+      code: 'success',
+      des: '注册成功',
+      status: 200,
+      info: res,
+    }
+  }).catch(e=>{
+    return{
+      code: 'fail',
+      des: e,
+      status: 500,
+    }
+  })
 }
