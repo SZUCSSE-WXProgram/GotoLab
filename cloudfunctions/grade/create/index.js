@@ -1,6 +1,7 @@
 const cloud = require('wx-server-sdk')
+const isSuperAdmin=require('../../utils/permission.js')
 const check =require('../../utils/validate.js')
-const registerCheck = require('../check')
+const createCheck = require('../check')
 // 云环境初始化
 cloud.init({
   env: cloud.DYNAMIC_CURRENT_ENV
@@ -15,34 +16,25 @@ const _ = db.command;
 const $ = _.aggregate
 // 云函数入口函数
 exports.main = async (event, context) => {
-	const wxContext = cloud.getWXContext()
+	const permissionCheck=isSuperAdmin()
+	if(permissionCheck.code!=='success'){
+		return permissionCheck;
+	}
 	info = {
-		stuid:event.info.stuid,
-		name:event.info.name,
-		phone:event.info.phone,
-		class:event.info.class,
-		openid:wxContext.OPENID,
-	  }
-	const checkResult = check(info,registerCheck);
+		gradeName:event.info.gradeName,
+	}
+	const checkResult = check(info,createCheck);
 	if(checkResult.code==='fail'){
 		return checkResult
 	}
-  await db.collection('User').add({
-    data:{
-      openid:info.openid,
-      name:info.name,
-      stuid:info.stuid,
-      phone:info.phone,
-      permission:0,
-      class:info.class,
-      groups:[],
-    }
+  await db.collection('Grade').add({
+    data:info
   }).then(res=>{
     return{
       code: 'success',
-      des: '注册成功',
+      des: '创建成功',
       status: 200,
-      info: res,
+      info: res.data,
     }
   }).catch(e=>{
     return{
