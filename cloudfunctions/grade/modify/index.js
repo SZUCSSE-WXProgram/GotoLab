@@ -1,7 +1,7 @@
 const cloud = require('wx-server-sdk')
 const isSuperAdmin=require('../../utils/permission.js')
 const check =require('../../utils/validate.js')
-const createCheck = require('../check')
+const modifyCheck = require('../check')
 // 云环境初始化
 cloud.init({
   env: cloud.DYNAMIC_CURRENT_ENV
@@ -22,38 +22,25 @@ exports.main = async (event, context) => {
 	}
 	info = {
     gradeId:event.info.gradeId,
-		className:event.info.className,
+		gradeName:event.info.gradeName,
 	}
-	const checkResult = check(info,createCheck);
+	const checkResult = check(info,modifyCheck);
 	if(checkResult.code==='fail'){
 		return checkResult
-  }
-  // 检测班级是否唯一
-  await db.collection('Class').where({
-    gradeId:info.gradeId,
-    className:info.className
-  }).count().then(res=>{
-    if(res>0){
-      return {
-        code:'fail',
-        status:402,
-        des:'已存在相同班级'
-      }
+	}
+  await db.collection('Grade').doc(info.gradeId).update({
+    data:{
+      gradeName:info.gradeName
     }
-  })
-
-  //操作db
-  await db.collection('Class').add({
-    data:info
   }).then(res=>{
-    return{
+    return {
       code: 'success',
-      des: '创建成功',
+      des: '修改成功',
       status: 200,
       info: res.data,
     }
   }).catch(e=>{
-    return{
+    return {
       code: 'fail',
       des: e,
       status: 500,

@@ -9,6 +9,11 @@ exports.createCheck = {
 	gradeName:{des:'年级名',type:'string',required:true,minLength:4,maxLength:10,validator:[this.uniqueGrade]},
 }
 
+exports.modifyCheck = {
+  gradeName:{des:'年级名',type:'string',required:true,minLength:4,maxLength:10,validator:[this.uniqueGrade]},
+  gradeId:{des:'年级ID',type:'string',required:true},
+}
+
 exports.uniqueGrade = async (gradeName)=>{
 	db.collection('Grade').where({
 		gradeName:gradeName
