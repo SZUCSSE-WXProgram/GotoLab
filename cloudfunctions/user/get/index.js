@@ -1,5 +1,5 @@
 const cloud = require('wx-server-sdk')
-const isNotStudent=require('../../permission.js')
+const isNotStudent=require('../util/permission.js')
 
 // 云环境初始化
 cloud.init({

@@ -1,6 +1,6 @@
 const cloud = require('wx-server-sdk')
-const check =require('../../validate.js')
-const registerCheck = require('../check')
+const validator =require('../util/validate')
+const checkList = require('../check')
 // 云环境初始化
 cloud.init({
   env: cloud.DYNAMIC_CURRENT_ENV
@@ -11,8 +11,7 @@ const db = cloud.database({
   throwOnNotFound: false
 })
 
-const _ = db.command;
-const $ = _.aggregate
+
 // 云函数入口函数
 exports.main = async (event, context) => {
 	const wxContext = cloud.getWXContext()
@@ -22,9 +21,9 @@ exports.main = async (event, context) => {
 		phone:event.info.phone,
 		class:event.info.class,
 		openid:wxContext.OPENID,
-	  }
-	const checkResult = check(info,registerCheck);
-	if(checkResult.code==='fail'){
+    }
+  var checkResult = await validator.check(info,checkList.registerCheck);
+	if(checkResult.code!=='success'){
 		return checkResult
 	}
   await db.collection('User').add({
@@ -38,6 +37,7 @@ exports.main = async (event, context) => {
       groups:[],
     }
   }).then(res=>{
+    console.log(res)
     return{
       code: 'success',
       des: '注册成功',

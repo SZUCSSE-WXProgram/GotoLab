@@ -1,0 +1,14 @@
+[
+  {
+    "name": "user.create",
+    "value": {
+      "type": "create",
+      "info": {
+        "stuid": "2019284073",
+        "name": "董芸豪",
+        "phone": "18312345405",
+        "class": "11"
+      }
+    }
+  }
+]
