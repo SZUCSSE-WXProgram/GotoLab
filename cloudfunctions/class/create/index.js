@@ -1,6 +1,6 @@
 const cloud = require('wx-server-sdk')
-const isSuperAdmin=require('../../utils/permission.js')
-const check =require('../../utils/validate.js')
+const isSuperAdmin=require('../../permission.js')
+const check =require('../../validate.js')
 const createCheck = require('../check')
 // 云环境初始化
 cloud.init({

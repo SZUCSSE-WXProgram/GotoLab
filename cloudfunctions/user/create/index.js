@@ -1,5 +1,5 @@
 const cloud = require('wx-server-sdk')
-const check =require('../../utils/validate.js')
+const check =require('../../validate.js')
 const registerCheck = require('../check')
 // 云环境初始化
 cloud.init({

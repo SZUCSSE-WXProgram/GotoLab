@@ -1,7 +1,7 @@
 const cloud = require('wx-server-sdk')
-const isNotStudent=require('../../utils/permission.js')
+const isNotStudent=require('../../permission.js')
 
-const check =require('../../utils/validate.js')
+const check =require('../../validate.js')
 const modifyCheck = require('../check')
 // 云环境初始化
 cloud.init({
