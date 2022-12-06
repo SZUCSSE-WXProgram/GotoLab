@@ -14,12 +14,12 @@ const db = cloud.database({
 // 云函数入口函数
 exports.main = async (event, context) => {
   const wxContext = cloud.getWXContext()
-  await db.collection('User').where({
+  return await db.collection('User').where({
     openid:wxContext.OPENID
   }).get().then(res=>{
     return {
       code: 'success',
-	  info:res.data,
+	    info:res.data,
       status: 200,
     }
   }).catch(e=>{

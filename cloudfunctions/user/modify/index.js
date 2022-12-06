@@ -1,5 +1,5 @@
 const cloud = require('wx-server-sdk')
-const isNotStudent=require('../util/permission.js')
+const permission=require('../util/permission.js')
 
 const check =require('../util/validate.js')
 const modifyCheck = require('../check')
@@ -17,7 +17,7 @@ const changeableItems=['name','stuid','phone','class']
 // 云函数入口函数
 exports.main = async (event, context) => {
   const wxContext = cloud.getWXContext()
-  const permissionCheck=isNotStudent()
+  const permissionCheck= await permission.isNotStudent()
   if(permissionCheck.code==='fail'){
     return permissionCheck;
   }
