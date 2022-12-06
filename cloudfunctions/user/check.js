@@ -21,71 +21,55 @@ exports.modifyCheck = {
 }
 
 async function uniqueStuid(stuid) {
-  await db.collection('User').where({
-		stuid:stuid
-  }).count().then(res=>{
-    console.log(res)
-    if(res.total===0){
-      console.log("1111")
-      return{
-        code:'success',
-        status:200,
-      }
+  const _cnt= await db.collection('User').where({
+    stuid:stuid
+  }).count()
+  if(_cnt.total===0){
+    return{
+      code:'success',
+      status:200,
     }
-    else{
-      return {
-        code:'fail',
-        status:402,
-        des:'该学号已经被注册了'
-      }
+  }else{
+    return {
+       code:'fail',
+       status:402,
+       des:'该学号已经被注册了'
     }
-  })
+  }
 }
 
 async function uniqueOpenid(openID) {
-	await db.collection('User').where({
-		openid:openID
-	}).count().then(res=>{
-		if(res.total===0){
-			return{
-				code:'success',
-				status:200,
-			}
-		}else{
-			return{
-				code:'fail',
-				status:402,
-				des:'该账户已经被注册了'
-			}
-		}
-	}).catch(e=>{
-		return{
-			code:'fail',
-			status:500,
-			des:'账户验证失败'
-		}
-	})
+  const _cnt =  await db.collection('User').where({
+    openid:openID
+  }).count()
+  if(_cnt.total===0){
+    return{
+      code:'success',
+      status:200,
+    }
+  }else{
+    return{
+      code:'fail',
+      status:402,
+      des:'该账户已经被注册了'
+    }
+  }
 }
 
 async function validateClass(classid) {
-	await db.collection('Class').doc(classid).count().then(res=>{
-		if(res.total===0){
-			return{
-				code:'fail',
-				status:402,
-				des:'该班级不存在'
-			}
-		}else{
-			return{
-				code:'success',
+  const _cnt= await db.collection('Class').where({
+    _id:classid
+  }).count()
+  if(_cnt.total===0){
+    return{
+      code:'fail',
+      status:402,
+      des:'该班级不存在'
+    }
+  }else{
+    return {
+      code:'success',
 				status:200,
-			}
-		}
-	}).catch(e=>{
-		return{
-			code:'fail',
-			status:500,
-			des:'班级验证失败'
-		}
-	})
+    }
+  }
 }

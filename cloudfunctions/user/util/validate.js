@@ -57,6 +57,7 @@ exports.check=async (data,checkList)=>{
 		}
 		if(checkList[item].validator&&checkList[item].validator.length>0){
 			for(let v in checkList[item].validator){
+        console.log(v)
         const checkResult = await checkList[item].validator[v](data[item]);
         console.log(checkResult)
         if(checkResult.code!=='success'){

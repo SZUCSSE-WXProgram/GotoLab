@@ -26,7 +26,7 @@ exports.main = async (event, context) => {
 	if(checkResult.code!=='success'){
 		return checkResult
 	}
-  await db.collection('User').add({
+  return await db.collection('User').add({
     data:{
       openid:info.openid,
       name:info.name,
