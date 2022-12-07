@@ -24,5 +24,17 @@
         "class": "4b840790638e04ea00e4b5543de7b611"
       }
     }
+  },
+  {
+    "name": "user.getUsers",
+    "value": {
+      "type": "getUsers",
+      "info": {
+        "limit": 10,
+        "offset": 0,
+        "search": "20",
+        "permission": 0
+      }
+    }
   }
 ]
