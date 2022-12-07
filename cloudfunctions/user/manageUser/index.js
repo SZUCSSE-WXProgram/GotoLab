@@ -11,23 +11,21 @@ cloud.init({
 const db = cloud.database({
   throwOnNotFound: false
 })
-const changeableItems=['name','stuid','phone','class']
+const changeableItems=['name','stuid','phone','class','permission','docid']
 
 // 云函数入口函数
 exports.main = async (event, context) => {
   const wxContext = cloud.getWXContext()
-  const permissionCheck= await permission.isNotStudent()
-  if(permissionCheck.code==='fail'){
+  const permissionCheck= await permission.isSuperAdmin()
+  if(permissionCheck.code!=='success'){
     return permissionCheck;
   }
   info = {}
   for(let items of changeableItems){
-    if(event.info[items]&&event.info[items]!==undefined&&event.info[items]!==''){
+    if(event.info[items]!=undefined&&event.info[items]!==''){
       info[items]=event.info[items]
     }
   }
-
-  console.log(info)
   if(Object.keys(info).length===0){
     return {
       code:'fail',
@@ -35,14 +33,13 @@ exports.main = async (event, context) => {
       status :402,
     }
   }
-  const checkResult=await validator.check(info,checkList.modifyCheck);
+  const checkResult=await validator.check(info,checkList.manageUserCheck);
   if(checkResult.code!=='success'){
     return checkResult;
   }
-  
-  return await db.collection('User').where({
-    openid:wxContext.OPENID
-  }).update({
+  _id=info.docid
+  delete info.docid
+  return await db.collection('User').doc(_id).update({
     data:info,
   }).then(res=>{
     return {

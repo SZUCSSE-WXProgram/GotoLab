@@ -7,7 +7,21 @@
         "stuid": "2019284073",
         "name": "董芸豪",
         "phone": "18312345405",
-        "class": "11"
+        "class": "4b840790638e04ea00e4b5543de7b611"
+      }
+    }
+  },
+  {
+    "name": "user.manageUser",
+    "value": {
+      "type": "manageUser",
+      "info": {
+        "docid": "1",
+        "stuid": "2019284075",
+        "name": "董芸豪",
+        "phone": "18312345415",
+        "permission": 2,
+        "class": "4b840790638e04ea00e4b5543de7b611"
       }
     }
   }

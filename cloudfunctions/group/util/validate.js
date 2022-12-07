@@ -10,10 +10,10 @@ const constructorList = {
 	'string': String,
 	'boolean': Boolean
 }
-exports.check=(data,checkList)=>{
+exports.check=async (data,checkList)=>{
 	for(let item in checkList){
 		// 空值检验
-		if(checkList[item].required&&(!data.hasOwnProperty(item)||data[item]===null)){
+		if(checkList[item].required&&(!data.hasOwnProperty(item)||data[item]===null||data[item]===undefined)){
 			return {
 				code:'fail',
 				status:402,
@@ -21,7 +21,7 @@ exports.check=(data,checkList)=>{
 			}
 		}
 		// 类型检验
-		if(checkList[item].type&&checkList[item].type!='enum'){
+		if(data[item]&&checkList[item].type&&checkList[item].type!='enum'){
 			if(data[item].constructor!==constructorList[checkList[item].type]){
 				return {
 					code:'fail',
@@ -31,7 +31,7 @@ exports.check=(data,checkList)=>{
 			}
 		}
 		//enum 范围校验
-		if(checkList[item].type&&checkList[item].type==='enum'){
+		if(data[item]&&checkList[item].type&&checkList[item].type==='enum'){
 			if((checkList[item].range||[]).indexOf(data[item])===-1){
 				return {
 					code:'fail',
@@ -41,29 +41,29 @@ exports.check=(data,checkList)=>{
 			}
 		}
 		//长度校验
-		if(checkList[item].maxLength&&data[item].length>checkList[item].maxLength){
+		if(data[item]&&checkList[item].maxLength&&data[item].length>checkList[item].maxLength){
 			return {
 				code:'fail',
 				status:402,
 				des:`${checkList[item].des}太长了`
 			}
 		}
-		if(checkList[item].minLength&&data[item].length>checkList[item].minLength){
+		if(data[item]&&checkList[item].minLength&&data[item].length<checkList[item].minLength){
 			return {
 				code:'fail',
 				status:402,
 				des:`${checkList[item].des}太短了`
 			}
 		}
-		if(checkList[item].validator&&checkList[item].validator.length>0){
+		if(data[item]&&checkList[item].validator&&checkList[item].validator.length>0){
 			for(let v in checkList[item].validator){
-				const validateResult = v(data[item]);
-				if(validateResult.code!=='success'){
-					return validateResult;
-				}
+        const checkResult = await checkList[item].validator[v](data[item]);
+        if(checkResult.code!=='success'){
+          return checkResult
+        }
 			}
 		}
-	}
+  }
 	return {
 		code:'success',
 		status:200,

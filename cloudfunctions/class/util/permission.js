@@ -8,7 +8,7 @@ const db = cloud.database()
 // 系统管理员鉴权
 exports.isSuperAdmin = async () => {
   const wxContext = cloud.getWXContext();
-  await db.collection('User').where({
+  return await db.collection('User').where({
     openid:wxContext.OPENID
   }).get().then(res=>{
     if(res.data[0].permission===2){
@@ -41,7 +41,7 @@ exports.isGroupAdmin = async (groupID) => {
     }
   }
   const wxContext = cloud.getWXContext();
-  await db.collection('User').where({
+  return await db.collection('User').where({
     openid:wxContext.OPENID
   }).get().then(res=>{
     for(let i=0;i<len(res.data[0].groups);i++){
@@ -69,7 +69,7 @@ exports.isGroupAdmin = async (groupID) => {
 // 非学生用户鉴权
 exports.isNotStudent = async () => {
   const wxContext = cloud.getWXContext();
-  await db.collection('User').where({
+  return await db.collection('User').where({
     openid:wxContext.OPENID
   }).get().then(res=>{
     if(res.data[0].permission===1||res.data[0].permission===2){
