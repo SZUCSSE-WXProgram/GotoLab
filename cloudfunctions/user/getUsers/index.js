@@ -26,14 +26,12 @@ exports.main = async (event, context) => {
   if(permissionValidate.code!=="success"){
     return permissionValidate;
   }
-  console.log(pageQuery)
   return await db.collection('User').where(_.or([{
     name: db.RegExp({
       regexp: '.*' + pageQuery.search,
       options: 'i',
     })
-  },
-  {
+  }, {
     stuid: db.RegExp({
       regexp: '.*' +  pageQuery.search,
       options: 'i',
@@ -42,12 +40,12 @@ exports.main = async (event, context) => {
 ]).and({
   permission:_.gte(pageQuery.permission)
 })).skip(pageOffset.offset)
-  .limit(pageOffset.limit+1)
+  .limit(pageOffset.limit+1)// tricky做法 多取一条数据判断数据是不是取完了
   .get().then(res=>{
     const hasMore=res.data.length>pageOffset.limit?true:false
     return {
       code:'success',
-      data:res.data,
+      data:hasMore? res.data.pop():res.data,
       hasMore:hasMore,
       status:200
     }
