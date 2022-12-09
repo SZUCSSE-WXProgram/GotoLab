@@ -37,6 +37,13 @@ exports.main = async (event, context) => {
   if(checkResult.code!=='success'){
     return checkResult;
   }
+  if(info.permission&&info.permission===1){
+    return {
+      code:'fail',
+      des:'不允许直接修改为研究所管理员，请在研究所管理中修改！',
+      status :402,
+    }
+  }
   _id=info.docid
   delete info.docid
   return await db.collection('User').doc(_id).update({

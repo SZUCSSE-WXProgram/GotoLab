@@ -94,39 +94,4 @@ exports.main = async (event, context) => {
       des:e
     }
   })
-
-//   return await db.collection('User').where(_.or([{
-//     name: db.RegExp({
-//       regexp: '.*' + pageQuery.search,
-//       options: 'i',
-//     })
-//   }, {
-//     stuid: db.RegExp({
-//       regexp: '.*' +  pageQuery.search,
-//       options: 'i',
-//     })
-//   }
-// ]).and({
-//   permission:_.gte(pageQuery.permission)
-// })).orderBy('stuid','asc')
-//   .skip(pageOffset.offset)
-//   .limit(pageOffset.limit+1)// tricky做法 多取一条数据判断数据是不是取完了
-//   .get().then(res=>{
-//     const hasMore=res.data.length>pageOffset.limit?true:false
-//     if(hasMore){
-//       res.data.pop()
-//     }
-//     return {
-//       code:'success',
-//       data:res.data,
-//       hasMore:hasMore,
-//       status:200
-//     }
-//   }).catch(e=>{
-//     return {
-//       code:'fail',
-//       status:500,
-//       des:e
-//     }
-//   })
 }
