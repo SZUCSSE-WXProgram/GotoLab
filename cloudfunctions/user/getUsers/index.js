@@ -11,6 +11,9 @@ const db = cloud.database({
   throwOnNotFound: true
 })
 const _ = db.command
+const $ = _.aggregate
+
+
 
 // 云函数入口函数
 exports.main = async (event, context) => {
@@ -26,31 +29,61 @@ exports.main = async (event, context) => {
   if(permissionValidate.code!=="success"){
     return permissionValidate;
   }
-  console.log(pageOffset)
-  return await db.collection('User').where(_.or([{
+  // return await db.collection('User').aggregate()
+//   .lookup({
+//     from: 'Class',
+//     localField: 'class',
+//     foreignField: '_id',
+//     as: 'class',
+//   }).lookup({
+//     from:'Grade',
+//     localField: 'class.gradeId',
+//     foreignField:'_id',
+//     as:'grade',
+//   })
+//   .match({
+//     openid:wxContext.OPENID
+//   }).end()
+  return await db.collection('User').aggregate()
+  .lookup({
+    from: 'Class',
+    localField:'class',
+    foreignField:'_id',
+    as: 'class',
+  }).lookup({
+        from:'Grade',
+         localField: 'class.gradeId',
+       foreignField:'_id',
+       as:'grade'
+  }).match(_.or([{
     name: db.RegExp({
       regexp: '.*' + pageQuery.search,
       options: 'i',
-    })
-  }, {
+    })},{
     stuid: db.RegExp({
       regexp: '.*' +  pageQuery.search,
       options: 'i',
     })
-  }
-]).and({
-  permission:_.gte(pageQuery.permission)
-})).orderBy('stuid','asc')
+  }]).and({
+    permission:_.gte(pageQuery.permission)
+  })).sort({
+    stuid:-1,
+  })
   .skip(pageOffset.offset)
   .limit(pageOffset.limit+1)// tricky做法 多取一条数据判断数据是不是取完了
-  .get().then(res=>{
-    const hasMore=res.data.length>pageOffset.limit?true:false
+  .end().then(res=>{
+    const hasMore=res.list.length>pageOffset.limit?true:false
     if(hasMore){
-      res.data.pop()
+      res.list.pop()
+    }
+    for(let i in res.list){
+      res.list[i].class= res.list[i].class[0]
+      delete res.list[i].class.gradeId
+      res.list[i].grade= res.list[i].grade[0]
     }
     return {
       code:'success',
-      data:res,
+      data:res.list,
       hasMore:hasMore,
       status:200
     }
@@ -61,4 +94,39 @@ exports.main = async (event, context) => {
       des:e
     }
   })
+
+//   return await db.collection('User').where(_.or([{
+//     name: db.RegExp({
+//       regexp: '.*' + pageQuery.search,
+//       options: 'i',
+//     })
+//   }, {
+//     stuid: db.RegExp({
+//       regexp: '.*' +  pageQuery.search,
+//       options: 'i',
+//     })
+//   }
+// ]).and({
+//   permission:_.gte(pageQuery.permission)
+// })).orderBy('stuid','asc')
+//   .skip(pageOffset.offset)
+//   .limit(pageOffset.limit+1)// tricky做法 多取一条数据判断数据是不是取完了
+//   .get().then(res=>{
+//     const hasMore=res.data.length>pageOffset.limit?true:false
+//     if(hasMore){
+//       res.data.pop()
+//     }
+//     return {
+//       code:'success',
+//       data:res.data,
+//       hasMore:hasMore,
+//       status:200
+//     }
+//   }).catch(e=>{
+//     return {
+//       code:'fail',
+//       status:500,
+//       des:e
+//     }
+//   })
 }
