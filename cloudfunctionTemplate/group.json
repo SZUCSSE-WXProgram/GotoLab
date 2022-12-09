@@ -1,0 +1,22 @@
+[
+  {
+    "name": "group.getList",
+    "value": {
+      "type": "getList",
+      "info": {
+        "search": "实验0"
+      }
+    }
+  },
+  {
+    "name": "group.create",
+    "value": {
+      "type": "create",
+      "info": {
+        "groupName": "测试研究所",
+        "intro": "ssss s s \n\n",
+        "picLink": "s s "
+      }
+    }
+  }
+]

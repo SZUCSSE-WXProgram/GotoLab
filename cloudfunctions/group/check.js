@@ -5,33 +5,22 @@ cloud.init({
 const db = cloud.database()
 const _ = db.command;
 const $ = _.aggregate
-exports.registerCheck = {
-	stuid:{des:'学号',type:'string',required:true,minLength:10,maxLength:10,validator:[uniqueStuid]},
-	name:{des:'姓名',type:'string',required:true,minLength:2,maxLength:10},
-	phone:{des:'手机号',type:'string',required:true,minLength:11,maxLength:11},
-	class:{des:'班级',type:'string',required:true,validator:[validateClass]},
-	openid:{des:'用户ID',type:'string',required:true,validator:[uniqueOpenid]}
+exports.createCheck = {
+	groupName:{des:'研究所名',type:'string',required:true,minLength:2,validator:[uniqueGroupName]},
+	intro:{des:'简介',type:'string',required:true,minLength:10},
+	picLink:{des:'图片链接',type:'string',required:true}
 }
 
 exports.modifyCheck = {
-	stuid:{des:'学号',type:'string',required:false,minLength:10,maxLength:10,validator:[uniqueStuid]},
-	name:{des:'姓名',type:'string',required:false,minLength:2,maxLength:10},
-	phone:{des:'手机号',type:'string',required:false,minLength:11,maxLength:11},
-	class:{des:'班级',type:'string',required:false,validator:[validateClass]},
+  _id:{des:'文档id',type:'string',required:true,validator:[existGroupId]},
+	groupName:{des:'研究所名',type:'string',required:false,minLength:2},
+	intro:{des:'简介',type:'string',required:false,minLength:10},
+	picLink:{des:'图片链接',type:'string',required:false}
 }
 
-exports.manageUserCheck = {
-  docid:{des:'文档id',type:'string',required:true,validator:[validateStu_id]},
-	stuid:{des:'学号',type:'string',required:false,minLength:10,maxLength:10,validator:[uniqueStuid]},
-	name:{des:'姓名',type:'string',required:false,minLength:2,maxLength:10},
-	phone:{des:'手机号',type:'string',required:false,minLength:11,maxLength:11},
-  class:{des:'班级',type:'string',required:false,validator:[validateClass]},
-  permission:{des:'权限',type:'enum',range:[0,1,2]}
-}
-
-async function uniqueStuid(stuid) {
-  const _cnt= await db.collection('User').where({
-    stuid:stuid
+async function uniqueGroupName(groupName) {
+  const _cnt= await db.collection('Group').where({
+    groupName:groupName
   }).count()
   if(_cnt.total===0){
     return{
@@ -42,50 +31,14 @@ async function uniqueStuid(stuid) {
     return {
        code:'fail',
        status:402,
-       des:'该学号已经被注册了'
+       des:'该研究所已经被注册了'
     }
   }
 }
 
-async function uniqueOpenid(openID) {
-  const _cnt =  await db.collection('User').where({
-    openid:openID
-  }).count()
-  if(_cnt.total===0){
-    return{
-      code:'success',
-      status:200,
-    }
-  }else{
-    return{
-      code:'fail',
-      status:402,
-      des:'该账户已经被注册了'
-    }
-  }
-}
-
-async function validateClass(classid) {
-  const _cnt= await db.collection('Class').where({
-    _id:classid
-  }).count()
-  if(_cnt.total===0){
-    return{
-      code:'fail',
-      status:402,
-      des:'该班级不存在'
-    }
-  }else{
-    return {
-      code:'success',
-				status:200,
-    }
-  }
-}
-
-async function validateStu_id(_id) {
-  const _cnt = await db.collection('User').where({
-    _id:_id,
+async function existGroupId(groupId) {
+  const _cnt= await db.collection('Group').where({
+    _id:groupId
   }).count()
   if(_cnt.total===1){
     return{
@@ -93,11 +46,10 @@ async function validateStu_id(_id) {
       status:200,
     }
   }else{
-    return{
-      code:'fail',
-      des:'该学生不存在',
-      status:402,
+    return {
+       code:'fail',
+       status:402,
+       des:'该研究所不存在！'
     }
   }
-  
 }

@@ -29,21 +29,6 @@ exports.main = async (event, context) => {
   if(permissionValidate.code!=="success"){
     return permissionValidate;
   }
-  // return await db.collection('User').aggregate()
-//   .lookup({
-//     from: 'Class',
-//     localField: 'class',
-//     foreignField: '_id',
-//     as: 'class',
-//   }).lookup({
-//     from:'Grade',
-//     localField: 'class.gradeId',
-//     foreignField:'_id',
-//     as:'grade',
-//   })
-//   .match({
-//     openid:wxContext.OPENID
-//   }).end()
   return await db.collection('User').aggregate()
   .lookup({
     from: 'Class',
