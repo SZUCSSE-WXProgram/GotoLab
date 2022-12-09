@@ -1,55 +1,55 @@
 const cloud = require('wx-server-sdk')
 cloud.init({
-  env: cloud.DYNAMIC_CURRENT_ENV
+    env: cloud.DYNAMIC_CURRENT_ENV
 })
 const db = cloud.database()
 const _ = db.command;
 const $ = _.aggregate
 exports.createCheck = {
-	groupName:{des:'研究所名',type:'string',required:true,minLength:2,validator:[uniqueGroupName]},
-	intro:{des:'简介',type:'string',required:true,minLength:10},
-	picLink:{des:'图片链接',type:'string',required:true}
+    groupName: {des: '研究所名', type: 'string', required: true, minLength: 2, validator: [uniqueGroupName]},
+    intro: {des: '简介', type: 'string', required: true, minLength: 10},
+    picLink: {des: '图片链接', type: 'string', required: true}
 }
 
 exports.modifyCheck = {
-  _id:{des:'文档id',type:'string',required:true,validator:[existGroupId]},
-	groupName:{des:'研究所名',type:'string',required:false,minLength:2},
-	intro:{des:'简介',type:'string',required:false,minLength:10},
-	picLink:{des:'图片链接',type:'string',required:false}
+    _id: {des: '文档id', type: 'string', required: true, validator: [existGroupId]},
+    groupName: {des: '研究所名', type: 'string', required: false, minLength: 2},
+    intro: {des: '简介', type: 'string', required: false, minLength: 10},
+    picLink: {des: '图片链接', type: 'string', required: false}
 }
 
 async function uniqueGroupName(groupName) {
-  const _cnt= await db.collection('Group').where({
-    groupName:groupName
-  }).count()
-  if(_cnt.total===0){
-    return{
-      code:'success',
-      status:200,
+    const _cnt = await db.collection('Group').where({
+        groupName: groupName
+    }).count()
+    if (_cnt.total === 0) {
+        return {
+            code: 'success',
+            status: 200,
+        }
+    } else {
+        return {
+            code: 'fail',
+            status: 402,
+            des: '该研究所已经被注册了'
+        }
     }
-  }else{
-    return {
-       code:'fail',
-       status:402,
-       des:'该研究所已经被注册了'
-    }
-  }
 }
 
 async function existGroupId(groupId) {
-  const _cnt= await db.collection('Group').where({
-    _id:groupId
-  }).count()
-  if(_cnt.total===1){
-    return{
-      code:'success',
-      status:200,
+    const _cnt = await db.collection('Group').where({
+        _id: groupId
+    }).count()
+    if (_cnt.total === 1) {
+        return {
+            code: 'success',
+            status: 200,
+        }
+    } else {
+        return {
+            code: 'fail',
+            status: 402,
+            des: '该研究所不存在！'
+        }
     }
-  }else{
-    return {
-       code:'fail',
-       status:402,
-       des:'该研究所不存在！'
-    }
-  }
 }
