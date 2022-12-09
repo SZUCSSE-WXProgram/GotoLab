@@ -22,6 +22,7 @@ exports.main = async (event, context) => {
     }
     const groupId = event.info.groupId
     return await db.collection('User').where({
+        permission: 1,
         groups: groupId
     }).get().then(res => {
         return {

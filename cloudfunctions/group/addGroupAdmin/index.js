@@ -49,7 +49,8 @@ exports.main = async (event, context) => {
     }
     return await db.collection('User').doc(info.userId).update({
         data: {
-            groups: _.push([info.groupId])
+            groups: _.push([info.groupId]),
+            permission:1
         }
     }).then(res => {
         return {

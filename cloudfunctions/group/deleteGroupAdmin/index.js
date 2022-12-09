@@ -47,21 +47,43 @@ exports.main = async (event, context) => {
             des: '该用户已经不是该研究所的管理员',
         }
     }
-    return await db.collection('User').doc(info.userId).update({
-        data: {
-            groups: _.pullAll([info.groupId])
-        }
-    }).then(res => {
-        return {
-            code: 'success',
-            status: 200,
-            info: res
-        }
-    }).catch(e => {
-        return {
-            code: 'fail',
-            status: 500,
-            des: e
-        }
-    })
+    const groups = await db.collection('User').doc(info.userId).get()
+    if (groups.data[0].groups.length === 1) {
+        return await db.collection('User').doc(info.userId).update({
+            data: {
+                groups: _.pull([info.groupId]),
+                permission: 0
+            }
+        }).then(res => {
+            return {
+                code: 'success',
+                status: 200,
+                info: res
+            }
+        }).catch(e => {
+            return {
+                code: 'fail',
+                status: 500,
+                des: e
+            }
+        })
+    } else {
+        return await db.collection('User').doc(info.userId).update({
+            data: {
+                groups: _.pullAll([info.groupId])
+            }
+        }).then(res => {
+            return {
+                code: 'success',
+                status: 200,
+                info: res
+            }
+        }).catch(e => {
+            return {
+                code: 'fail',
+                status: 500,
+                des: e
+            }
+        })
+    }
 }
