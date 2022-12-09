@@ -51,7 +51,7 @@ exports.main = async (event, context) => {
     if (groups.data[0].groups.length === 1) {
         return await db.collection('User').doc(info.userId).update({
             data: {
-                groups: _.pull([info.groupId]),
+                groups: _.pullAll([info.groupId]),
                 permission: 0
             }
         }).then(res => {
