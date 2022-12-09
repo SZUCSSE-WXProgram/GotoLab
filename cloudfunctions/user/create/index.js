@@ -15,14 +15,14 @@ const db = cloud.database({
 // 云函数入口函数
 exports.main = async (event, context) => {
     const wxContext = cloud.getWXContext()
-    info = {
+    let info = {
         stuid: event.info.stuid,
         name: event.info.name,
         phone: event.info.phone,
         class: event.info.class,
         openid: wxContext.OPENID,
     }
-    var checkResult = await validator.check(info, checkList.registerCheck);
+    const checkResult = await validator.check(info, checkList.registerCheck);
     if (checkResult.code !== 'success') {
         return checkResult
     }
