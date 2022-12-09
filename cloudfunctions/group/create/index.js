@@ -33,16 +33,11 @@ exports.main = async (event, context) => {
         data: info
     }).then(res => {
         return {
-            code: 'success',
-            status: 200,
-            des: '注册成功',
-            info: res,
+            code: 'success', status: 200, des: '注册成功', info: res,
         }
     }).catch(e => {
         return {
-            code: 'fail',
-            status: 500,
-            des: e,
+            code: 'fail', status: 500, des: e,
         }
     })
 }

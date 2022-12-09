@@ -18,6 +18,15 @@ exports.modifyCheck = {
     picLink: {des: '图片链接', type: 'string', required: false}
 }
 
+exports.getAdminCheck={
+    groupId:{des:'研究所id',type:'string',required:true,validator:[existGroupId]}
+}
+
+exports.manageGroupAdminCheck={
+    userId:{des:'用户id',type:'string',required:true,validator:[existUser]},
+    groupId:{des:'研究所id',type:'string',required:true,validator:[existGroupId]}
+}
+
 async function uniqueGroupName(groupName) {
     const _cnt = await db.collection('Group').where({
         groupName: groupName
@@ -32,6 +41,24 @@ async function uniqueGroupName(groupName) {
             code: 'fail',
             status: 402,
             des: '该研究所已经被注册了'
+        }
+    }
+}
+
+async function existUser(_id) {
+    const _cnt = await db.collection('User').where({
+        _id: _id
+    }).count()
+    if (_cnt.total === 1) {
+        return {
+            code: 'success',
+            status: 200,
+        }
+    } else {
+        return {
+            code: 'fail',
+            status: 402,
+            des: '该用户不存在'
         }
     }
 }

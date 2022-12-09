@@ -21,7 +21,7 @@ exports.check = async (data, checkList) => {
             }
         }
         // 类型检验
-        if (data[item] && checkList[item].type && checkList[item].type != 'enum') {
+        if (data[item] && checkList[item].type && checkList[item].type !== 'enum') {
             if (data[item].constructor !== constructorList[checkList[item].type]) {
                 return {
                     code: 'fail',
