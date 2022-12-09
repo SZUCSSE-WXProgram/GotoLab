@@ -24,6 +24,14 @@ exports.main = async (event, context) => {
         groupId: event.info.groupId,
         userId: event.info.userId
     }
+    const isSuperAdmin = await permission.isSuperAdmin()
+    if (isSuperAdmin.code === 'success') {
+        return {
+            code: 'fail',
+            des: '超级管理员无需删除研究所管理员',
+            status: 403,
+        }
+    }
     const permissionCheck = await permission.isGroupAdmin(info.groupId)
     if (permissionCheck.code !== 'success') {
         return permissionCheck;
