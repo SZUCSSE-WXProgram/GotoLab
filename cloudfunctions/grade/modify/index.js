@@ -1,49 +1,61 @@
 const cloud = require('wx-server-sdk')
-const isSuperAdmin=require('../../utils/permission.js')
-const check =require('../../utils/validate.js')
-const modifyCheck = require('../check')
+const permission = require('../util/permission.js')
+const validator = require('../util/validate.js')
+const checkList = require('../check')
 // 云环境初始化
 cloud.init({
-  env: cloud.DYNAMIC_CURRENT_ENV
+    env: cloud.DYNAMIC_CURRENT_ENV
 })
 
 // 获取db对象用于查询数据库
 const db = cloud.database({
-  throwOnNotFound: false
+    throwOnNotFound: false
 })
 
 const _ = db.command;
 const $ = _.aggregate
 // 云函数入口函数
 exports.main = async (event, context) => {
-	const permissionCheck=isSuperAdmin()
-	if(permissionCheck.code!=='success'){
-		return permissionCheck;
-	}
-	info = {
-    gradeId:event.info.gradeId,
-		gradeName:event.info.gradeName,
-	}
-	const checkResult = check(info,modifyCheck);
-	if(checkResult.code==='fail'){
-		return checkResult
-	}
-  await db.collection('Grade').doc(info.gradeId).update({
-    data:{
-      gradeName:info.gradeName
+    const permissionCheck = permission.isSuperAdmin()
+    if (permissionCheck.code !== 'success') {
+        return permissionCheck;
     }
-  }).then(res=>{
-    return {
-      code: 'success',
-      des: '修改成功',
-      status: 200,
-      info: res.data,
+    const checkResult = validator.check(event.info, checkList.modifyCheck);
+    if (checkResult.code !== 'success') {
+        return checkResult
     }
-  }).catch(e=>{
-    return {
-      code: 'fail',
-      des: e,
-      status: 500,
+    const info = {
+        gradeName: event.info.gradeName,
+        _id: event.info._id
     }
-  })
+    const _cnt = await db.collection('Grade').where({
+        _id: info._id,
+        gradeName: info.gradeName
+    }).count()
+
+    if (_cnt.total === 1) {
+        return {
+            code: 'fail',
+            des: '未发生更改',
+            status: 402,
+        }
+    }
+    return await db.collection('Grade').doc(info._id).update({
+        data: {
+            gradeName: info.gradeName,
+        }
+    }).then(res => {
+        return {
+            code: 'success',
+            des: '修改成功',
+            status: 200,
+            info: res,
+        }
+    }).catch(e => {
+        return {
+            code: 'fail',
+            des: e,
+            status: 500,
+        }
+    })
 }

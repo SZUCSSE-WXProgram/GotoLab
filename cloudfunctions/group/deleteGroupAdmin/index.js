@@ -40,6 +40,7 @@ exports.main = async (event, context) => {
         _id: info.userId,
         groups: info.groupId
     }).count()
+
     if (_isNotAdmin.total === 0) {
         return {
             code: 'fail',
