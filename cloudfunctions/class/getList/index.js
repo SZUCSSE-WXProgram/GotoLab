@@ -16,7 +16,7 @@ const _ = db.command;
 const $ = _.aggregate
 // 云函数入口函数
 exports.main = async (event, context) => {
-    // 本api主要做注册时的班级信息查询 不鉴权也不传入参数
+    // 本api主要做注册时和管理员查看时的班级信息查询 不鉴权也不传入参数
     return await db.collection('Grade').aggregate()
         .lookup({
                 from: 'Class',

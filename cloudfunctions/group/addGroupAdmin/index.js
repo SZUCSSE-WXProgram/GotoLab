@@ -24,8 +24,11 @@ exports.main = async (event, context) => {
         groupId: event.info.groupId,
         userId: event.info.userId
     }
-    const isSuperAdmin = await permission.isSuperAdmin()
-    if (isSuperAdmin.code === 'success') {
+    const isAlreadySuperAdmin = await db.collection('User').where({
+        _id: info.userId,
+        permission: 2,
+    }).count()
+    if (isAlreadySuperAdmin.total !== 0) {
         return {
             code: 'fail',
             des: '超级管理员无需添加研究所管理员',
@@ -50,7 +53,7 @@ exports.main = async (event, context) => {
     return await db.collection('User').doc(info.userId).update({
         data: {
             groups: _.push([info.groupId]),
-            permission:1
+            permission: 1
         }
     }).then(res => {
         return {

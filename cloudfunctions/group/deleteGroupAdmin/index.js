@@ -24,8 +24,11 @@ exports.main = async (event, context) => {
         groupId: event.info.groupId,
         userId: event.info.userId
     }
-    const isSuperAdmin = await permission.isSuperAdmin()
-    if (isSuperAdmin.code === 'success') {
+    const isAlreadySuperAdmin = await db.collection('User').where({
+        _id: info.userId,
+        permission: 2,
+    }).count()
+    if (isAlreadySuperAdmin.total !== 0) {
         return {
             code: 'fail',
             des: '超级管理员无需删除研究所管理员',
