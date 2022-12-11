@@ -44,7 +44,7 @@ exports.isGroupAdmin = async (groupID) => {
     return await db.collection('User').where({
         openid: wxContext.OPENID
     }).get().then(res => {
-        for (let i = 0; i < len(res.data[0].groups); i++) {
+        for (let i = 0; i < res.data[0].groups.length; i++) {
             if (res.data[0].groups[i] === groupID) {
                 return {
                     code: 'success',
