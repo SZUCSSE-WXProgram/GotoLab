@@ -1,5 +1,7 @@
 const cloud = require('wx-server-sdk')
-
+const permission = require('../util/permission.js')
+const validator = require('../util/validate')
+const checkList = require('../check')
 // 云环境初始化
 cloud.init({
     env: cloud.DYNAMIC_CURRENT_ENV
@@ -15,16 +17,40 @@ const $ = _.aggregate
 // 云函数入口函数
 exports.main = async (event, context) => {
     const wxContext = cloud.getWXContext()
-    const ret = {
-        code: 'success',
-        des: '添加成功',
-        status: 200,
-        info: [],
+    let info = {
+        group: event.info.group,
+        creator: wxContext.OPENID,
+        name: event.info.name,
+        intro: event.info.intro,
+        limit: event.info.limit,
+        signable: true,
+        startTime: new Date(event.info.startTime),
+        endTime: new Date(event.info.endTime),
+        location: event.info.location,
+        type: event.info.type,
     }
-    //用户输入的信息
-    infoPre = {}
-
-
-    return ret
-
+    const checkResult = await validator.check(info, checkList.createCheck);
+    if (checkResult.code !== 'success') {
+        return checkResult
+    }
+    const permissionCheck = await permission.isGroupAdmin(info.group)
+    if (permissionCheck.code !== 'success') {
+        return checkResult
+    }
+    return await db.collection('Activity').add({
+        data: info
+    }).then(res => {
+        return {
+            code: 'success',
+            des: '创建成功',
+            status: 200,
+            info: res,
+        }
+    }).catch(e => {
+        return {
+            code: 'fail',
+            des: e,
+            status: 500,
+        }
+    })
 }
