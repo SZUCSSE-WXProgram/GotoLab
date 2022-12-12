@@ -24,18 +24,35 @@ exports.main = async (event, context) => {
         intro: event.info.intro,
         limit: event.info.limit,
         signable: true,
-        startTime: new Date(event.info.startTime),
-        endTime: new Date(event.info.endTime),
+        startTime: event.info.startTime,
+        endTime: event.info.endTime,
         location: event.info.location,
         type: event.info.type,
+    }
+    try {
+        info.startTime = new Date(info.startTime)
+        info.endTime = new Date(info.endTime)
+    } catch (e) {
+        return {
+            status: 402,
+            code: 'fail',
+            msg: '时间格式错误'
+        }
     }
     const checkResult = await validator.check(info, checkList.createCheck);
     if (checkResult.code !== 'success') {
         return checkResult
     }
+    if (info.startTime >= info.endTime) {
+        return {
+            status: 402,
+            code: 'fail',
+            msg: '开始时间不能晚于结束时间'
+        }
+    }
     const permissionCheck = await permission.isGroupAdmin(info.group)
     if (permissionCheck.code !== 'success') {
-        return checkResult
+        return permissionCheck
     }
     return await db.collection('Activity').add({
         data: info
