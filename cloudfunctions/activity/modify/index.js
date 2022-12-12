@@ -17,7 +17,6 @@ const $ = _.aggregate
 // 云函数入口函数
 exports.main = async (event, context) => {
     const wxContext = cloud.getWXContext()
-
     let info = {
         _id: event.info._id,
         group: event.info.group,

@@ -17,9 +17,12 @@ const $ = _.aggregate
 // 云函数入口函数
 exports.main = async (event, context) => {
     const wxContext = cloud.getWXContext()
+    const currentUser= await db.collection('User').where({
+        openid: wxContext.OPENID
+    }).get()
     let info = {
         group: event.info.group,
-        creator: wxContext.OPENID,
+        creator: currentUser.data[0]._id,
         name: event.info.name,
         intro: event.info.intro,
         limit: event.info.limit,

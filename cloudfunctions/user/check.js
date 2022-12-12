@@ -99,5 +99,4 @@ async function validateStu_id(_id) {
             status: 402,
         }
     }
-
 }
