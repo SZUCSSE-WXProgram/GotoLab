@@ -21,15 +21,13 @@ exports.main = async (event, context) => {
         userId: event.info.userId,
         activityId: event.info.activityId,
     }
-    const checkResult = await validator.check(info, checkList.modifyCheck);
+    const checkResult = await validator.check(info, checkList.deleteAttenderCheck);
     if (checkResult.code !== 'success') {
         return checkResult
     }
-    const _group = await db.collection('Activity').where({
-        _id: info.activityId
-    }).get()
-    const permissionCheck = await permission.isGroupAdmin(_group.data[0].group)
-    if (permissionCheck.code !== 'success') {
+    const permissionCheck = await permission.isActivityAdmin(info.activityId)
+    // 既没有管理员权限也不是本人参与的活动
+    if (permissionCheck.code !== 'success' && info.userId !== wxContext.OPENID) {
         return permissionCheck
     }
     return await db.collection('UserToActivity').where({

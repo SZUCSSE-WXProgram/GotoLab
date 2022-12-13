@@ -17,14 +17,43 @@ const $ = _.aggregate
 // 云函数入口函数
 exports.main = async (event, context) => {
     const wxContext = cloud.getWXContext()
-    let info = {}
-    const checkResult = await validator.check(info, checkList.modifyCheck);
+    let info = {
+        activityId: event.info.activityId,
+    }
+    const checkResult = await validator.check(info, checkList.getAttenderCheck);
     if (checkResult.code !== 'success') {
         return checkResult
     }
-    const permissionCheck = await permission.isGroupAdmin(info.group)
+    const permissionCheck = await permission.isActivityAdmin(info.activityId)
     if (permissionCheck.code !== 'success') {
         return permissionCheck
     }
-
+    return await db.collection('Activity').aggregate()
+        .match({
+            _id: info.activityId
+        })
+        .lookup({
+            from: 'UserToActivity',
+            localField: '_id',
+            foreignField: 'activityId',
+            as: 'attender',
+        }).lookup({
+            from: 'User',
+            localField: 'attender.userId',
+            foreignField: '_id',
+            as: 'attender.user',
+        }).end().then(res => {
+            return {
+                code: 'success',
+                status: 200,
+                des: '获取成功',
+                info: res
+            }
+        }).catch(e => {
+            return {
+                code: 'fail',
+                status: 500,
+                des: e
+            }
+        })
 }

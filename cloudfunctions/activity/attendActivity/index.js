@@ -36,6 +36,7 @@ exports.main = async (event, context) => {
         data: {
             userId: currentUser.data[0]._id,
             activityId: event.info._id,
+            status: 0,
         }
     }).then(res => {
         return {

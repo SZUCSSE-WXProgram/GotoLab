@@ -66,6 +66,22 @@ exports.isGroupAdmin = async (groupID) => {
     })
 }
 
+// 活动鉴权
+exports.isActivityAdmin = async (activityID) => {
+    if (await this.isSuperAdmin().code === 'success') {
+        return {
+            code: 'success',
+            status: 200,
+        }
+    }
+    const groupID = await db.collection('Activity').where({
+        _id: activityID
+    }).get().then(res => {
+        return res.data[0].group
+    })
+    return await this.isGroupAdmin(groupID)
+}
+
 // 非学生用户鉴权
 exports.isNotStudent = async () => {
     const wxContext = cloud.getWXContext();

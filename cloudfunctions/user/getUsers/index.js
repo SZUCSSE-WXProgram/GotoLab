@@ -57,7 +57,7 @@ exports.main = async (event, context) => {
         .skip(pageOffset.offset)
         .limit(pageOffset.limit + 1)// tricky做法 多取一条数据判断数据是不是取完了
         .end().then(res => {
-            const hasMore = res.list.length > pageOffset.limit ? true : false
+            const hasMore = res.list.length > pageOffset.limit
             if (hasMore) {
                 res.list.pop()
             }

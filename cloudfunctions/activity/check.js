@@ -9,10 +9,28 @@ exports.attendCheck = {
     activityId: {des: '活动id', required: true, type: 'string', validator: [existActivity, ActivityAttendAble]},
 }
 
+exports.checkAttenderCheck = {
+    activityId: {des: '活动id', required: true, type: 'string', validator: [existActivity]},
+    userId: {des: '用户id', required: true, type: 'string', validator: [existUser]},
+    status: {des: '状态', required: true, type: 'enum', range: [0, 1]},
+
+}
+
 exports.deleteAttenderCheck = {
     userId: {des: '用户id', required: true, type: 'string', validator: [existUser]},
     activityId: {des: '活动id', required: true, type: 'string', validator: [existActivity]},
 }
+exports.getAttenderCheck = {
+    activityId: {des: '活动id', required: true, type: 'string', validator: [existActivity]},
+}
+
+exports.getActivitiesCheck = {
+    limit: {des: '每页数量', required: false, type: 'number', validator: [positiveInteger]},
+    offset: {des: '偏移量', required: false, type: 'number'},
+    search: {des: '搜索关键字', required: false, type: 'string'},
+    type: {des: '活动类型', required: false, type: 'string', validator: [existType]},
+}
+
 exports.createCheck = {
     group: {des: '研究所', required: true, type: 'string', validator: [existGroup]},
     creator: {des: '创建者', type: 'string', required: true},
@@ -58,6 +76,7 @@ async function existUser(user_id) {
         }
     }
 }
+
 async function existType(type_id) {
     const _cnt = await db.collection('ActivityType').where({
         _id: type_id
