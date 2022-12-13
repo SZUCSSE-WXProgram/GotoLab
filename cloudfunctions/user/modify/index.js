@@ -20,7 +20,7 @@ exports.main = async (event, context) => {
     if (permissionCheck.code === 'fail') {
         return permissionCheck;
     }
-    info = {}
+    let info = {}
     for (let items of changeableItems) {
         if (event.info[items] && event.info[items] !== undefined && event.info[items] !== '') {
             info[items] = event.info[items]

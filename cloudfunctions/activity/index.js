@@ -1,5 +1,10 @@
 const create = require('./create/index');
 const modify = require('./modify/index');
+const attendActivity = require('./attendActivity/index');
+const checkAttender = require('./checkAttender/index');
+const deleteAttender = require('./deleteAttender/index');
+const getActivities = require('./getActivities/index');
+const getAttender = require('./getAttender/index');
 
 // 云函数入口函数
 exports.main = async (event, context) => {
@@ -8,11 +13,21 @@ exports.main = async (event, context) => {
             return await create.main(event, context);
         case 'modify':
             return await modify.main(event, context);
+        case 'attendActivity':
+            return await attendActivity.main(event, context);
+        case 'checkAttender':
+            return await checkAttender.main(event, context);
+        case 'deleteAttender':
+            return await deleteAttender.main(event, context);
+        case 'getActivities':
+            return await getActivities.main(event, context);
+        case 'getAttender':
+            return await getAttender.main(event, context);
         default :
             return {
                 code: 'fail',
                 status: '404',
-                des: 'unrecognized function formate!'
+                des: '未知的请求类型'
             }
     }
 };

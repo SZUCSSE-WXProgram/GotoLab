@@ -13,7 +13,7 @@ exports.main = async (event, context) => {
             return {
                 code: 'fail',
                 status: '404',
-                des: 'unrecognized function formate!'
+                des: '未知的请求类型'
             }
     }
 };
