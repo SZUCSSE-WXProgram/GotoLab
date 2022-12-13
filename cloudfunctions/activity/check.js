@@ -38,8 +38,8 @@ exports.createCheck = {
     intro: {des: '活动简介', type: 'string', required: true, minLength: 2},
     limit: {des: '人数限制', type: 'number', required: true, validator: [positiveInteger]},
     signable: {des: '是否可报名', type: 'boolean', required: true},
-    startTime: {des: '开始时间', type: 'date', required: true},
-    endTime: {des: '结束时间', type: 'date', required: true},
+    startTime: {des: '开始时间', type: 'string', required: true},
+    endTime: {des: '结束时间', type: 'string', required: true},
     location: {des: '活动地点', type: 'string', required: true},
     type: {des: '活动类型', type: 'string', required: true, validator: [existType]},
 }
