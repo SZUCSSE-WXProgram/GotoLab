@@ -1,0 +1,13 @@
+[
+  {
+    "name": "activity.getAttender",
+    "value": {
+      "type": "getAttender",
+      "info": {
+        "activityId": "228b0a786398c4fc00009b0c76ee99c4",
+        "limit": 3,
+        "offset": 0
+      }
+    }
+  }
+]

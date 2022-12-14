@@ -34,7 +34,8 @@ exports.isSuperAdmin = async () => {
 
 // Group管理员鉴权
 exports.isGroupAdmin = async (groupID) => {
-    if (this.isSuperAdmin().code === 'success') {
+    const _isAdmin = await this.isSuperAdmin();
+    if (_isAdmin.code === 'success') {
         return {
             code: 'success',
             status: 200,
@@ -68,7 +69,8 @@ exports.isGroupAdmin = async (groupID) => {
 
 // 活动鉴权
 exports.isActivityAdmin = async (activityID) => {
-    if (await this.isSuperAdmin().code === 'success') {
+    const _isAdmin = await this.isSuperAdmin();
+    if (_isAdmin.code === 'success') {
         return {
             code: 'success',
             status: 200,

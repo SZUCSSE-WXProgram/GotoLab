@@ -24,30 +24,57 @@ exports.main = async (event, context) => {
     if (checkResult.code !== 'success') {
         return checkResult
     }
+    const pageOffset = {
+        limit: event.info.limit ? Math.min(event.info.limit, 20) : 10,
+        offset: event.info.offset ? event.info.offset : 0,
+    }
     const permissionCheck = await permission.isActivityAdmin(info.activityId)
     if (permissionCheck.code !== 'success') {
         return permissionCheck
     }
-    return await db.collection('Activity').aggregate()
+    return await db.collection('UserToActivity').aggregate()
         .match({
-            _id: info.activityId
-        })
-        .lookup({
-            from: 'UserToActivity',
-            localField: '_id',
-            foreignField: 'activityId',
-            as: 'attender',
+            activityId: info.activityId
         }).lookup({
             from: 'User',
-            localField: 'attender.userId',
+            localField: 'userId',
             foreignField: '_id',
-            as: 'attender.user',
-        }).end().then(res => {
+            as: 'user'
+        }).lookup({
+            from: 'Class',
+            localField: 'user.class',
+            foreignField: '_id',
+            as: 'class'
+        }).lookup({
+            from: 'Grade',
+            localField: 'class.gradeId',
+            foreignField: '_id',
+            as: 'grade'
+        }).sort({
+            "user.stuid": 1,
+        }).skip(pageOffset.offset)
+        .limit(pageOffset.limit + 1)// tricky做法 多取一条数据判断数据是不是取完了
+        .end().then(res => {
+            const hasMore = res.list.length > pageOffset.limit
+            if (hasMore) {
+                res.list.pop()
+            }
+            for (let i = 0; i < res.list.length; i++) {
+                res.list[i].user = res.list[i].user[0]
+                res.list[i].class = res.list[i].class[0]
+                res.list[i].grade = res.list[i].grade[0]
+                delete res.list[i].userId
+                delete res.list[i].class.gradeId
+                delete res.list[i].activityId
+                delete res.list[i]._id
+                delete res.list[i].user.groups
+                delete res.list[i].user.class
+            }
             return {
                 code: 'success',
                 status: 200,
-                des: '获取成功',
-                info: res
+                data: res.list,
+                hasMore: hasMore
             }
         }).catch(e => {
             return {

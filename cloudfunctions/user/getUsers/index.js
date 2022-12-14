@@ -16,6 +16,7 @@ const $ = _.aggregate
 
 // 云函数入口函数
 exports.main = async (event, context) => {
+    // console.log(event)
     const pageOffset = {
         limit: event.info.limit ? Math.min(event.info.limit, 20) : 10,
         offset: event.info.offset ? event.info.offset : 0,
@@ -52,7 +53,7 @@ exports.main = async (event, context) => {
         }]).and({
             permission: _.gte(pageQuery.permission)
         })).sort({
-            stuid: -1,
+            stuid: 1,
         })
         .skip(pageOffset.offset)
         .limit(pageOffset.limit + 1)// tricky做法 多取一条数据判断数据是不是取完了
