@@ -16,7 +16,7 @@ const _ = db.command;
 const $ = _.aggregate
 // 云函数入口函数
 exports.main = async (event, context) => {
-    const checkResult = await validator.check(event.info, checkList.modifyCheck);
+    const checkResult = await validator.check(event.info, checkList.attendCheck);
     if (checkResult.code !== 'success') {
         return checkResult
     }
@@ -32,10 +32,23 @@ exports.main = async (event, context) => {
     const currentUser = await db.collection('User').where({
         openid: wxContext.OPENID,
     }).get()
+    const cnt = await db.collection('UserToActivity').where({
+        userId: currentUser.data[0]._id,
+        activityId: event.info.activityId
+    }).count().then(res => {
+        return res.total
+    })
+    if (cnt > 0) {
+        return {
+            code: 'fail',
+            status: 403,
+            des: '已经参加过该活动'
+        }
+    }
     return await db.collection('UserToActivity').add({
         data: {
             userId: currentUser.data[0]._id,
-            activityId: event.info._id,
+            activityId: event.info.activityId,
             status: 0,
         }
     }).then(res => {
