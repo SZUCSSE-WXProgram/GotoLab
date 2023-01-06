@@ -22,7 +22,7 @@ exports.main = async (event, context) => {
     }
     info = {}
     for (let items of changeableItems) {
-        if (event.info[items] != undefined && event.info[items] !== '') {
+        if (event.info[items] !== undefined && event.info[items] !== '') {
             info[items] = event.info[items]
         }
     }
@@ -44,7 +44,7 @@ exports.main = async (event, context) => {
             status: 402,
         }
     }
-    _id = info.docid
+    const _id = info.docid
     delete info.docid
     return await db.collection('User').doc(_id).update({
         data: info,
