@@ -28,7 +28,8 @@ exports.main = async (event, context) => {
         search: event.info.search ? event.info.search : "",
         type: event.info.type ? event.info.type : "",
     }
-    return await db.collection('Activity').aggregate().lookup({
+    return await db.collection('Activity').aggregate()
+        .lookup({
         from: 'Group',
         localField: 'group',
         foreignField: '_id',
@@ -38,13 +39,18 @@ exports.main = async (event, context) => {
         localField: 'creator',
         foreignField: '_id',
         as: 'creator'
+    }).lookup({
+        from: 'ActivityType',
+        localField: 'type',
+        foreignField: '_id',
+        as: 'type'
     }).match(_.and([{
         name: db.RegExp({
             regexp: '.*' + pageQuery.search,
             options: 'i',
         })
     }, {
-        type: db.RegExp({
+        'type._id': db.RegExp({
             regexp: '.*' + pageQuery.type,
             options: 'i',
         })
@@ -54,6 +60,20 @@ exports.main = async (event, context) => {
             const hasMore = res.list.length > pageOffset.limit
             if (hasMore) {
                 res.list.pop()
+            }
+            for (let i = 0; i < res.list.length; i++) {
+                res.list[i].group = res.list[i].group[0]
+                res.list[i].creator = res.list[i].creator[0]
+                res.list[i].type= res.list[i].type[0]
+                delete res.list[i].creator.class
+                delete res.list[i].creator.permission
+                delete res.list[i].creator.openid
+                delete res.list[i].creator.groups
+                delete res.list[i].creator.phone
+                delete res.list[i].creator.stuid
+                delete res.list[i].group.picLink
+                delete res.list[i].group.intro
+                delete res.list[i].intro
             }
             return {
                 code: 'success',

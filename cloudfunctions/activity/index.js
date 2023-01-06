@@ -5,6 +5,7 @@ const checkAttender = require('./checkAttender/index');
 const deleteAttender = require('./deleteAttender/index');
 const getActivities = require('./getActivities/index');
 const getAttender = require('./getAttender/index');
+const getActivityByID = require('./getActivityByID/index');
 
 // 云函数入口函数
 exports.main = async (event, context) => {
@@ -23,6 +24,8 @@ exports.main = async (event, context) => {
             return await getActivities.main(event, context);
         case 'getAttender':
             return await getAttender.main(event, context);
+        case 'getActivityByID':
+            return await getActivityByID.main(event, context);
         default :
             return {
                 code: 'fail',

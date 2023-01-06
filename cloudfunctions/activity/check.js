@@ -20,6 +20,9 @@ exports.deleteAttenderCheck = {
     userId: {des: '用户id', required: true, type: 'string', validator: [existUser]},
     activityId: {des: '活动id', required: true, type: 'string', validator: [existActivity]},
 }
+exports.getActivityByIDCheck = {
+    activityId: {des: '活动id', required: true, type: 'string', validator: [existActivity]},
+}
 exports.getAttenderCheck = {
     activityId: {des: '活动id', required: true, type: 'string', validator: [existActivity]},
 }
@@ -140,7 +143,6 @@ async function existActivity(activity_id) {
             status: 402,
             des: '活动不存在'
         }
-
     } else {
         return {
             code: 'success',

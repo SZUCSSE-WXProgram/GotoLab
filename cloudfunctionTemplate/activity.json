@@ -9,5 +9,14 @@
         "offset": 0
       }
     }
+  },
+  {
+    "name": "activity.getActivityByID",
+    "value": {
+      "type": "getActivityByID",
+      "info": {
+        "activityId": "228b0a786398c4fc00009b0c76ee99c4"
+      }
+    }
   }
 ]
