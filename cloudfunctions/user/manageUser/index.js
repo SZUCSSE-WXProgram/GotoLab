@@ -20,7 +20,7 @@ exports.main = async (event, context) => {
     if (permissionCheck.code !== 'success') {
         return permissionCheck;
     }
-    info = {}
+    const info = {}
     for (let items of changeableItems) {
         if (event.info[items] !== undefined && event.info[items] !== '') {
             info[items] = event.info[items]
@@ -33,6 +33,7 @@ exports.main = async (event, context) => {
             status: 402,
         }
     }
+
     const checkResult = await validator.check(info, checkList.manageUserCheck);
     if (checkResult.code !== 'success') {
         return checkResult;
