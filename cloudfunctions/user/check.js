@@ -2,6 +2,7 @@ const cloud = require('wx-server-sdk')
 cloud.init({
     env: cloud.DYNAMIC_CURRENT_ENV
 })
+const wxContext = cloud.getWXContext()
 const db = cloud.database()
 const _ = db.command;
 const $ = _.aggregate
@@ -30,8 +31,10 @@ exports.manageUserCheck = {
 }
 
 async function uniqueStuid(stuid) {
+
     const _cnt = await db.collection('User').where({
-        stuid: stuid
+        stuid: stuid,
+        openid: _.neq(wxContext.OPENID)
     }).count()
     if (_cnt.total === 0) {
         return {
