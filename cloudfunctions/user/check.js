@@ -30,8 +30,10 @@ exports.manageUserCheck = {
 }
 
 async function uniqueStuid(stuid) {
+    const wxContext = cloud.getWXContext()
     const _cnt = await db.collection('User').where({
-        stuid: stuid
+        stuid: stuid,
+        openid: _.neq(wxContext.OPENID)
     }).count()
     if (_cnt.total === 0) {
         return {
