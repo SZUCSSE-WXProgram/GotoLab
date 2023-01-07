@@ -28,7 +28,7 @@ exports.main = async (event, context) => {
     }).skip(pageOffset.offset)
         .limit(pageOffset.limit + 1)
         .get().then(res => {
-            const hasMore = res.data.length > pageOffset.limit ? true : false
+            const hasMore = res.data.length > pageOffset.limit
             if (hasMore) {
                 res.data.pop()
             }

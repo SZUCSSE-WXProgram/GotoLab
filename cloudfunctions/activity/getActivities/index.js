@@ -29,32 +29,33 @@ exports.main = async (event, context) => {
         type: event.info.type ? event.info.type : "",
     }
     return await db.collection('Activity').aggregate()
+        .match({
+            name: db.RegExp({
+                regexp: '.*' + pageQuery.search,
+                options: 'i',
+            })
+        })
         .lookup({
-        from: 'Group',
-        localField: 'group',
-        foreignField: '_id',
-        as: 'group',
-    }).lookup({
-        from: 'User',
-        localField: 'creator',
-        foreignField: '_id',
-        as: 'creator'
-    }).lookup({
-        from: 'ActivityType',
-        localField: 'type',
-        foreignField: '_id',
-        as: 'type'
-    }).match(_.and([{
-        name: db.RegExp({
-            regexp: '.*' + pageQuery.search,
-            options: 'i',
-        })
-    }, {
-        'type._id': db.RegExp({
-            regexp: '.*' + pageQuery.type,
-            options: 'i',
-        })
-    }])).skip(pageOffset.offset)
+            from: 'Group',
+            localField: 'group',
+            foreignField: '_id',
+            as: 'group',
+        }).lookup({
+            from: 'User',
+            localField: 'creator',
+            foreignField: '_id',
+            as: 'creator'
+        }).lookup({
+            from: 'ActivityType',
+            localField: 'type',
+            foreignField: '_id',
+            as: 'type'
+        }).match({
+            'type._id': db.RegExp({
+                regexp: '.*' + pageQuery.type,
+                options: 'i',
+            })
+        }).skip(pageOffset.offset)
         .limit(pageOffset.limit + 1)// tricky做法 多取一条数据判断数据是不是取完了
         .end().then(res => {
             const hasMore = res.list.length > pageOffset.limit
@@ -64,7 +65,7 @@ exports.main = async (event, context) => {
             for (let i = 0; i < res.list.length; i++) {
                 res.list[i].group = res.list[i].group[0]
                 res.list[i].creator = res.list[i].creator[0]
-                res.list[i].type= res.list[i].type[0]
+                res.list[i].type = res.list[i].type[0]
                 delete res.list[i].creator.class
                 delete res.list[i].creator.permission
                 delete res.list[i].creator.openid

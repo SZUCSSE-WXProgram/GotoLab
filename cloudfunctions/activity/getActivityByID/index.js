@@ -24,6 +24,9 @@ exports.main = async (event, context) => {
         activityId: event.info.activityId,
     }).count()
     return await db.collection('Activity').aggregate()
+        .match({
+            _id: event.info.activityID
+        })
         .lookup({
             from: 'Group',
             localField: 'group',
@@ -39,8 +42,6 @@ exports.main = async (event, context) => {
             localField: 'type',
             foreignField: '_id',
             as: 'type'
-        }).match({
-            _id: event.info.activityID
         })
         .end().then(res => {
             res.list[0].group = res.list[0].group[0]

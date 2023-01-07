@@ -30,17 +30,7 @@ exports.main = async (event, context) => {
         return permissionValidate;
     }
     return await db.collection('User').aggregate()
-        .lookup({
-            from: 'Class',
-            localField: 'class',
-            foreignField: '_id',
-            as: 'class',
-        }).lookup({
-            from: 'Grade',
-            localField: 'class.gradeId',
-            foreignField: '_id',
-            as: 'grade'
-        }).match(_.or([{
+        .match(_.or([{
             name: db.RegExp({
                 regexp: '.*' + pageQuery.search,
                 options: 'i',
@@ -52,7 +42,18 @@ exports.main = async (event, context) => {
             })
         }]).and({
             permission: _.gte(pageQuery.permission)
-        })).sort({
+        }))
+        .lookup({
+            from: 'Class',
+            localField: 'class',
+            foreignField: '_id',
+            as: 'class',
+        }).lookup({
+            from: 'Grade',
+            localField: 'class.gradeId',
+            foreignField: '_id',
+            as: 'grade'
+        }).sort({
             stuid: 1,
         })
         .skip(pageOffset.offset)

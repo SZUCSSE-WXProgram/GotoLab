@@ -18,5 +18,16 @@
         "activityId": "228b0a786398c4fc00009b0c76ee99c4"
       }
     }
+  },
+  {
+    "name": "activity.getActivities",
+    "value": {
+      "type": "getActivities",
+      "info": {
+        "activityId": "228b0a786398c4fc00009b0c76ee99c4",
+        "limit": 2,
+        "offset": 0
+      }
+    }
   }
 ]

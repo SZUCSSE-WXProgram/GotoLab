@@ -29,7 +29,7 @@ exports.main = async (event, context) => {
     if (permissionCheck.code !== 'success') {
         return permissionCheck;
     }
-    var docId = info._id
+    const docId = info._id;
     delete info._id
     return await db.collection('Group').doc(docId).update({
         data: info
