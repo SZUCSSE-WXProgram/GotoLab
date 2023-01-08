@@ -10,7 +10,7 @@ exports.main = async (event, context) => {
     switch (event.type) {
         case 'create':
             return await create.main(event, context);
-        case 'getActivities':
+        case 'getList':
             return await getList.main(event, context);
         case 'modify':
             return await modify.main(event, context);
