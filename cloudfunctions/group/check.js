@@ -8,23 +8,23 @@ const $ = _.aggregate
 exports.createCheck = {
     groupName: {des: '研究所名', type: 'string', required: true, minLength: 2, validator: [uniqueGroupName]},
     intro: {des: '简介', type: 'string', required: true, minLength: 10},
-    picLink: {des: '图片链接', type: 'string', required: true}
+    pic_base64: {des: '研究所图片', type: 'string', required: true}
 }
 
 exports.modifyCheck = {
     _id: {des: '文档id', type: 'string', required: true, validator: [existGroupId]},
     groupName: {des: '研究所名', type: 'string', required: false, minLength: 2},
     intro: {des: '简介', type: 'string', required: false, minLength: 10},
-    picLink: {des: '图片链接', type: 'string', required: false}
+    pic_base64: {des: '研究所图片', type: 'string', required: true}
 }
 
-exports.getAdminCheck={
-    groupId:{des:'研究所id',type:'string',required:true,validator:[existGroupId]}
+exports.getAdminCheck = {
+    groupId: {des: '研究所id', type: 'string', required: true, validator: [existGroupId]}
 }
 
-exports.manageGroupAdminCheck={
-    userId:{des:'用户id',type:'string',required:true,validator:[existUser]},
-    groupId:{des:'研究所id',type:'string',required:true,validator:[existGroupId]}
+exports.manageGroupAdminCheck = {
+    userId: {des: '用户id', type: 'string', required: true, validator: [existUser]},
+    groupId: {des: '研究所id', type: 'string', required: true, validator: [existGroupId]}
 }
 
 async function uniqueGroupName(groupName) {

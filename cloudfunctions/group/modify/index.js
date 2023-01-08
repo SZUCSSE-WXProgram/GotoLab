@@ -21,13 +21,45 @@ exports.main = async (event, context) => {
         return checkResult;
     }
     let info = {}
-    let validateFields = ['_id', 'groupName', 'info', 'picLink']
+    let validateFields = ['_id', 'groupName', 'intro', 'pic_base64']
     for (const item in validateFields) {
         info[validateFields[item]] = event.info[validateFields[item]]
     }
     const permissionCheck = await permission.isGroupAdmin(info._id)
     if (permissionCheck.code !== 'success') {
         return permissionCheck;
+    }
+    if (info.pic_base64) {
+        if (info.pic_base64.length * 0.75 > 5 * 1024 * 1024) {
+            return {
+                code: 'fail',
+                des: '图片过大，最大5M',
+                status: 403,
+            }
+        }
+        const picType = info.pic_base64.split(';')[0].split('/')[1]
+        const allowedPicType = ['jpg', 'jpeg', 'png', 'bmp']
+        if (!allowedPicType.includes(picType)) {
+            return {
+                code: 'fail',
+                des: '非法的图片类型',
+                status: 403,
+            }
+        }
+        try {
+            const uploadResult = await cloud.uploadFile({
+                cloudPath: 'picture/' + new Date().getTime() + '.' + picType,
+                fileContent: Buffer.from(info.pic_base64.split(',')[1], 'base64'),
+            })
+            info.picLink = uploadResult.fileID
+            delete info.pic_base64
+        } catch (e) {
+            return {
+                code: 'fail',
+                des: e,
+                status: 500,
+            }
+        }
     }
     const docId = info._id;
     delete info._id
