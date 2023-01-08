@@ -1,13 +1,36 @@
 {
   "pages": [
-    "pages/index/index"
+    "pages/index/index",
+    "pages/activity/activity",
+    "pages/user/user"
   ],
   "window": {
     "backgroundColor": "#F6F6F6",
     "backgroundTextStyle": "light",
-    "navigationBarBackgroundColor": "#F6F6F6",
-    "navigationBarTitleText": "云开发 QuickStart",
-    "navigationBarTextStyle": "black"
+    "navigationBarBackgroundColor": "#5297F7",
+    "navigationBarTitleText": "计软研究所活动报名",
+    "navigationBarTextStyle": "white"
+  },
+  "tabBar": {
+    "selectedColor": "#5297F7",
+    "list": [{
+      "pagePath": "pages/index/index",
+      "text": "首页",
+      "iconPath": "images/Tab_index.png",
+      "selectedIconPath": "images/Tab_index_choose.png"
+    },
+    {
+      "pagePath": "pages/activity/activity",
+      "text": "活动",
+      "iconPath": "images/Tab_activity.png",
+      "selectedIconPath": "images/Tab_activity_choose.png"
+    },
+    {
+      "pagePath": "pages/user/user",
+      "text": "我的",
+      "iconPath": "images/Tab_user.png",
+      "selectedIconPath": "images/Tab_user_choose.png"
+    }]
   },
   "sitemapLocation": "sitemap.json",
   "style": "v2"
