@@ -4,7 +4,9 @@
     "value": {
       "type": "getList",
       "info": {
-        "search": "实验0"
+        "search": "",
+        "limit": 5,
+        "offset": 0
       }
     }
   },
