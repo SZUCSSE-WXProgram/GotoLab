@@ -14,8 +14,8 @@ Page({
   {
     // while(this.data.hasmore)
     // {
-      this.getgroupList()
-      this.getgroupList()
+      // this.getgroupList()
+      // this.getgroupList()
       if(this.data.hasmore)
         this.getgroupList()
       console.log(this.data.hasmore)
@@ -33,7 +33,9 @@ Page({
         }
       },
       success:(res)=>{
+        console.log(res)
         this.setData({
+          // groupList.append(...res.result.info),
           groupList:[...this.data.groupList,...res.result.info],
           groupnum:this.data.groupnum + 5,
           hasmore:res.result.hasMore
