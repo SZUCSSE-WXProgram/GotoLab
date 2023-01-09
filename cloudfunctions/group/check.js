@@ -10,7 +10,9 @@ exports.createCheck = {
     intro: {des: '简介', type: 'string', required: true, minLength: 10},
     pic_base64: {des: '研究所图片', type: 'string', required: true}
 }
-
+exports.getByIDCheck = {
+    _id: {des: '研究所ID', type: 'string', required: true, validator: [existGroupId]},
+}
 exports.modifyCheck = {
     _id: {des: '文档id', type: 'string', required: true, validator: [existGroupId]},
     groupName: {des: '研究所名', type: 'string', required: false, minLength: 2},
