@@ -1,0 +1,15 @@
+/* components/searchInput/searchInput.wxss */
+.searchipt{
+  height: 75rpx;
+  padding: 10rpx;
+  background-color: var(--themecolor);
+}
+.searchipt navigator{
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #ffffff;
+    border-radius: 15rpx;
+    color: #666;
+  }

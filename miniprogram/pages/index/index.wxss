@@ -1,0 +1,8 @@
+.indexswp swiper{
+  width: 750rpx;
+  height: 340rpx;
+}
+.indexswp swiper image{
+  height: 100%;
+  width: 100%;
+}

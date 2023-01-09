@@ -1,20 +1,53 @@
 // pages/index/index.js
+
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-
+    groupList:[],
+    groupnum:0,
+    hasmore:true
   },
-
+  test()
+  {
+    // while(this.data.hasmore)
+    // {
+      this.getgroupList()
+      this.getgroupList()
+      if(this.data.hasmore)
+        this.getgroupList()
+      console.log(this.data.hasmore)
+      // }
+  },
+  getgroupList(){
+    wx.cloud.callFunction({
+      name:'group',
+      data:{
+        type: "getList",
+        info: {
+          search: "",
+          limit: 5,
+          offset: this.data.groupnum,
+        }
+      },
+      success:(res)=>{
+        this.setData({
+          groupList:[...this.data.groupList,...res.result.info],
+          groupnum:this.data.groupnum + 5,
+          hasmore:res.result.hasMore
+        })
+      }
+    })
+  },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
-
+    this.test()
   },
-
+  
   /**
    * 生命周期函数--监听页面初次渲染完成
    */

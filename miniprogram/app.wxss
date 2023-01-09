@@ -24,4 +24,6 @@ page {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
+  --themecolor:#5297F7;
 }
+
