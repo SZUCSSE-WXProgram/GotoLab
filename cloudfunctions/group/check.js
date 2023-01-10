@@ -25,8 +25,8 @@ exports.getAdminCheck = {
 }
 
 exports.manageGroupAdminCheck = {
-    userId: {des: '用户id', type: 'string', required: true, validator: [existUser]},
-    groupId: {des: '研究所id', type: 'string', required: true, validator: [existGroupId]}
+    userId: {des: '用户id', type: 'string', minLength: 10, required: true, validator: [existUser]},
+    groupId: {des: '研究所id', type: 'string', minLength: 10, required: true, validator: [existGroupId]}
 }
 
 async function uniqueGroupName(groupName) {

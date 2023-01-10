@@ -25,6 +25,11 @@ exports.main = async (event, context) => {
         permission: 1,
         groups: groupId
     }).get().then(res => {
+        for (let i = 0; i < res.data.length; i++) {
+            delete res.data[i].groups
+            delete res.data[i].class
+            delete res.data[i].permission
+        }
         return {
             code: 'success',
             status: 200,

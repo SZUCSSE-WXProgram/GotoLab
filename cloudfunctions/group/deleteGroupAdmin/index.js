@@ -52,7 +52,7 @@ exports.main = async (event, context) => {
         }
     }
     const groups = await db.collection('User').doc(info.userId).get()
-    if (groups.data[0].groups.length === 1) {
+    if (groups.data.groups.length === 1) {
         return await db.collection('User').doc(info.userId).update({
             data: {
                 groups: _.pullAll([info.groupId]),

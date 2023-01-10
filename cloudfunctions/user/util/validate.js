@@ -13,7 +13,7 @@ const constructorList = {
 exports.check = async (data, checkList) => {
     for (let item in checkList) {
         // 空值检验
-        if (checkList[item].required && (!data.hasOwnProperty(item) || data[item] === null || data[item] === undefined)) {
+        if (checkList[item].required && (!data.hasOwnProperty(item) || data[item] === null || data[item] === "" || data[item] === undefined)) {
             return {
                 code: 'fail',
                 status: 402,

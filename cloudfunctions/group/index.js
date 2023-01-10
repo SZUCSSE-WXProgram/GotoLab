@@ -17,7 +17,7 @@ exports.main = async (event, context) => {
             return await modify.main(event, context);
         case 'getGroupAdmins':
             return await getGroupAdmins.main(event, context);
-        case  'addGroupAdmin':
+        case 'addGroupAdmin':
             return await addGroupAdmin.main(event, context);
         case 'deleteGroupAdmin':
             return await deleteGroupAdmin.main(event, context);
