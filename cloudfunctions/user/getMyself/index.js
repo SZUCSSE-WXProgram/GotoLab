@@ -14,6 +14,9 @@ const db = cloud.database({
 exports.main = async (event, context) => {
     const wxContext = cloud.getWXContext()
     return await db.collection('User').aggregate()
+        .match({
+            openid: wxContext.OPENID
+        })
         .lookup({
             from: 'Class',
             localField: 'class',
@@ -25,9 +28,7 @@ exports.main = async (event, context) => {
             foreignField: '_id',
             as: 'grade',
         })
-        .match({
-            openid: wxContext.OPENID
-        }).end().then(res => {
+        .end().then(res => {
             delete res.list[0].class[0].gradeId
             res.list[0].class = res.list[0].class[0]
             res.list[0].grade = res.list[0].grade[0]

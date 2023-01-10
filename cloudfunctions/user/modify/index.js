@@ -26,8 +26,6 @@ exports.main = async (event, context) => {
             info[items] = event.info[items]
         }
     }
-
-    console.log(info)
     if (Object.keys(info).length === 0) {
         return {
             code: 'fail',
@@ -39,7 +37,6 @@ exports.main = async (event, context) => {
     if (checkResult.code !== 'success') {
         return checkResult;
     }
-
     return await db.collection('User').where({
         openid: wxContext.OPENID
     }).update({

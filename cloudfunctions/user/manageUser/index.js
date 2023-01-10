@@ -26,17 +26,16 @@ exports.main = async (event, context) => {
             info[items] = event.info[items]
         }
     }
-    if (Object.keys(info).length === 0) {
+    const checkResult = await validator.check(info, checkList.manageUserCheck);
+    if (checkResult.code !== 'success') {
+        return checkResult;
+    }
+    if (Object.keys(info).length <= 1) {
         return {
             code: 'fail',
             des: '没有需要修改的内容',
             status: 402,
         }
-    }
-
-    const checkResult = await validator.check(info, checkList.manageUserCheck);
-    if (checkResult.code !== 'success') {
-        return checkResult;
     }
     if (info.permission && info.permission === 1) {
         return {

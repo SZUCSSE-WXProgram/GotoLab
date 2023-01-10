@@ -27,7 +27,7 @@ exports.manageUserCheck = {
     name: {des: '姓名', type: 'string', required: false, minLength: 2, maxLength: 10},
     phone: {des: '手机号', type: 'string', required: false, minLength: 11, maxLength: 11},
     class: {des: '班级', type: 'string', required: false, validator: [validateClass]},
-    permission: {des: '权限', type: 'enum', range: [0, 1, 2]}
+    permission: {des: '权限', type: 'enum',required: false, range: [0, 1, 2]}
 }
 
 async function uniqueStuid(stuid) {

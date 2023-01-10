@@ -36,5 +36,11 @@
         "permission": 0
       }
     }
+  },
+  {
+    "name": "user.getMyself",
+    "value": {
+      "type": "getMyself"
+    }
   }
 ]
