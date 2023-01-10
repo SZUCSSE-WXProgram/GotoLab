@@ -17,11 +17,11 @@ const $ = _.aggregate
 
 // 云函数入口函数
 exports.main = async (event, context) => {
-    const _id = event.info._id
-    const checkResult = await validator.check(_id, checkList.getByIDCheck)
+    const checkResult = await validator.check(event.info, checkList.getByIDCheck)
     if (checkResult.code !== 'success') {
         return checkResult
     }
+    const _id = event.info._id
     return await db.collection('Group').doc(_id).get().then(res => {
         return {
             code: 'success',

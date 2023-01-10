@@ -40,5 +40,14 @@
         "groupId": "f80c64da63934b580140309c62346f93"
       }
     }
+  },
+  {
+    "name": "group.getGroupByID",
+    "value": {
+      "type": "getGroupByID",
+      "info": {
+        "_id": "9ea4755b63babd9a00008d0804d6d1b6"
+      }
+    }
   }
 ]
