@@ -27,6 +27,7 @@ exports.main = async (event, context) => {
     const pageQuery = {
         search: event.info.search ? event.info.search : "",
         type: event.info.type ? event.info.type : "",
+        group: event.info.group ? event.info.group : "",
     }
     return await db.collection('Activity').aggregate()
         .match({
@@ -40,7 +41,13 @@ exports.main = async (event, context) => {
             localField: 'group',
             foreignField: '_id',
             as: 'group',
-        }).lookup({
+        }).match({
+            'group._id': db.RegExp({
+                regexp: '.*' + pageQuery.group,
+                options: 'i',
+            })
+        })
+        .lookup({
             from: 'User',
             localField: 'creator',
             foreignField: '_id',

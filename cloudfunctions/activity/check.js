@@ -29,6 +29,7 @@ exports.getAttenderCheck = {
 
 exports.getActivitiesCheck = {
     limit: {des: '每页数量', required: false, type: 'number', validator: [positiveInteger]},
+    group: {des: '研究所id', required: false, type: 'string', validator: [existGroup]},
     offset: {des: '偏移量', required: false, type: 'number'},
     search: {des: '搜索关键字', required: false, type: 'string'},
     type: {des: '活动类型', required: false, type: 'string', validator: [existType]},
