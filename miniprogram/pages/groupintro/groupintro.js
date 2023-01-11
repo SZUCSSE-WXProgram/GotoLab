@@ -1,40 +1,46 @@
-// pages/index/index.js
-
+// pages/groupintro/groupintro.js
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    groupList:[]
+    group:{}
   },
-  getgroupList(){
-    wx.cloud.callFunction({
-      name:'group',
-      data:{
-        type: "getFullList",
-      },
-      success:(res)=>{
-        console.log(res)
-        this.setData({
-          // groupList.append(...res.result.info),
-          groupList:[...this.data.groupList,...res.result.info]
-        })
-      }
+
+  goto:function()
+  {
+    wx.switchTab({
+      url: '/pages/activity/activity?_id=${group.result.info.groupName}'
     })
   },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
-    this.getgroupList()
+    wx.cloud.callFunction({
+      name:'group',
+      data:{
+        type: "getGroupByID",
+        info:{
+          _id:options._id
+        }
+      },
+      success:(res)=>{
+        console.log(res)
+        this.setData({
+          group:res
+        })
+      }
+    })
+    
   },
-  
+
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady() {
-
+    
   },
 
   /**

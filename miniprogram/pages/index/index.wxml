@@ -12,4 +12,12 @@
       </swiper-item>
     </swiper>
   </view>
+
+  <view class="grouplist" > 
+    <view wx:for="{{groupList}}" wx:key="index">
+      <navigator url="/pages/groupintro/groupintro?_id={{item._id}}" open-type="navigate" >
+          <text class="iconfont icon-chevron-right">{{item.groupName}}</text>
+      </navigator>
+    </view> 
+  </view>
 </view>

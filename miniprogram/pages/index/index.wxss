@@ -1,8 +1,22 @@
 .indexswp swiper{
+  margin-top: 20rpx;
   width: 750rpx;
   height: 340rpx;
 }
+
 .indexswp swiper image{
   height: 100%;
   width: 100%;
+}
+
+.grouplist{
+  margin-top: 30rpx;
+}
+.grouplist navigator{
+  height: 50rpx;
+  padding: 20rpx;
+  margin: 10rpx;
+  background-color:#ffffff;
+  border-radius: 15rpx;
+  align-items: center;
 }
