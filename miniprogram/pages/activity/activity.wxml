@@ -1,2 +1,3 @@
 <!--pages/activity/activity.wxml-->
 <searchInput></searchInput>
+<tabs></tabs>

@@ -1,4 +1,5 @@
 // pages/groupintro/groupintro.js
+var app = getApp()
 Page({
 
   /**
@@ -7,11 +8,12 @@ Page({
   data: {
     group:{}
   },
-
+  
   goto:function()
   {
+    
     wx.switchTab({
-      url: '/pages/activity/activity?_id=${group.result.info.groupName}'
+      url: '/pages/activity/activity'
     })
   },
   /**
@@ -29,7 +31,7 @@ Page({
       success:(res)=>{
         console.log(res)
         this.setData({
-          group:res
+          group:res.result.info
         })
       }
     })

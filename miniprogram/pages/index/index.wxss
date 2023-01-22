@@ -2,11 +2,16 @@
   margin-top: 20rpx;
   width: 750rpx;
   height: 340rpx;
+  position: relative;
 }
 
 .indexswp swiper image{
-  height: 100%;
   width: 100%;
+}
+.indexswp swiper view{
+  position: absolute;
+  bottom: 20rpx;
+  left: 30rpx;
 }
 
 .grouplist{
@@ -19,4 +24,9 @@
   background-color:#ffffff;
   border-radius: 15rpx;
   align-items: center;
+  display: flex;
+  box-shadow: 1rpx 1rpx 15rpx #ddd;
+}
+.name{
+  flex: 1;
 }

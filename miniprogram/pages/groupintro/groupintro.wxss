@@ -21,6 +21,7 @@
   font-weight: 600;
   padding: 10rpx;
   border-bottom: 2rpx solid rgb(220, 220, 220);
+  height: 55rpx;
 }
 .intro{
   font-size: 28rpx;

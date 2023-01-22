@@ -34,6 +34,9 @@
       "selectedIconPath": "images/Tab_user_choose.png"
     }]
   },
+  "usingComponents": {
+		
+	},
   "sitemapLocation": "sitemap.json",
   "style": "v2"
 }
