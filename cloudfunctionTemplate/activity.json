@@ -29,5 +29,15 @@
         "offset": 0
       }
     }
+  },
+  {
+    "name": "activity.history",
+    "value": {
+      "type": "history",
+      "info": {
+        "limit": 10,
+        "offset": 0
+      }
+    }
   }
 ]
