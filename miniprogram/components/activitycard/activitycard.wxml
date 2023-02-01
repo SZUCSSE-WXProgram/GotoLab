@@ -1,0 +1,72 @@
+<!--components/activitycard/activitycard.wxml-->
+
+<view class="actbox">
+  <view class="head">
+    {{activity.name}}
+  </view>
+  <view class="body">
+    <view class="item">
+      <view class="left">
+      活动类别
+      </view>
+      <view class="right">
+        {{activity.type.typeName}}
+      </view>
+    </view>
+    <view class="item">
+      <view class="left">
+      发布人
+      </view>
+      <view class="right">
+        {{activity.creator.name}}
+      </view>
+    </view>
+    <view class="item">
+      <view class="left">
+      研究所
+      </view>
+      <view class="right">
+        {{activity.group.groupName}}
+      </view>
+    </view>
+    <view class="item">
+      <view class="left">
+      活动名额
+      </view>
+      <view class="right">
+        {{activity.limit}}
+      </view>
+    </view>
+    <view class="item">
+      <view class="left">
+      地点
+      </view>
+      <view class="right">
+        {{activity.location}}
+      </view>
+    </view>
+    <view class="item">
+      <view class="left">
+      开始时间
+      </view>
+      <view class="right">
+        {{activity.startTime}}
+      </view>
+    </view>
+    <view class="item">
+      <view class="left">
+      结束时间
+      </view>
+      <view class="right">
+        {{activity.endTime}}
+      </view>
+    </view>
+
+
+
+    
+    
+
+  </view>
+</view>
+

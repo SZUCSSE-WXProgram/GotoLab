@@ -20,6 +20,9 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
+    wx.showLoading({
+      title: '加载中',
+    })
     wx.cloud.callFunction({
       name:'group',
       data:{
@@ -32,6 +35,9 @@ Page({
         console.log(res)
         this.setData({
           group:res.result.info
+        })
+        wx.hideLoading({
+          success: (res) => {},
         })
       }
     })

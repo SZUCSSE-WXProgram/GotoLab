@@ -4,7 +4,7 @@ Component({
    * 组件的属性列表
    */
   properties: {
-
+    
   },
 
   /**
@@ -24,6 +24,11 @@ Component({
       },
       {
         id:2,
+        name:"全部",
+        isActive:false
+      },
+      {
+        id:3,
         name:"全部",
         isActive:false
       },

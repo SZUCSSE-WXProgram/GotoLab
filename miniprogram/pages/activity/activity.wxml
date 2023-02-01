@@ -1,3 +1,13 @@
 <!--pages/activity/activity.wxml-->
 <searchInput></searchInput>
-<tabs></tabs>
+<view class="tabs">
+  <view class="tabs_title">
+    <view wx:for="{{tabs}}" wx:key="_id" class="title_item {{item.isActive?'active':''}}" bindtap="tabclick" data-index="{{index}}">{{item.typeName}} </view>
+  </view>
+</view>
+<view>
+  <view wx:for="{{activity}}" wx:key="_id">
+    <activitycard activity="{{item}}"></activitycard>
+  </view>
+</view>
+

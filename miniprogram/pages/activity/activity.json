@@ -1,6 +1,7 @@
 {
   "usingComponents": {
     "searchInput":"../../components/searchInput/searchInput",
-    "tabs":"../../components/tabs/tabs"
+    "tabs":"../../components/tabs/tabs",
+    "activitycard":"../../components/activitycard/activitycard"
   }
 }

@@ -9,6 +9,9 @@ Page({
     groupList:[]
   },
   getgroupList(){
+    wx.showLoading({
+      title: '加载中',
+    })
     wx.cloud.callFunction({
       name:'group',
       data:{
@@ -19,6 +22,9 @@ Page({
         this.setData({
           // groupList.append(...res.result.info),
           groupList:[...this.data.groupList,...res.result.info]
+        })
+        wx.hideLoading({
+          success: (res) => {},
         })
       }
     })

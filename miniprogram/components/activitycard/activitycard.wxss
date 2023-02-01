@@ -1,0 +1,27 @@
+/* components/activitycard/activitycard.wxss */
+.actbox{
+  
+  margin: 35rpx;
+  box-shadow: 1rpx 1rpx 15rpx #ddd;
+  border-radius: 20rpx;
+}
+.head{
+  display: flex;
+  height: 250rpx;
+  align-items: center;
+  justify-content: center;
+}
+.body{
+  margin-left: 30rpx;
+}
+.item{
+  border-top:2rpx solid rgb(235, 234, 234) ;
+  padding: 15rpx 25rpx;
+  display: flex;
+}
+.left{
+  flex: 1;
+}
+.right{
+  color: grey;
+}

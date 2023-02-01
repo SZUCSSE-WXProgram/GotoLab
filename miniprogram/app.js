@@ -13,5 +13,19 @@ App({
       });
     }
     this.globalData = {};
+    this.getMyself();
+  },
+  getMyself(){
+    wx.cloud.callFunction({
+      name:'user',
+      data:{
+        type: "getMyself",
+      },
+      success:(res)=>{
+        console.log(res)
+        wx.setStorageSync('permission', res.result.info.permission)
+        wx.setStorageSync('myself', res.result.info)
+      }
+    })
   }
 });
