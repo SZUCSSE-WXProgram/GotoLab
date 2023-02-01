@@ -29,6 +29,14 @@ exports.main = async (event, context) => {
             as: 'grade',
         })
         .end().then(res => {
+            if (res.list.length === 0) {
+                return {
+                    code: 'success',
+                    isRegistered: false,
+                    des: '用户未注册',
+                    status: 200,
+                }
+            }
             delete res.list[0].class[0].gradeId
             res.list[0].class = res.list[0].class[0]
             res.list[0].grade = res.list[0].grade[0]
@@ -36,6 +44,7 @@ exports.main = async (event, context) => {
             return {
                 code: 'success',
                 info: res.list,
+                isRegistered: true,
                 status: 200,
             }
         }).catch(e => {
