@@ -1,10 +1,27 @@
 <!--pages/groupintro/groupintro.wxml-->
+<view class="title">{{group.groupName}}</view>
 <view class="groupimg">
   <image src="{{group.picLink}}"></image>
 </view>
 <view class="groupmsg">
-  <view class="title">{{group.groupName}}</view>
-  <view class="intro">介绍：{{group.intro}}</view>
-  
+  <view class="title">研究所介绍</view>
+  <view class="intro">{{group.intro}}</view>
 </view>
-  <button plain bindtap="goto">查看活动</button>
+
+<wxs module="format">
+  function setColor(){
+    return "linear-gradient(45deg,"+"rgb("+Math.floor(Math.random()*255)+","+Math.floor(Math.random()*255)+","+Math.floor(Math.random()*255)+")"+","+"rgb("+Math.floor(Math.random()*255)+","+Math.floor(Math.random()*255)+","+Math.floor(Math.random()*255)+")"+")";
+  }
+  module.exports = {
+    setColor:setColor
+  }
+</wxs>
+<view class="groupmsg">
+  <view class="title">研究所活动</view>
+  <view wx:for="{{activity}}" wx:key="_id">
+    <activitycard activity="{{item}}" color="{{format.setColor()}}"></activitycard>
+  </view>
+  <view wx:if="{{!hasMore}}" class="separator">
+    ————— · {{value}} · —————
+  </view>
+</view>

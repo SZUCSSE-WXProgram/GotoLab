@@ -1,12 +1,12 @@
 <!--components/activitycard/activitycard.wxml-->
 
 <view class="actbox">
-  <view class="head">
+  <view class="head" style="background: {{color}};">
     {{activity.name}}
   </view>
   <view class="body">
     <view class="item">
-      <view class="left">
+      <view class="left iconfont icon-all:before">
       活动类别
       </view>
       <view class="right">
@@ -14,7 +14,7 @@
       </view>
     </view>
     <view class="item">
-      <view class="left">
+      <view class="left iconfont icon--Manager">
       发布人
       </view>
       <view class="right">
@@ -22,7 +22,7 @@
       </view>
     </view>
     <view class="item">
-      <view class="left">
+      <view class="left iconfont icon-yonghuyanjiusuo">
       研究所
       </view>
       <view class="right">
@@ -30,7 +30,7 @@
       </view>
     </view>
     <view class="item">
-      <view class="left">
+      <view class="left iconfont icon-nav_icon_zhiduguanli">
       活动名额
       </view>
       <view class="right">
@@ -38,7 +38,7 @@
       </view>
     </view>
     <view class="item">
-      <view class="left">
+      <view class="left iconfont icon-map">
       地点
       </view>
       <view class="right">
@@ -46,7 +46,7 @@
       </view>
     </view>
     <view class="item">
-      <view class="left">
+      <view class="left iconfont icon-shizhong">
       开始时间
       </view>
       <view class="right">
@@ -54,19 +54,12 @@
       </view>
     </view>
     <view class="item">
-      <view class="left">
+      <view class="left iconfont icon-shizhong1">
       结束时间
       </view>
       <view class="right">
         {{activity.endTime}}
       </view>
     </view>
-
-
-
-    
-    
-
   </view>
 </view>
-

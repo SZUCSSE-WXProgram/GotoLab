@@ -9,7 +9,6 @@
   width: 100%;
 }
 .groupmsg{
-  height: 450rpx;
   background-color: #ffffff;
   border-radius: 15rpx;
   margin: 10rpx;
@@ -20,6 +19,7 @@
   font-size: 40rpx;
   font-weight: 600;
   padding: 10rpx;
+  margin-left: 10rpx;
   border-bottom: 2rpx solid rgb(220, 220, 220);
   height: 55rpx;
 }
@@ -29,4 +29,10 @@
   padding: 20rpx;
   overflow-wrap: break-word;
   margin-bottom:20rpx ;
+}
+.separator {
+  margin: 10px 0;
+  text-align: center;
+  font-size: 12px;
+  color: #999;
 }

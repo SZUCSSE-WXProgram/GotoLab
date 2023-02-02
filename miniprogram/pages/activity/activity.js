@@ -15,36 +15,50 @@ Page({
     activity:[],
     hasMore:true,
     offset:0,
-    limit:5
+    limit:5,
+    value:"",
+    index:0
   },
-  getList(index){
+  getList(){
     wx.showLoading({
-      title: '加载中',
-    })
-    wx.cloud.callFunction({
-      name:'activity',
-      data:{
-        type: "getActivities",
-        info:{
-          type:this.data.tabs[index]._id,
-          limit:this.data.limit,
-          offset:this.data.offset
+        title: '加载中',
+      })
+    return new Promise((resolve,reject)=>{
+      wx.cloud.callFunction({
+        name:'activity',
+        data:{
+          type: "getActivities",
+          info:{
+            type:this.data.tabs[this.data.index]._id,
+            limit:this.data.limit,
+            offset:this.data.offset
+          }
+        },
+        success:(res)=>{
+          this.setData({
+            activity:[...this.data.activity,...res.result.data],
+            hasMore:res.result.hasMore,
+            offset:this.data.offset+this.data.limit
+          })
+          wx.hideLoading({
+            success: (res) => {},
+          })
+          return resolve(res);
         }
-      },
-      success:(res)=>{
-        this.setData({
-          activity:[...this.data.activity,...res.result.data],
-          hasMore:res.result.hasMore,
-          offset:this.data.offset+this.data.limit
-        })
-        console.log(res)
-        wx.hideLoading({
-          success: (res) => {},
-        })
-      }
+      })
     })
   },
-  tabclick(e){
+  setValue(){
+    if(this.data.activity.length!=0)
+      this.setData({
+        value:"这是底线"
+      })
+    else
+      this.setData({
+        value:"暂无内容"
+      }) 
+  },
+  async tabclick(e){
     const {index}=e.currentTarget.dataset;
     if(!this.data.tabs[index].isActive)
     {
@@ -54,15 +68,19 @@ Page({
         tabs,
         offset:0,
         hasmore:true,  
-        activity:[]
+        activity:[],
+        value:"",
+        index:index
       })
-      this.getList(index)
+      await this.getList()
+      this.setValue();
     }
   },
+ 
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad(options) {
+  async onLoad(options) {
     wx.showLoading({
       title: '加载中',
       }),
@@ -83,7 +101,8 @@ Page({
         // }
       },
     })
-    this.getList(0);
+    await this.getList();
+    this.setValue();
   },
 
   /**
@@ -125,7 +144,9 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom() {
-
+    if(this.data.hasMore){
+      this.getList()
+    }
   },
 
   /**

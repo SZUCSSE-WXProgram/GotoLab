@@ -1,18 +1,18 @@
 /* components/activitycard/activitycard.wxss */
+@import"../../style/icon.wxss";
 .actbox{
-  
   margin: 35rpx;
   box-shadow: 1rpx 1rpx 15rpx #ddd;
   border-radius: 20rpx;
 }
 .head{
+  border-top-left-radius: 20rpx;
+  border-top-right-radius: 20rpx;
+  color: white;
   display: flex;
   height: 250rpx;
   align-items: center;
   justify-content: center;
-}
-.body{
-  margin-left: 30rpx;
 }
 .item{
   border-top:2rpx solid rgb(235, 234, 234) ;
