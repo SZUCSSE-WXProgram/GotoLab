@@ -67,7 +67,6 @@ Page({
         }
       },
       success:(res)=>{
-        console.log(res)
         this.setData({
           group:res.result.info
         })

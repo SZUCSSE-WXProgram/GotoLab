@@ -1,6 +1,7 @@
 /* components/searchInput/searchInput.wxss */
+@import"../../style/icon.wxss";
 .searchipt{
-  height: 60rpx;
+  height: 70rpx;
   padding: 10rpx;
   background-color: var(--themecolor);
 }
@@ -12,4 +13,5 @@
     background-color: #ffffff;
     border-radius: 15rpx;
     color: #666;
+    font-size: 28rpx;
   }

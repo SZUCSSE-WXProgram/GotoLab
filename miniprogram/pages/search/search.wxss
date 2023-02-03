@@ -1,1 +1,29 @@
 /* pages/search/search.wxss */
+.search_row{
+  height: 70rpx;
+  display: flex;
+  background: white;
+  padding: 15rpx 20rpx;
+}
+input{
+  flex: 1;
+  height: 100%;
+  background: rgb(246, 246, 246);
+  font-size: 28rpx;
+  padding-left: 30rpx;
+}
+.btn{
+  height: 100%;
+  width: 110rpx;
+  font-size: 28rpx;
+  padding: 0;
+  justify-content: center;
+  align-items: center;
+  line-height: 70rpx;
+}
+.separator {
+  margin: 10px 0;
+  text-align: center;
+  font-size: 12px;
+  color: #999;
+}

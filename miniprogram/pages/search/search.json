@@ -1,3 +1,5 @@
 {
-  "usingComponents": {}
+  "usingComponents": {
+    "activitycard":"../../components/activitycard/activitycard"
+  }
 }

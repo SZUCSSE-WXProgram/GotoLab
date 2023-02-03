@@ -1,2 +1,21 @@
 <!--pages/search/search.wxml-->
-<text>pages/search/search.wxml</text>
+<view class="search_row">
+  <input value="{{iptvalue}}" placeholder="请输入您要搜索的活动名称" bindconfirm="handleInput"></input>
+  <button class="btn" bindtap="handleCancel">取消</button>
+</view>
+<wxs module="format">
+  function setColor(){
+    return "linear-gradient(45deg,"+"rgb("+Math.floor(Math.random()*255)+","+Math.floor(Math.random()*255)+","+Math.floor(Math.random()*255)+")"+","+"rgb("+Math.floor(Math.random()*255)+","+Math.floor(Math.random()*255)+","+Math.floor(Math.random()*255)+")"+")";
+  }
+  module.exports = {
+    setColor:setColor
+  }
+</wxs>
+<view wx:if="{{focus}}">
+  <view wx:for="{{activity}}" wx:key="_id">
+    <activitycard activity="{{item}}" color="{{format.setColor()}}"></activitycard>
+  </view>
+</view>
+<view wx:if="{{!hasMore&&focus}}" class="separator">
+    ————— · {{value}} · —————
+</view>
