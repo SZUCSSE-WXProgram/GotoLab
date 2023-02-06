@@ -156,7 +156,7 @@ async function ActivityAttendAble(activity_id) {
     const _activity = await db.collection('Activity').where({
         _id: activity_id,
         signable: true,
-    })
+    }).get()
     if (_activity.data.length === 0) {
         return {
             code: 'fail',
