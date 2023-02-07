@@ -1,0 +1,18 @@
+<!--pages/history/history.wxml-->
+<wxs module="format">
+  function setColor(){
+    return "linear-gradient(45deg,"+"rgb("+Math.floor(Math.random()*255)+","+Math.floor(Math.random()*255)+","+Math.floor(Math.random()*255)+")"+","+"rgb("+Math.floor(Math.random()*255)+","+Math.floor(Math.random()*255)+","+Math.floor(Math.random()*255)+")"+")";
+  }
+  module.exports = {
+    setColor:setColor
+  }
+</wxs>
+<view>
+  <view class="title">我的活动</view>
+  <view wx:for="{{activity}}" wx:key="_id">
+    <activitycard activity="{{item}}" color="{{format.setColor()}}"></activitycard>
+  </view>
+  <view wx:if="{{!hasMore}}" class="separator">
+    ————— · {{value}} · —————
+  </view>
+</view>

@@ -1,0 +1,13 @@
+<!--pages/mygroup/mygroup.wxml-->
+<view class="title">研究所管理</view>
+<view class="grouplist">
+  <view wx:for="{{groupList}}" wx:key="index">
+    <navigator url="/pages/groupintro/groupintro?_id={{item._id}}" open-type="navigate">
+      <view class="name">{{item.groupName}}</view>
+      <view class="iconfont icon-chevron-right"></view>
+    </navigator>
+  </view>
+</view>
+<view wx:if="{{permission===2}}">
+    <button class="blue" bindtap="click">新建研究所</button>
+  </view>

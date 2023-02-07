@@ -1,4 +1,39 @@
 <!--pages/user/user.wxml-->
 <view class="head">
-  <view></view>
+  <image class="avatar" src="{{avatar}}"></image>
+  <view class="name">{{myself.name}}</view>
+  <view wx:if="{{type0}}" class="contain">{{myself.stuid}}</view>
+  <view wx:if="{{type0}}" class="contain">{{myself.grade.gradeName}}{{myself.class.className}}</view>
+  <view wx:if="{{type1}}" class="contain">研究所管理员</view>
+  <view wx:if="{{type2}}" class="contain">超级管理员</view>
+</view>
+<view class="body">
+  <navigator wx:if="{{type0}}" url="/pages/history/history">
+    <view class="itemname">历史统计</view>
+    <view class="iconfont icon-chevron-right"></view>
+  </navigator>
+  <navigator wx:if="{{type1}}" url="/pages/mygroup/mygroup">
+    <view class="itemname">我的研究所</view>
+    <view class="iconfont icon-chevron-right"></view>
+  </navigator>
+  <navigator wx:if="{{type2}}" url="/pages/history/history">
+    <view class="itemname">用户管理</view>
+    <view class="iconfont icon-chevron-right"></view>
+  </navigator>
+  <navigator wx:if="{{type2}}" url="/pages/history/history">
+    <view class="itemname">班级管理</view>
+    <view class="iconfont icon-chevron-right"></view>
+  </navigator>
+  <navigator wx:if="{{type2}}" url="/pages/mygroup/mygroup">
+    <view class="itemname">研究所管理</view>
+    <view class="iconfont icon-chevron-right"></view>
+  </navigator>
+  <navigator wx:if="{{type2}}" url="/pages/history/history">
+    <view class="itemname">活动类型管理</view>
+    <view class="iconfont icon-chevron-right"></view>
+  </navigator>
+  <navigator wx:if="{{type1||type2}}" url="/pages/history/history">
+    <view class="itemname">修改个人信息</view>
+    <view class="iconfont icon-chevron-right"></view>
+  </navigator>
 </view>

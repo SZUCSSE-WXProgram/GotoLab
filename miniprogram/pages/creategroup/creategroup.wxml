@@ -1,0 +1,28 @@
+<!--pages/creategroup/creategroup.wxml-->
+<view class="title">创建研究所</view>
+<view class="body">
+	<view class="item flex">
+		<view class="left iconfont icon--Manager">
+			名称
+		</view>
+		<input type="text" bindinput="handleInputName" />
+	</view>
+	<view class="item">
+		<view class="left iconfont icon-all:before">
+			介绍
+    </view>
+    <textarea maxlength="200" bindinput="handleInputIntro"></textarea>
+	</view>
+	<view class="item">
+		<view class="left iconfont icon-yonghuyanjiusuo">
+			图片
+		</view>
+    <button class="img" bindtap="click">
+      <view wx:if="{{!finish}}">上传图片</view>
+      <view wx:if="{{finish}}">上传成功</view>
+    </button>
+  </view>
+</view>
+<button class="btn blue" bindtap="create">
+  创建
+</button>

@@ -65,6 +65,13 @@
           "query": "",
           "launchMode": "default",
           "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/creategroup/creategroup",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
         }
       ]
     }

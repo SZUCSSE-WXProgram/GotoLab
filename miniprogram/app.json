@@ -6,7 +6,10 @@
     "pages/search/search",
     "pages/groupintro/groupintro",
     "pages/activity_detail/activity_detail",
-    "pages/register/register"
+    "pages/register/register",
+    "pages/history/history",
+    "pages/mygroup/mygroup",
+    "pages/creategroup/creategroup"
   ],
   "window": {
     "backgroundColor": "#F6F6F6",

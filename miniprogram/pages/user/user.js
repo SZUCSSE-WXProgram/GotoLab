@@ -5,14 +5,42 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    avatar: '',
+    myself: {},
+    type0: true,
+    type1: false,
+    type2: false,
   },
-
+  getinfo() {
+    return new Promise((resolve, reject) => {
+      wx.getSetting({
+        success(res) {
+          if (res.authSetting['scope.userInfo']) {
+            wx.getUserInfo({
+              success: (res) => {
+                wx.setStorageSync('userInfo', res.userInfo)
+              },
+              fail: (res) => {},
+              complete: (res) => {
+                return resolve(res);
+              },
+            })
+          }
+        }
+      })
+    })
+  },
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad(options) {
-
+  async onLoad(options) {
+    this.setData({
+      avatar: wx.getStorageSync('userInfo').avatarUrl,
+      myself: wx.getStorageSync('myself'),
+      type0: wx.getStorageSync('myself').permission === 0,
+      type1: wx.getStorageSync('myself').permission === 1,
+      type2: wx.getStorageSync('myself').permission === 2
+    })
   },
 
   /**
