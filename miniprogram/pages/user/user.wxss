@@ -1,1 +1,5 @@
 /* pages/user/user.wxss */
+.head{
+  height: 500rpx;
+  background: linear-gradient(180deg,var(--themecolor),rgb(133, 169, 233));
+}

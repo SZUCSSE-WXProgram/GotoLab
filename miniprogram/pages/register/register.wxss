@@ -1,0 +1,27 @@
+/* pages/register/register.wxss */
+page{
+	background-color: white;
+}
+.head{
+	height: 400rpx;
+	border-bottom:2rpx solid rgb(235, 234, 234) ;
+}
+image{
+	height: 100%;
+	width: 100%;
+}
+.item{
+	border-bottom:2rpx solid rgb(235, 234, 234) ;
+	padding: 25rpx 25rpx;
+	display: flex;
+  }
+.left{
+	width: 200rpx;
+}
+button{
+	margin: 70rpx;
+	color: #fff;
+}
+.green{
+	background-color: rgb(88, 190, 106);
+}

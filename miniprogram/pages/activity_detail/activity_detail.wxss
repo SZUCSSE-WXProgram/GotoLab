@@ -1,0 +1,57 @@
+/* pages/activity_detail/activity_detail.wxss */
+.head{
+  width: 100%;
+    height: 400rpx;
+    overflow: hidden;
+    position: relative;
+    text-align: center;
+}
+.bgd{
+  top: 50%;
+  left: 0;
+  width: 100%;
+  position: absolute;
+  transform: translateY(-50%);
+}
+.text{
+  top: 0;
+  left: 50%;
+  line-height: 400rpx;
+  position: absolute;
+  white-space: nowrap;
+  transform: translateX(-50%);
+  font-size: 20px;
+  z-index: 99;
+  color: #fff;
+}
+.item{
+  border-bottom:2rpx solid rgb(235, 234, 234) ;
+  padding: 20rpx 25rpx;
+  display: flex;
+}
+.left{
+  flex: 1;
+}
+.right{
+  color: grey;
+}
+.intro-h{
+  padding: 5px 10px;
+  color: grey;
+}
+.intro{
+  font-size: 30rpx;
+}
+button{
+  margin: 30rpx 70rpx;
+  color: #fff;
+}
+.red{
+  background-color: rgb(235, 84, 77);
+}
+.green{
+  background-color: rgb(88, 190, 106);
+}
+.blue{
+  background-color: rgb(82, 151, 247);
+}

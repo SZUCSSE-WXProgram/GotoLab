@@ -1,2 +1,4 @@
 <!--pages/user/user.wxml-->
-<text>pages/user/user.wxml</text>
+<view class="head">
+  <view></view>
+</view>

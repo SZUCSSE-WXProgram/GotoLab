@@ -1,10 +1,11 @@
-<!--components/activitycard/activitycard.wxml-->
-
-<navigator url="/pages/activity_detail/activity_detail?_id={{activity._id}}" class="actbox">
-  <view class="head" style="background: {{color}};">
+<!--pages/activity_detail/activity_detail.wxml-->
+<view class="head">
+  <image class="bgd" src="../../images/view.png" mode="widthFix"></image>
+  <view class="text">
     {{activity.name}}
   </view>
-  <view class="body">
+</view>
+<view class="body">
     <view class="item">
       <view class="left iconfont icon-all:before">
       活动类别
@@ -34,7 +35,7 @@
       活动名额
       </view>
       <view class="right">
-        {{activity.limit}}
+        {{activity.attenders}}/{{activity.limit}}
       </view>
     </view>
     <view class="item">
@@ -61,5 +62,9 @@
         {{activity.endTime}}
       </view>
     </view>
+    <view class="item intro-h">活动描述</view>
+    <view class="item intro">{{activity.intro}}</view>
   </view>
-</navigator>
+  <view>
+    <button class="red">yiman+</button>
+  </view>

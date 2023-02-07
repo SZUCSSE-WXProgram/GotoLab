@@ -1,0 +1,39 @@
+<!--pages/register/register.wxml-->
+<view class="head">
+	<image src="../../images/yh.png"></image>
+</view>
+<view class="body">
+	<view class="item">
+		<view class="left iconfont icon--Manager">
+			姓名
+		</view>
+		<input type="text" bindinput="handleInputName" />
+	</view>
+	<view class="item">
+		<view class="left iconfont icon-all:before">
+			学号
+		</view>
+		<input type="text" bindinput="handleInputID" />
+	</view>
+	<view class="item">
+		<view class="left iconfont icon-yonghuyanjiusuo">
+			电话
+		</view>
+		<input type="text" bindinput="handleInputPhone" />
+	</view>
+	<view class="section">
+		<picker header-text="班级" mode="multiSelector" bindchange="bindMultiPickerChange" bindcolumnchange="bindMultiPickerColumnChange" value="{{multiIndex}}" range="{{multiArray}}">
+			<view class="item">
+				<view class="left iconfont icon-yonghuyanjiusuo">
+					班级
+				</view>
+				<view class="picker">
+					{{multiArray[0][multiIndex[0]]}}{{multiArray[1][multiIndex[1]]}}
+				</view>
+			</view>	
+		</picker>
+	</view>
+</view>
+<view>
+    <button class="green" bindtap="click">注册</button>
+</view>

@@ -1,40 +1,59 @@
-// pages/index/index.js
-
+// pages/activity_detail/activity_detail.js
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    groupList:[]
+    activity:{}
   },
-  getgroupList(){
-    wx.showLoading({
-      title: '加载中',
-    })
+  attend(){
     wx.cloud.callFunction({
-      name:'group',
+      name:'activity',
       data:{
-        type: "getFullList",
+        type: "attendActivity",
+        info:{
+            activityId:this.options._id
+          }
       },
       success:(res)=>{
-        this.setData({
-          // groupList.append(...res.result.info),
-          groupList:[...this.data.groupList,...res.result.info]
-        })
-        wx.hideLoading({
-          success: (res) => {},
-        })
-      }
+        console.log(res)
+        }
+    })
+  },
+  getList(){
+    wx.showLoading({
+        title: '加载中',
+      })
+    return new Promise((resolve,reject)=>{
+      wx.cloud.callFunction({
+        name:'activity',
+        data:{
+          type: "getActivityByID",
+          info:{
+            activityId:this.options._id
+          }
+        },
+        success:(res)=>{
+          this.setData({
+            activity:res.result.data,
+          })
+          wx.hideLoading({
+            success: (res) => {},
+          })
+          return resolve(res);
+        }
+      })
     })
   },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
-    this.getgroupList()
+    this.getList()
+    this.attend()
   },
-  
+
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
@@ -74,7 +93,7 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom() {
-    
+
   },
 
   /**
