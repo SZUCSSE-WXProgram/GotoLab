@@ -16,11 +16,6 @@ const _ = db.command;
 const $ = _.aggregate
 // 云函数入口函数
 exports.main = async (event, context) => {
-    const checkResult = await validator.check(event.info, checkList.attendCheck);
-    if (checkResult.code !== 'success') {
-        return checkResult
-    }
-    const wxContext = cloud.getWXContext()
     const permissionCheck = await permission.isNotStudent()
     if (permissionCheck.code === 'success') {
         return {
@@ -29,6 +24,11 @@ exports.main = async (event, context) => {
             des: '管理员无需参加活动'
         }
     }
+    const checkResult = await validator.check(event.info, checkList.attendCheck);
+    if (checkResult.code !== 'success') {
+        return checkResult
+    }
+    const wxContext = cloud.getWXContext()
     const currentUser = await db.collection('User').where({
         openid: wxContext.OPENID,
     }).get()

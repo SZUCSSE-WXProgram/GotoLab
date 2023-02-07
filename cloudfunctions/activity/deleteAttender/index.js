@@ -21,6 +21,9 @@ exports.main = async (event, context) => {
         userId: event.info.userId,
         activityId: event.info.activityId,
     }
+    if (info.userId === undefined || info.userId === null || info.userId === '') {
+        info.userId = wxContext.OPENID
+    }
     const checkResult = await validator.check(info, checkList.deleteAttenderCheck);
     if (checkResult.code !== 'success') {
         return checkResult
@@ -30,7 +33,6 @@ exports.main = async (event, context) => {
     if (permissionCheck.code !== 'success' && info.userId !== wxContext.OPENID) {
         return permissionCheck
     }
-
     return await db.collection('UserToActivity').where({
         userId: info.userId,
         activityId: info.activityId,
@@ -39,7 +41,6 @@ exports.main = async (event, context) => {
             code: 'success',
             status: 200,
             des: '删除成功',
-            data: res
         }
     }).catch(e => {
         return {
@@ -48,5 +49,4 @@ exports.main = async (event, context) => {
             des: e
         }
     })
-
 }
