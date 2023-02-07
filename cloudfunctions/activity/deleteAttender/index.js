@@ -41,7 +41,6 @@ exports.main = async (event, context) => {
             code: 'success',
             status: 200,
             des: '删除成功',
-            data: res
         }
     }).catch(e => {
         return {
@@ -50,5 +49,4 @@ exports.main = async (event, context) => {
             des: e
         }
     })
-
 }
