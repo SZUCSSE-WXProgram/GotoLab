@@ -16,19 +16,18 @@ const _ = db.command;
 const $ = _.aggregate
 // 云函数入口函数
 exports.main = async (event, context) => {
-    const permissionCheck = permission.isSuperAdmin()
+    const permissionCheck = await permission.isSuperAdmin()
     if (permissionCheck.code !== 'success') {
         return permissionCheck;
     }
-    const checkResult = validator.check(event.info, checkList.createCheck);
+    const checkResult = await validator.check(event.info, checkList.createCheck);
     if (checkResult.code !== 'success') {
         return checkResult
     }
-    const info = {
-        gradeName: event.info.gradeName,
-    }
     return await db.collection('ActivityType').add({
-        data: info
+        data: {
+            typeName: event.info.typeName,
+        }
     }).then(res => {
         return {
             code: 'success',

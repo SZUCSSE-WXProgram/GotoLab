@@ -27,6 +27,10 @@ exports.getAttenderCheck = {
     activityId: {des: '活动id', required: true, type: 'string', validator: [existActivity]},
 }
 
+exports.deleteActivityCheck = {
+    activityId: {des: '活动id', required: true, type: 'string', validator: [existActivity]},
+}
+
 exports.getActivitiesCheck = {
     limit: {des: '每页数量', required: false, type: 'number', validator: [positiveInteger]},
     group: {des: '研究所id', required: false, type: 'string', validator: [existGroup]},

@@ -7,7 +7,7 @@ const getActivities = require('./getActivities/index');
 const getAttender = require('./getAttender/index');
 const getActivityByID = require('./getActivityByID/index');
 const history = require('./history/index');
-
+const deleteActivity = require('./deleteActivity/index');
 // 云函数入口函数
 exports.main = async (event, context) => {
     switch (event.type) {
@@ -29,6 +29,8 @@ exports.main = async (event, context) => {
             return await getActivityByID.main(event, context);
         case 'history':
             return await history.main(event, context);
+        case 'deleteActivity':
+            return await deleteActivity.main(event, context);
         default :
             return {
                 code: 'fail',

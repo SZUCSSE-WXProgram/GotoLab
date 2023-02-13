@@ -4,5 +4,14 @@
     "value": {
       "type": "getList"
     }
+  },
+  {
+    "name": "activityType.create",
+    "value": {
+      "type": "create",
+      "info": {
+        "typeName": "123321"
+      }
+    }
   }
 ]

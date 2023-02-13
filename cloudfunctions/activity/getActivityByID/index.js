@@ -23,6 +23,19 @@ exports.main = async (event, context) => {
     const _cnt = await db.collection('UserToActivity').where({
         activityId: event.info.activityId,
     }).count()
+    const currentUser = await db.collection('User').where({
+        openid: wxContext.OPENID,
+    }).get()
+    const attendStatus = await db.collection('UserToActivity').where({
+        activityId: event.info.activityId,
+        userId: currentUser.data[0]._id,
+    }).get().then(res => {
+        if (res.data.length > 0) {
+            return res.data[0].status
+        } else {
+            return -1
+        }
+    })
     return await db.collection('Activity').aggregate()
         .match({
             _id: event.info.activityID
@@ -57,6 +70,7 @@ exports.main = async (event, context) => {
             delete res.list[0].group.intro
             res = res.list[0]
             res.attenders = _cnt.total
+            res.isAttend = attendStatus
             return {
                 code: 'success',
                 data: res,

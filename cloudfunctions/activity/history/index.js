@@ -43,11 +43,36 @@ exports.main = async (event, context) => {
             localField: 'activityId',
             foreignField: '_id',
             as: 'activity',
-        }).skip(pageOffset.offset)
+        }).lookup({
+            from: 'User',
+            localField: 'activity.creator',
+            foreignField: '_id',
+            as: 'creator',
+        }).lookup({
+            from: 'Group',
+            localField: 'activity.group',
+            foreignField: '_id',
+            as: 'group',
+        }).lookup({
+            from: 'ActivityType',
+            localField: 'activity.type',
+            foreignField: '_id',
+            as: 'type',
+        })
+        .skip(pageOffset.offset)
         .limit(pageOffset.limit + 1)// tricky做法 多取一条数据判断数据是不是取完了
         .end().then(res => {
             for (let i = 0; i < res.list.length; i++) {
+                res.list[i].activity[0].creator = res.list[i].creator[0]
+                res.list[i].activity[0].group = res.list[i].group[0]
+                res.list[i].activity[0].type = res.list[i].type[0]
                 res.list[i] = res.list[i].activity[0]
+                delete res.list[i].creator.class
+                delete res.list[i].creator.openid
+                delete res.list[i].creator.groups
+                delete res.list[i].creator.phone
+                delete res.list[i].group.intro
+                delete res.list[i].group.picLink
             }
             const hasMore = res.list.length > pageOffset.limit
             if (hasMore) {
