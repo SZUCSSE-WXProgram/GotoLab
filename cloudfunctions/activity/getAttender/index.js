@@ -32,6 +32,11 @@ exports.main = async (event, context) => {
     if (permissionCheck.code !== 'success') {
         return permissionCheck
     }
+    const total = await db.collection('UserToActivity').where({
+        activityId: info.activityId
+    }).count().then(res => {
+        return res.total
+    })
     return await db.collection('UserToActivity').aggregate()
         .match({
             activityId: info.activityId
@@ -74,6 +79,7 @@ exports.main = async (event, context) => {
                 code: 'success',
                 status: 200,
                 data: res.list,
+                total: total,
                 hasMore: hasMore
             }
         }).catch(e => {
