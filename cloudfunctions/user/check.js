@@ -23,7 +23,7 @@ exports.modifyCheck = {
 
 exports.manageUserCheck = {
     docid: {des: '文档id', type: 'string', required: true, validator: [validateStu_id]},
-    stuid: {des: '学号', type: 'string', required: false, minLength: 10, maxLength: 10, validator: [uniqueStuid]},
+    stuid: {des: '学号', type: 'string', required: false, minLength: 10, maxLength: 10},
     name: {des: '姓名', type: 'string', required: false, minLength: 2, maxLength: 10},
     phone: {des: '手机号', type: 'string', required: false, minLength: 11, maxLength: 11},
     class: {des: '班级', type: 'string', required: false, validator: [validateClass]},
@@ -31,7 +31,6 @@ exports.manageUserCheck = {
 }
 
 async function uniqueStuid(stuid) {
-
     const _cnt = await db.collection('User').where({
         stuid: stuid,
         openid: _.neq(wxContext.OPENID)

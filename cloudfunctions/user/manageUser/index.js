@@ -11,6 +11,8 @@ cloud.init({
 const db = cloud.database({
     throwOnNotFound: false
 })
+const _ = db.command;
+const $ = _.aggregate
 const changeableItems = ['name', 'stuid', 'phone', 'class', 'permission', 'docid']
 
 // 云函数入口函数
@@ -21,14 +23,38 @@ exports.main = async (event, context) => {
         return permissionCheck;
     }
     const info = {}
-    for (let items of changeableItems) {
-        if (event.info[items] !== undefined && event.info[items] !== '') {
-            info[items] = event.info[items]
+    try {
+        for (let items of changeableItems) {
+            if (event.info && event.info[items] !== undefined && event.info[items] !== '') {
+                if (items === 'permission') {
+                    info[items] = Number(event.info[items])
+                } else {
+                    info[items] = event.info[items]
+                }
+            }
+        }
+    } catch (e) {
+        return {
+            code: 'fail',
+            des: "数据类型错误" + e,
+            status: 500,
         }
     }
     const checkResult = await validator.check(info, checkList.manageUserCheck);
     if (checkResult.code !== 'success') {
         return checkResult;
+    }
+    // 单独对学号进行校验
+    const stuidCheck = await db.collection('User').where({
+        stuid: info.stuid,
+        _id: _.neq(info.docid),
+    }).count()
+    if (stuidCheck.total > 0) {
+        return {
+            code: 'fail',
+            des: '学号已存在！',
+            status: 402,
+        }
     }
     if (Object.keys(info).length <= 1) {
         return {
