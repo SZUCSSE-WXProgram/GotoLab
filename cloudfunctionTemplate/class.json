@@ -4,5 +4,15 @@
     "value": {
       "type": "getList"
     }
+  },
+  {
+    "name": "class.create",
+    "value": {
+      "type": "create",
+      "info": {
+        "className": "测试班级1",
+        "gradeId": "c03e4445638e049c018322c14e2e3633"
+      }
+    }
   }
 ]

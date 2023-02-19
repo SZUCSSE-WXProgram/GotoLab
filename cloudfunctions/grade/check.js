@@ -6,7 +6,7 @@ const db = cloud.database()
 const _ = db.command;
 const $ = _.aggregate
 exports.createCheck = {
-    name: {des: '年级名', type: 'string', required: true, minLength: 2, maxLength: 10, validator: [uniqueGrade]},
+    gradeName: {des: '年级名', type: 'string', required: true, minLength: 2, maxLength: 10, validator: [uniqueGrade]},
 }
 
 exports.modifyCheck = {

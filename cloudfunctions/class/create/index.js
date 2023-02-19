@@ -16,11 +16,11 @@ const _ = db.command;
 const $ = _.aggregate
 // 云函数入口函数
 exports.main = async (event, context) => {
-    const checkResult = validator.check(event.info, createCheck.createCheck);
+    const checkResult = await validator.check(event.info, createCheck.createCheck);
     if (checkResult.code !== 'success') {
         return checkResult
     }
-    const permissionCheck = permission.isSuperAdmin()
+    const permissionCheck = await permission.isSuperAdmin()
     if (permissionCheck.code !== 'success') {
         return permissionCheck;
     }
