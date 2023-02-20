@@ -1,7 +1,7 @@
 <!--pages/search/search.wxml-->
 <view class="search_row">
   <input value="{{iptvalue}}" placeholder="请输入您要搜索的活动名称" bindconfirm="handleInput"></input>
-  <button class="btn" bindtap="handleCancel">取消</button>
+  <button class="butn" bindtap="handleCancel">取消</button>
 </view>
 <wxs module="format">
   function setColor(){

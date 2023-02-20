@@ -1,0 +1,64 @@
+/* pages/usermanage/usermanage.wxss */
+.top{
+  display: flex;
+  align-items: center;
+  padding: 10rpx;
+  margin-left: 10rpx;
+  border-bottom: 2rpx solid rgb(220, 220, 220);
+  height: 70rpx;
+}
+.text{
+  font-size: 40rpx;
+  font-weight: 600;
+  flex: 1;
+}
+.search_row
+{
+  height: 60rpx;
+  width: 450rpx;
+  box-shadow: 1rpx 1rpx 15rpx #ddd;
+  border-radius: 20rpx;
+  margin: 10rpx;
+}
+input{
+  border-radius: 20rpx;
+  height: 100%;
+  background: rgb(230, 230, 230);
+  font-size: 28rpx;
+  padding-left: 30rpx;
+}
+.list{
+  margin: 10rpx;
+}
+.head{
+  display: flex;
+  background-color: rgb(230, 230, 230);
+  height: 70rpx;
+  padding: 10rpx;
+  align-items: center;
+  margin: 2rpx;
+  border-radius: 5rpx;
+}
+.name{
+  display: flex;
+  flex: 1;
+}
+.stuid{
+  padding-right: 200rpx;
+}
+.font{
+  font-size: small;
+  font-weight: 400;
+}
+.weight{
+	font-weight: 600;
+}
+.butn{
+	height: 100%;
+	width: 110rpx;
+	font-size: 28rpx;
+	padding: 0;
+	justify-content: center;
+	align-items: center;
+	line-height: 70rpx;
+  }

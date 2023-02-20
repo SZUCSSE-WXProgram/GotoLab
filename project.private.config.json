@@ -72,6 +72,34 @@
           "query": "",
           "launchMode": "default",
           "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/activitytype/activitytype",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/usermanage/usermanage",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/userdetail/userdetail",
+          "query": "name=%E6%B5%8B441&permission=0&id=2011284072&phone=18312445315",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/usermanage/usermanage",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
         }
       ]
     }

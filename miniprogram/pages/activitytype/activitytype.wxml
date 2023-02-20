@@ -1,0 +1,17 @@
+<!--pages/activitytype/activitytype.wxml-->
+<view class="title">活动类型</view>
+<view class="type">
+  <view class="item" wx:for="{{type}}" wx:key="_id">
+    {{item.typeName}}
+  </view>
+</view>
+<view class="title">新增活动类型</view>
+<view class="ipt">
+		<view class="left iconfont icon--Manager">
+			名称
+		</view>
+		<input type="text" bindinput="handleInputName" />
+	</view>
+<button class="btn blue" bindtap="create">
+  创建
+</button>

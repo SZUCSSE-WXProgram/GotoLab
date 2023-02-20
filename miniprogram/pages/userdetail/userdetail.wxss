@@ -1,0 +1,13 @@
+/* pages/userdetail/userdetail.wxss */
+.item{
+	border-bottom:2rpx solid rgb(235, 234, 234) ;
+	padding: 25rpx 25rpx;
+	display: flex;
+  }
+.left{
+	width: 200rpx;
+}
+button{
+	margin: 70rpx;
+	color: #fff;
+}

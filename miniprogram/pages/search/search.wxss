@@ -12,7 +12,7 @@ input{
   font-size: 28rpx;
   padding-left: 30rpx;
 }
-.btn{
+.butn{
   height: 100%;
   width: 110rpx;
   font-size: 28rpx;

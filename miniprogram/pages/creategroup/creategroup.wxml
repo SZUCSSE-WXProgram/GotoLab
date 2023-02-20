@@ -14,7 +14,7 @@
     <textarea maxlength="200" bindinput="handleInputIntro"></textarea>
 	</view>
 	<view class="item">
-		<view class="left iconfont icon-yonghuyanjiusuo">
+		<view class="left iconfont icon-tupian">
 			图片
 		</view>
     <button class="img" bindtap="click">

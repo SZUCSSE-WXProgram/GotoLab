@@ -1,0 +1,26 @@
+/* pages/activitytype/activitytype.wxss */
+.type{
+  display: flex;
+  flex-wrap: wrap;
+}
+.item{
+  display: flex;
+  background-color: white;
+  height: 100rpx;
+  width: 200rpx;
+  justify-content: center;
+  align-items: center;
+  margin: 20rpx;
+  border-radius: 20rpx;
+  box-shadow: 1rpx 1rpx 15rpx #ddd;
+}
+.ipt{
+  margin: 10rpx;
+  border-bottom:2rpx solid rgb(235, 234, 234) ;
+  padding: 25rpx 25rpx;
+  display: flex;
+  background-color: white;
+}
+.left{
+	width: 150rpx;
+}

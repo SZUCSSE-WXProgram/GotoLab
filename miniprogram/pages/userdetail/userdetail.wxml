@@ -1,25 +1,29 @@
-<!--pages/register/register.wxml-->
-<view class="head">
-	<image src="../../images/yh.png"></image>
-</view>
+<!--pages/userdetail/userdetail.wxml-->
+<view class="title">信息修改</view>
 <view class="body">
 	<view class="item">
 		<view class="left iconfont icon--Manager">
 			姓名
 		</view>
-		<input type="text" bindinput="handleInputName" />
+		<input type="text" placeholder="{{name}}" bindinput="handleInputName" />
 	</view>
 	<view class="item">
 		<view class="left iconfont icon-nav_icon_zhiduguanli">
 			学号
 		</view>
-		<input type="text" bindinput="handleInputID" />
+		<input type="text" placeholder="{{id}}" bindinput="handleInputID" />
 	</view>
 	<view class="item">
 		<view class="left iconfont icon-dianhua">
 			电话
 		</view>
-		<input type="text" bindinput="handleInputPhone" />
+		<input type="text" placeholder="{{phone}}" bindinput="handleInputPhone" />
+	</view>
+  <view class="item" wx:if="{{mypermission}}">
+		<view class="left iconfont icon-quanxian">
+			权限
+		</view>
+		<input type="text" placeholder="{{permission}}" bindinput="handleInputPermission" />
 	</view>
 	<view class="section">
 		<picker header-text="班级" mode="multiSelector" bindchange="bindMultiPickerChange" bindcolumnchange="bindMultiPickerColumnChange" value="{{multiIndex}}" range="{{multiArray}}">
@@ -35,5 +39,5 @@
 	</view>
 </view>
 <view>
-    <button class="green" bindtap="click">注册</button>
+    <button class="blue" bindtap="click">修改</button>
 </view>

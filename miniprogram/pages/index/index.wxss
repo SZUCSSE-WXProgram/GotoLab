@@ -18,7 +18,7 @@
   margin-top: 30rpx;
 }
 .grouplist navigator{
-  height: 50rpx;
+  height: 60rpx;
   padding: 20rpx;
   margin: 10rpx;
   background-color:#ffffff;

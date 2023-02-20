@@ -9,31 +9,31 @@
 </view>
 <view class="body">
   <navigator wx:if="{{type0}}" url="/pages/history/history">
-    <view class="itemname">历史统计</view>
+    <view class="itemname iconfont icon-shizhong1">历史统计</view>
     <view class="iconfont icon-chevron-right"></view>
   </navigator>
   <navigator wx:if="{{type1}}" url="/pages/mygroup/mygroup">
-    <view class="itemname">我的研究所</view>
+    <view class="itemname iconfont icon-yonghuyanjiusuo">我的研究所</view>
     <view class="iconfont icon-chevron-right"></view>
   </navigator>
-  <navigator wx:if="{{type2}}" url="/pages/history/history">
-    <view class="itemname">用户管理</view>
+  <navigator wx:if="{{type2}}" url="/pages/usermanage/usermanage">
+    <view class="itemname iconfont icon-yonghu">用户管理</view>
     <view class="iconfont icon-chevron-right"></view>
   </navigator>
-  <navigator wx:if="{{type2}}" url="/pages/history/history">
-    <view class="itemname">班级管理</view>
+  <navigator wx:if="{{type2}}" url="/pages/classmanage/classmanage">
+    <view class="itemname iconfont icon-banji">班级管理</view>
     <view class="iconfont icon-chevron-right"></view>
   </navigator>
   <navigator wx:if="{{type2}}" url="/pages/mygroup/mygroup">
-    <view class="itemname">研究所管理</view>
+    <view class="itemname iconfont icon-gerenxinxi">研究所管理</view>
     <view class="iconfont icon-chevron-right"></view>
   </navigator>
-  <navigator wx:if="{{type2}}" url="/pages/history/history">
-    <view class="itemname">活动类型管理</view>
+  <navigator wx:if="{{type2}}" url="/pages/activitytype/activitytype">
+    <view class="itemname iconfont icon-leixing">活动类型管理</view>
     <view class="iconfont icon-chevron-right"></view>
   </navigator>
-  <navigator wx:if="{{type1||type2}}" url="/pages/history/history">
-    <view class="itemname">修改个人信息</view>
+  <navigator wx:if="{{type1||type2}}" url="/pages/userdetail/userdetail?name={{myself.name}}&permission={{myself.permission}}&id={{myself.stuid}}&phone={{myself.phone}}">
+    <view class="itemname iconfont icon-xiugai">修改个人信息</view>
     <view class="iconfont icon-chevron-right"></view>
   </navigator>
 </view>
