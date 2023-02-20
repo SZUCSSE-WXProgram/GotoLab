@@ -7,27 +7,28 @@ const db = cloud.database()
 const _ = db.command;
 const $ = _.aggregate
 exports.registerCheck = {
-    stuid: {des: '学号', type: 'string', required: true, minLength: 10, maxLength: 10, validator: [uniqueStuid]},
+    stuid: {des: '学号', type: 'string', required: true, minLength: 10, maxLength: 10, validator: [uniqueStuid, isNumber]},
     name: {des: '姓名', type: 'string', required: true, minLength: 2, maxLength: 10},
-    phone: {des: '手机号', type: 'string', required: true, minLength: 11, maxLength: 11},
+    phone: {des: '手机号', type: 'string', required: true, minLength: 11, maxLength: 11, validator: [isNumber]},
     class: {des: '班级', type: 'string', required: true, validator: [validateClass]},
     openid: {des: '用户ID', type: 'string', required: true, validator: [uniqueOpenid]}
 }
 
 exports.modifyCheck = {
-    stuid: {des: '学号', type: 'string', required: false, minLength: 10, maxLength: 10, validator: [uniqueStuid]},
+    stuid: {des: '学号', type: 'string', required: false, minLength: 10, maxLength: 10, validator: [uniqueStuid, isNumber]},
     name: {des: '姓名', type: 'string', required: false, minLength: 2, maxLength: 10},
-    phone: {des: '手机号', type: 'string', required: false, minLength: 11, maxLength: 11},
+    phone: {des: '手机号', type: 'string', required: false, minLength: 11, maxLength: 11, validator: [isNumber]},
     class: {des: '班级', type: 'string', required: false, validator: [validateClass]},
+
 }
 
 exports.manageUserCheck = {
     docid: {des: '文档id', type: 'string', required: true, validator: [validateStu_id]},
-    stuid: {des: '学号', type: 'string', required: false, minLength: 10, maxLength: 10},
+    stuid: {des: '学号', type: 'string', required: false, minLength: 10, maxLength: 10, validator: [isNumber]},
     name: {des: '姓名', type: 'string', required: false, minLength: 2, maxLength: 10},
-    phone: {des: '手机号', type: 'string', required: false, minLength: 11, maxLength: 11},
+    phone: {des: '手机号', type: 'string', required: false, minLength: 11, maxLength: 11, validator: [isNumber]},
     class: {des: '班级', type: 'string', required: false, validator: [validateClass]},
-    permission: {des: '权限', type: 'enum',required: false, range: [0, 1, 2]}
+    permission: {des: '权限', type: 'enum', required: false, range: [0, 1, 2]}
 }
 
 async function uniqueStuid(stuid) {
@@ -47,6 +48,11 @@ async function uniqueStuid(stuid) {
             des: '该学号已经被注册了'
         }
     }
+}
+
+async function isNumber(str) {
+    const reg = /^[0-9]*$/;
+    return reg.test(str);
 }
 
 async function uniqueOpenid(openID) {
