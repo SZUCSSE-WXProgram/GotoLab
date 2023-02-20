@@ -7,7 +7,14 @@ const db = cloud.database()
 const _ = db.command;
 const $ = _.aggregate
 exports.registerCheck = {
-    stuid: {des: '学号', type: 'string', required: true, minLength: 10, maxLength: 10, validator: [uniqueStuid, isNumber]},
+    stuid: {
+        des: '学号',
+        type: 'string',
+        required: true,
+        minLength: 10,
+        maxLength: 10,
+        validator: [uniqueStuid, isNumber]
+    },
     name: {des: '姓名', type: 'string', required: true, minLength: 2, maxLength: 10},
     phone: {des: '手机号', type: 'string', required: true, minLength: 11, maxLength: 11, validator: [isNumber]},
     class: {des: '班级', type: 'string', required: true, validator: [validateClass]},
@@ -15,7 +22,14 @@ exports.registerCheck = {
 }
 
 exports.modifyCheck = {
-    stuid: {des: '学号', type: 'string', required: false, minLength: 10, maxLength: 10, validator: [uniqueStuid, isNumber]},
+    stuid: {
+        des: '学号',
+        type: 'string',
+        required: false,
+        minLength: 10,
+        maxLength: 10,
+        validator: [uniqueStuid, isNumber]
+    },
     name: {des: '姓名', type: 'string', required: false, minLength: 2, maxLength: 10},
     phone: {des: '手机号', type: 'string', required: false, minLength: 11, maxLength: 11, validator: [isNumber]},
     class: {des: '班级', type: 'string', required: false, validator: [validateClass]},
@@ -52,7 +66,18 @@ async function uniqueStuid(stuid) {
 
 async function isNumber(str) {
     const reg = /^[0-9]*$/;
-    return reg.test(str);
+    if (reg.test(str)) {
+        return {
+            code: 'success',
+            status: 200,
+        }
+    } else {
+        return {
+            code: 'fail',
+            status: 402,
+            des: '学号必须为数字'
+        }
+    }
 }
 
 async function uniqueOpenid(openID) {
