@@ -17,9 +17,13 @@ const $ = _.aggregate
 // 云函数入口函数
 exports.main = async (event, context) => {
     const wxContext = cloud.getWXContext()
-    const currentUser= await db.collection('User').where({
+    const currentUser = await db.collection('User').where({
         openid: wxContext.OPENID
     }).get()
+    const checkResult = await validator.check(event.info, checkList.createCheck);
+    if (checkResult.code !== 'success') {
+        return checkResult
+    }
     let info = {
         group: event.info.group,
         creator: currentUser.data[0]._id,
@@ -32,20 +36,16 @@ exports.main = async (event, context) => {
         location: event.info.location,
         type: event.info.type,
     }
-    try {
-        info.startTime = new Date(info.startTime)
-        info.endTime = new Date(info.endTime)
-    } catch (e) {
+    // 校验日期格式
+    if (isNaN(Date.parse(event.info.startTime)) || isNaN(Date.parse(event.info.endTime)) || new Date(info.endTime).toString() === 'Invalid Date' || new Date(info.startTime).toString() === 'Invalid Date') {
         return {
             status: 402,
             code: 'fail',
             msg: '时间格式错误'
         }
     }
-    const checkResult = await validator.check(info, checkList.createCheck);
-    if (checkResult.code !== 'success') {
-        return checkResult
-    }
+    info.endTime = new Date(event.info.endTime)
+    info.startTime = new Date(event.info.startTime)
     if (info.startTime >= info.endTime) {
         return {
             status: 402,

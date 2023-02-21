@@ -41,11 +41,9 @@ exports.getActivitiesCheck = {
 
 exports.createCheck = {
     group: {des: '研究所', required: true, type: 'string', validator: [existGroup]},
-    creator: {des: '创建者', type: 'string', required: true},
     name: {des: '活动名', type: 'string', required: true, minLength: 2, maxLength: 20},
     intro: {des: '活动简介', type: 'string', required: true, minLength: 2},
     limit: {des: '人数限制', type: 'number', required: true, validator: [positiveInteger]},
-    signable: {des: '是否可报名', type: 'boolean', required: true},
     startTime: {des: '开始时间', type: 'string', required: true},
     endTime: {des: '结束时间', type: 'string', required: true},
     location: {des: '活动地点', type: 'string', required: true},

@@ -39,5 +39,21 @@
         "offset": 0
       }
     }
+  },
+  {
+    "name": "activity.create",
+    "value": {
+      "type": "create",
+      "info": {
+        "name": "test",
+        "limit": 100,
+        "group": "f80c64da63934b580140309c62346f93",
+        "startTime": "2023-01-01 15:50:00",
+        "endTime": "2023-03-01 15:50:00",
+        "intro": "测试",
+        "location": "location0000",
+        "type": "eef212816398c28e0000acb8171b25ab"
+      }
+    }
   }
 ]
