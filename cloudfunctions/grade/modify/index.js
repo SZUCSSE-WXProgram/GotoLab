@@ -29,14 +29,13 @@ exports.main = async (event, context) => {
         _id: event.info._id
     }
     const _cnt = await db.collection('Grade').where({
-        _id: info._id,
+        _id: _.neq(info._id),
         gradeName: info.gradeName
     }).count()
-
-    if (_cnt.total === 1) {
+    if (_cnt.total !== 0) {
         return {
             code: 'fail',
-            des: '未发生更改',
+            des: '该年级已存在',
             status: 402,
         }
     }

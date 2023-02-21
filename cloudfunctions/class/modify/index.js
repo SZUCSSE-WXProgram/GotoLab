@@ -29,7 +29,7 @@ exports.main = async (event, context) => {
         className: event.info.className,
         gradeId: event.info.gradeId,
     }
-    if (!info.className && !info.gradeId) {
+    if ((!info.className || info.className === "") && (!info.gradeId || info.gradeId === "")) {
         return {
             code: 'fail',
             des: '修改信息不能为空',
@@ -37,6 +37,7 @@ exports.main = async (event, context) => {
         }
     }
     const _cnt = await db.collection('Class').where({
+        _id: _.neq(info._id),
         className: info.className,
         gradeId: info.gradeId
     }).count()
