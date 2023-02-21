@@ -16,20 +16,20 @@ const _ = db.command;
 const $ = _.aggregate
 // 云函数入口函数
 exports.main = async (event, context) => {
-    const checkResult = validator.check(event.info, createCheck.modifyCheck);
-    if (checkResult.code !== 'success') {
-        return checkResult
-    }
-    const permissionCheck = permission.isSuperAdmin()
+    const permissionCheck = await permission.isSuperAdmin()
     if (permissionCheck.code !== 'success') {
         return permissionCheck;
+    }
+    const checkResult = await validator.check(event.info, createCheck.modifyCheck);
+    if (checkResult.code !== 'success') {
+        return checkResult
     }
     const info = {
         _id: event.info._id,
         className: event.info.className,
         gradeId: event.info.gradeId,
     }
-    if (!info.className && !info.gradeId) {
+    if ((!info.className || info.className === "") && (!info.gradeId || info.gradeId === "")) {
         return {
             code: 'fail',
             des: '修改信息不能为空',
@@ -37,6 +37,7 @@ exports.main = async (event, context) => {
         }
     }
     const _cnt = await db.collection('Class').where({
+        _id: _.neq(info._id),
         className: info.className,
         gradeId: info.gradeId
     }).count()
