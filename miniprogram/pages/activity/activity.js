@@ -11,7 +11,7 @@ Page({
         typeName:"全部",
         isActive:true
       },
-    ],
+    ], 
     activity:[],
     hasMore:true,
     offset:0,
@@ -59,6 +59,7 @@ Page({
       }) 
   },
   async tabclick(e){
+    console.log(e)
     const {index}=e.currentTarget.dataset;
     if(!this.data.tabs[index].isActive)
     {

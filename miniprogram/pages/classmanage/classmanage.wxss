@@ -1,1 +1,47 @@
 /* pages/classmanage/classmanage.wxss */
+.body{
+  background-color: white;
+  box-shadow: 1rpx 1rpx 15rpx #ddd;
+}
+.part{
+  border-bottom: 2rpx solid rgb(220, 220, 220);
+  padding-bottom: 20rpx;
+}
+.class{
+  display: flex;
+  flex-wrap: wrap;
+}
+.item{
+  display: flex;
+  background-color: white;
+  height: 90rpx;
+  width: 200rpx;
+  justify-content: center;
+  align-items: center;
+  margin: 20rpx;
+  border-radius: 20rpx;
+  box-shadow: 1rpx 1rpx 15rpx #ddd;
+  font-size: 30rpx;
+}
+.grade{
+  margin: 20rpx;
+  font-size: 34rpx;
+  font-weight:500;
+  
+}
+.ipt{
+  margin: 10rpx;
+  padding: 20rpx 25rpx;
+  display: flex;
+  background-color: white;
+}
+input{
+  border-bottom:2rpx solid rgb(235, 234, 234) ;
+}
+.left{
+	width: 150rpx;
+}
+.width{
+  margin-top: 70rpx;
+  font-weight: 700;
+}

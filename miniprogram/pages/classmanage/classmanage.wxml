@@ -1,2 +1,35 @@
 <!--pages/classmanage/classmanage.wxml-->
 <view class="title">班级管理</view>
+<view class="body">
+  <view class="part" wx:for="{{class}}" wx:key="_id" >
+    <view class="grade">
+      {{item.gradeName}}
+    </view>
+    <view class="class">
+      <view class="item" wx:for="{{item.class}}" wx:key="_id">
+        {{item.className}}
+      </view>
+    </view>
+    <view class="ipt">
+      <view class="left iconfont icon--Manager">
+        名称 :
+      </view>
+      <input type="text" bindinput="handleInputName" />
+    </view>
+    <button class="btn blue" bindtap="create" data-index="{{item._id}}">
+      创建班级
+    </button>
+  </view>
+  <view class="grade width">
+      新建年级
+    </view>
+  <view class="ipt">
+      <view class="left iconfont icon--Manager">
+        名称 :
+      </view>
+      <input type="text" bindinput="handleInputName" />
+    </view>
+    <button class="btn blue" bindtap="creategrd">
+      创建年级
+    </button>
+</view>

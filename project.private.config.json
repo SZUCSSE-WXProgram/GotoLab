@@ -100,6 +100,13 @@
           "query": "",
           "launchMode": "default",
           "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/classmanage/classmanage",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
         }
       ]
     }

@@ -124,7 +124,8 @@ Page({
 			  console.log(res)
 			  wx.setStorageSync('userInfo', res.userInfo)
 		  }
-		})
+    })
+    
 		return new Promise((resolve, reject) => {
 			wx.cloud.callFunction({
 				name: 'user',
