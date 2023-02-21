@@ -1,0 +1,21 @@
+/* pages/createactivity/createactivity.wxss */
+.item{
+  border-bottom:2rpx solid rgb(235, 234, 234) ;
+  padding: 20rpx 25rpx;
+}
+.left{
+  margin-bottom: 20rpx;
+}
+.right{
+  display:flex ;
+  color: grey;
+  width: 750rpx;
+}
+.intro-h{
+  border-bottom:2rpx solid rgb(235, 234, 234) ;
+  padding: 20rpx 25rpx;
+  height: 600rpx;
+}
+.intro{
+  height: 90%;
+}

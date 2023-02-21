@@ -5,13 +5,31 @@ Page({
    * 页面的初始数据
    */
   data: {
+    pxopen: false,
+    pxshow: false,
     group:{},
     activity:[],
     hasMore:true,
     offset:0,
     limit:5,
     value:"",
+    permission:''
   },
+  listpx: function(e) {
+    if (this.data.pxopen) {
+        this.setData({
+            pxopen: false,
+            pxshow: false,
+        })
+    } else {
+        this.setData({
+            pxopen: true,
+            pxshow: false,
+        })
+    }
+},
+
+
   /**
    * 生命周期函数--监听页面加载
    */
@@ -77,6 +95,9 @@ Page({
     })
     await this.getList();
     this.setValue();
+    this.setData({
+      permission:wx.getStorageSync('myself').permission
+    })
   },
 
   /**

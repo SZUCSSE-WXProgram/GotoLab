@@ -1,5 +1,24 @@
 <!--pages/groupintro/groupintro.wxml-->
-<view class="title">{{group.groupName}}</view>
+<view  >
+    <view class="nav-son" >
+        <view class="flex">{{group.groupName}}</view>
+        <view wx:if="{{permission!=0}}" class="iconfont icon-shezhi"bindtap="listpx"></view>
+    </view>
+    <view class="temp {{pxopen ? 'slidown' : 'slidup'}} {{pxshow ? 'disappear':''}}">
+        <navigator url="/pages/createactivity/createactivity?id={{group._id}}">
+          >发布活动
+        </navigator>
+        <navigator url="/pages/groupadmin/groupadmin?id={{group._id}}">
+          >管理员列表
+        </navigator>
+        <navigator url="/pages/modifygroup/modifygroup?id={{group._id}}">
+          >编辑研究所信息
+        </navigator>
+    </view>
+</view>
+
+<!--page/one/index.wxml-->
+<view class="body">
 <view class="groupimg">
   <image src="{{group.picLink}}"></image>
 </view>
@@ -24,4 +43,5 @@
   <view wx:if="{{!hasMore}}" class="separator">
     ————— · {{value}} · —————
   </view>
+</view>
 </view>

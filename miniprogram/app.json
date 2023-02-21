@@ -14,7 +14,10 @@
     "pages/classmanage/classmanage",
     "pages/usermanage/usermanage",
     "pages/myselfmanage/myselfmanage",
-    "pages/userdetail/userdetail"
+    "pages/userdetail/userdetail",
+    "pages/createactivity/createactivity",
+    "pages/groupadmin/groupadmin",
+    "pages/modifygroup/modifygroup"
   ],
   "window": {
     "backgroundColor": "#F6F6F6",

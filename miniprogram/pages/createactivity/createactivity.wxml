@@ -1,0 +1,66 @@
+<!--pages/createactivity/createactivity.wxml-->
+<view class="title">创建活动</view>
+<view class="body">
+  <view class="item">
+    <view class="left iconfont icon-nav_icon_zhiduguanli">
+      活动名称
+    </view>
+    <input class="right" type="text" placeholder="请输入活动名称" bindinput="handleInputname" />
+  </view>
+  <view class="item">
+    <view class="left iconfont icon-all:before">
+      活动类别
+    </view>
+    <view class="right">
+      <picker mode="selector" range="{{TypeArray}}" bindchange="bindTypeChange">
+        <view class="right">{{mytype}}</view>
+      </picker>
+    </view>
+  </view>
+  <view class="item">
+    <view class="left iconfont icon--Manager">
+      活动名额
+    </view>
+    <input class="right" type="text" placeholder="请输入活动名额" bindinput="handleInputnum" />
+  </view>
+  <view class="item">
+    <view class="left iconfont icon-map">
+      地点
+    </view>
+    <input class="right" type="text" placeholder="请输入活动地点" bindinput="handleInputpos" />
+  </view>
+
+  <view class="item">
+    <view class="left iconfont icon-shizhong">
+      开始时间
+    </view>
+    <view class="right">
+      <picker mode="date" bindchange="bindsDateChange">
+        <view>{{sdate}}-</view>
+      </picker>
+      <picker mode="time" bindchange="bindsTimeChange">
+        <view>{{stime}}</view>
+      </picker>
+    </view>
+  </view>
+  <view class="item">
+    <view class="left iconfont icon-shizhong1">
+      结束时间
+    </view>
+    <view class="right">
+      <picker mode="date" bindchange="bindeDateChange">
+        <view>{{edate}}-</view>
+      </picker>
+      <picker mode="time" bindchange="bindeTimeChange">
+        <view>{{etime}}</view>
+      </picker>
+    </view>
+  </view>
+  <view class="intro-h ">
+    <view class="left iconfont icon-xiugai">
+      活动描述
+    </view>
+    <textarea class="intro right" maxlength="500" placeholder="请输入活动描述" bindinput="handleInputIntro"></textarea>
+  </view>
+</view>
+<button class="btn blue" bindtap="create">创建</button>
