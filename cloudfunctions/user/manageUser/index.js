@@ -72,6 +72,7 @@ exports.main = async (event, context) => {
     }
     const _id = info.docid
     delete info.docid
+    if (info.permission === 2 || info.permission === 0) info['groups'] = []
     return await db.collection('User').doc(_id).update({
         data: info,
     }).then(res => {

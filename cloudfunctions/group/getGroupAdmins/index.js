@@ -16,7 +16,7 @@ const $ = _.aggregate
 
 // 云函数入口函数
 exports.main = async (event, context) => {
-    const checkResult = await validator.check(event.info, checkList)
+    const checkResult = await validator.check(event.info, checkList.getAdminCheck)
     if (checkResult.code !== 'success') {
         return checkResult;
     }
