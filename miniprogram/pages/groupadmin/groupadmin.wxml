@@ -1,6 +1,25 @@
 <!--pages/groupadmin/groupadmin.wxml-->
 <view class="title">管理员列表</view>
-<view>
-
-
+<view class="list">
+  <view class="head">
+    <view class="name weight">
+      姓名
+    </view>
+    <view class="stuid weight">
+      学号
+    </view>
+  </view>
+  <view wx:if="{{!admin[0]}}" class="head font">暂无管理员</view>
+  <view wx:for="{{admin}}" wx:key="_id" class="head">
+    <view class="name font">
+      {{item.name}}
+    </view>
+    <view class="font">
+      {{item.stuid}} |
+    </view>
+    <button class="butn red" bindtap="delete" data-id="{{item._id}}">删除</button>
+  </view>
 </view>
+<navigator url="/pages/usermanage/usermanage?id={{id}}">
+  <button class="btn blue">添加管理员</button>
+</navigator>

@@ -93,8 +93,6 @@ Page({
         })
       }
     })
-    await this.getList();
-    this.setValue();
     this.setData({
       permission:wx.getStorageSync('myself').permission
     })
@@ -110,8 +108,39 @@ Page({
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow() {
-
+  async onShow() {
+    wx.showLoading({
+      title: '加载中',
+    })
+    wx.cloud.callFunction({
+      name:'group',
+      data:{
+        type: "getGroupByID",
+        info:{
+          _id:this.options._id
+        }
+      },
+      success:(res)=>{
+        this.setData({
+          group:res.result.info
+        })
+        wx.hideLoading({
+          success: (res) => {},
+        })
+      }
+    })
+    this.setData({
+      activity:[],
+    hasMore:true,
+    offset:0,
+    limit:5,
+    value:"",
+    })
+    await this.getList();
+    this.setValue();
+    this.setData({
+      permission:wx.getStorageSync('myself').permission
+    })
   },
 
   /**

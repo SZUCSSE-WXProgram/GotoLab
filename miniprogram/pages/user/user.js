@@ -11,36 +11,26 @@ Page({
     type1: false,
     type2: false,
   },
-  getinfo() {
-    return new Promise((resolve, reject) => {
-      wx.getSetting({
-        success(res) {
-          if (res.authSetting['scope.userInfo']) {
-            wx.getUserInfo({
-              success: (res) => {
-                wx.setStorageSync('userInfo', res.userInfo)
-              },
-              fail: (res) => {},
-              complete: (res) => {
-                return resolve(res);
-              },
-            })
-          }
-        }
-      })
+  getMyself(){
+    return new Promise((resolve,reject)=>{
+    wx.cloud.callFunction({
+      name:'user',
+      data:{
+        type: "getMyself",
+      },
+      success:(res)=>{
+        wx.setStorageSync('myself', res.result.info)
+        wx.setStorageSync('isRegister', res.result.isRegistered)
+        return resolve(res);
+      }
     })
+  })
   },
   /**
    * 生命周期函数--监听页面加载
    */
   async onLoad(options) {
-    this.setData({
-      avatar: wx.getStorageSync('userInfo').avatarUrl,
-      myself: wx.getStorageSync('myself'),
-      type0: wx.getStorageSync('myself').permission === 0,
-      type1: wx.getStorageSync('myself').permission === 1,
-      type2: wx.getStorageSync('myself').permission === 2
-    })
+    
   },
 
   /**
@@ -54,7 +44,14 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow() {
-
+    
+    this.setData({
+      avatar: wx.getStorageSync('userInfo').avatarUrl,
+      myself: wx.getStorageSync('myself'),
+      type0: wx.getStorageSync('myself').permission === 0,
+      type1: wx.getStorageSync('myself').permission === 1,
+      type2: wx.getStorageSync('myself').permission === 2
+    })
   },
 
   /**

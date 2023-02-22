@@ -108,7 +108,7 @@
   margin-bottom:20rpx ;
 }
 .separator {
-  margin: 10px 0;
+  padding: 30rpx;
   text-align: center;
   font-size: 12px;
   color: #999;

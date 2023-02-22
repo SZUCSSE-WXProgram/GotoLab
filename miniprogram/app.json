@@ -13,7 +13,6 @@
     "pages/activitytype/activitytype",
     "pages/classmanage/classmanage",
     "pages/usermanage/usermanage",
-    "pages/myselfmanage/myselfmanage",
     "pages/userdetail/userdetail",
     "pages/createactivity/createactivity",
     "pages/groupadmin/groupadmin",

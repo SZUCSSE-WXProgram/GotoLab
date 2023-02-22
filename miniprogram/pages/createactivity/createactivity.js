@@ -138,7 +138,7 @@ Page({
           limit: this.data.limit,
           startTime: startTime,
           endTime: endTime,
-          location: this.data.location,
+          location: this.data.position,
           type: this.data.index,
         }
       },
@@ -153,6 +153,13 @@ Page({
           title: res.result.des,
           icon:'none',
         })
+        if(res.result.code=="success"){
+          setTimeout(() => {
+            wx.navigateBack({
+              delta: 0,
+            })
+          }, 1000);
+        }
         return resolve(res);
       }
     })
