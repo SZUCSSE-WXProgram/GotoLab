@@ -41,7 +41,7 @@ exports.main = async (event, context) => {
         return {
             status: 402,
             code: 'fail',
-            msg: '时间格式错误'
+            des: '时间格式错误'
         }
     }
     info.endTime = new Date(event.info.endTime)
@@ -50,7 +50,7 @@ exports.main = async (event, context) => {
         return {
             status: 402,
             code: 'fail',
-            msg: '开始时间不能晚于结束时间'
+            des: '开始时间不能晚于结束时间'
         }
     }
     const permissionCheck = await permission.isGroupAdmin(info.group)
