@@ -17,7 +17,7 @@ exports.checkAttenderCheck = {
 }
 
 exports.deleteAttenderCheck = {
-    userId: {des: '用户id', required: true, type: 'string', validator: [existUser]},
+    userId: {des: '用户id', required: false, type: 'string', validator: [existUser]},
     activityId: {des: '活动id', required: true, type: 'string', validator: [existActivity]},
 }
 exports.getActivityByIDCheck = {

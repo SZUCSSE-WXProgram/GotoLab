@@ -21,22 +21,25 @@ exports.main = async (event, context) => {
         userId: event.info.userId,
         activityId: event.info.activityId,
     }
+    let selfDelete = false
     if (info.userId === undefined || info.userId === null || info.userId === '') {
-        info.userId = wxContext.OPENID
+        selfDelete = true
     }
     const checkResult = await validator.check(info, checkList.deleteAttenderCheck);
     if (checkResult.code !== 'success') {
         return checkResult
     }
     const permissionCheck = await permission.isActivityAdmin(info.activityId)
-    // 既没有管理员权限也不是本人参与的活动
-    const currentUser = await db.collection('User').where({
-        openid: wxContext.OPENID,
-    }).get().then(res => {
-        return res.data[0]
-    })
-    if (permissionCheck.code !== 'success' && info.userId !== currentUser._id) {
+    // 既没有权限也不是本人参与的活动
+    if (permissionCheck.code !== 'success' && selfDelete === false) {
         return permissionCheck
+    }
+    if (selfDelete === true) {
+        await db.collection('User').where({
+            openid: wxContext.OPENID,
+        }).get().then(res => {
+            info.userId = res.data[0]._id
+        })
     }
     return await db.collection('UserToActivity').where({
         userId: info.userId,
