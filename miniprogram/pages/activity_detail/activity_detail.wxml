@@ -67,10 +67,19 @@
 </view>
 
 <view wx:if="{{permission===0}}">
-  <view wx:if="{{!isAttend}}">
+  <view wx:if="{{isStart}}">
+    <button class="red">已开始</button>
+  </view>
+  <view wx:elif="{{!signable}}">
+    <button class="red">管理员设置不可报名</button>
+  </view>
+  <view wx:elif="{{isFull}}">
+    <button class="red">报名已满</button>
+  </view>
+  <view wx:elif="{{!isAttend}}">
     <button class="green" bindtap="attend">报名</button>
   </view>
-  <view wx:if="{{isAttend}}">
+  <view wx:elif="{{isAttend}}">
     <button class="blue" bindtap="cancel">取消报名</button>
   </view>
 </view>
@@ -78,6 +87,10 @@
   <button class="red">管理员无需报名</button>
 </view>
 <view wx:if="{{flag}}">
-  <button class="green">活动名单</button>
-  <button class="blue">编辑活动</button>
+  <navigator url="/pages/attenderlist/attenderlist?actid={{id}}">
+    <button class="green">活动名单</button>
+  </navigator>
+  <navigator url="/pages/createactivity/createactivity?actid={{id}}">
+    <button class="blue">编辑活动</button>
+  </navigator>
 </view>

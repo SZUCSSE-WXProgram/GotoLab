@@ -1,3 +1,4 @@
+/* pages/attenderlist/attenderlist.wxss */
 /* pages/usermanage/usermanage.wxss */
 .top{
   display: flex;
@@ -13,21 +14,6 @@
   font-weight: 600;
   flex: 1;
 }
-.search_row
-{
-  height: 60rpx;
-  width: 400rpx;
-  box-shadow: 1rpx 1rpx 15rpx #ddd;
-  border-radius: 20rpx;
-  margin: 10rpx;
-}
-input{
-  border-radius: 20rpx;
-  height: 100%;
-  background: rgb(235, 235, 235);
-  font-size: 28rpx;
-  padding-left: 30rpx;
-}
 .list{
   margin: 10rpx;
 }
@@ -42,9 +28,6 @@ input{
 }
 .name{
   flex: 1;
-}
-.stuid{
-  padding-right: 200rpx;
 }
 .actid{
   padding-right: 300rpx;

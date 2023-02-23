@@ -20,7 +20,7 @@ exports.main = async (event, context) => {
     let info = {
         activityId: event.info.activityId,
         userId: event.info.userId,
-        status: event.info.status,//1为遴选，0为取消遴选
+        status: event.info.status, //1为遴选，0为取消遴选
     }
     const checkResult = await validator.check(info, checkList.checkAttenderCheck);
     if (checkResult.code !== 'success') {

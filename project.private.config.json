@@ -149,6 +149,13 @@
           "query": "_id=987a453763f4ec0a01608d1a57b59051",
           "launchMode": "default",
           "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/activity_detail/activity_detail",
+          "query": "_id=93e4b6a063f739ec01b4f3af64bd57f0",
+          "launchMode": "default",
+          "scene": null
         }
       ]
     }

@@ -39,30 +39,34 @@ exports.main = async (event, context) => {
     }
     const _activity = await db.collection('Activity').doc(info._id).get()
     const changeableFields = ['name', 'intro', 'limit', 'signable', 'startTime', 'endTime', 'location', 'type']
+    for (let field of changeableFields) {
+      if (info[field] === undefined||info[field]===null||info[field]==="") {
+          info[field] = _activity.data[field]
+      }
+  }
+  if (isNaN(Date.parse(info.startTime)) || isNaN(Date.parse(info.endTime)) || new Date(info.endTime).toString() === 'Invalid Date' || new Date(info.startTime).toString() === 'Invalid Date') {
+    return {
+        status: 402,
+        code: 'fail',
+        des: '时间格式错误'
+    }
+  }
     try {
-        if (info.startTime !== undefined) {
             info.startTime = new Date(info.startTime)
-        }
-        if (info.endTime !== undefined) {
             info.endTime = new Date(info.endTime)
-        }
     } catch (e) {
         return {
             status: 402,
             code: 'fail',
-            msg: '时间格式错误'
+            des: '时间格式错误'
         }
     }
-    for (let field of changeableFields) {
-        if (info[field] === undefined) {
-            info[field] = _activity.data[field]
-        }
-    }
+    
     if (info.startTime >= info.endTime) {
         return {
             status: 402,
             code: 'fail',
-            msg: '开始时间不能晚于结束时间'
+            des: '开始时间不能晚于结束时间'
         }
     }
     const doc_id = info._id

@@ -1,0 +1,28 @@
+<!--pages/attenderlist/attenderlist.wxml-->
+<view class="top">
+  <view class="text">所有用户</view>
+</view>
+<view class="list">
+  <view class="head">
+    <view class="name weight">
+      姓名
+    </view>
+    <view class="actid weight">
+      学号
+    </view>
+  </view>
+  <view wx:for="{{users}}" wx:key="_id" class="head">
+    <view class="name font">
+      {{item.user.name}}
+    </view>
+    <view class="font">
+      {{item.user.stuid}}     |
+    </view>
+    <button wx:if="{{!item.status}}" class="butn blue" bindtap="choose" data-id="{{item.user._id}}" data-status="{{item.status}}">签到</button>
+    <button wx:if="{{item.status}}" class="butn green" bindtap="choose" data-id="{{item.user._id}}" data-status="{{item.status}}">退签</button>
+    <button class="butn red" bindtap="delete" data-id="{{item.user._id}}">删除</button>
+  </view>
+</view>
+
+
+

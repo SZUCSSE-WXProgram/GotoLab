@@ -10,14 +10,16 @@ Page({
     stime:"请选择时间",
     edate:"请选择日期",
     etime:"请选择时间",
-    intro:"",
-    limit:0,
-    position:"",
-    name:'',
+    intro:"请输入活动描述",
+    limit:'请输入活动名额',
+    position:"请输入活动地点",
+    name:'请输入活动名称',
     type:[],
     mytype:"请选择活动类型",
     index:'',
-    TypeArray:[]
+    TypeArray:[],
+    actid:0,
+    activity:[]
   },
   bindTypeChange: function(e) {
     this.setData({
@@ -110,6 +112,31 @@ Page({
       TypeArray:type
     })
   },
+  getactivity() {
+    wx.showLoading({
+      title: '加载中',
+    })
+    return new Promise((resolve, reject) => {
+      wx.cloud.callFunction({
+        name: 'activity',
+        data: {
+          type: "getActivityByID",
+          info: {
+            activityId: this.data.actid
+          }
+        },
+        success: (res) => {
+          this.setData({
+            activity: res.result.data,
+          })
+          wx.hideLoading({
+            success: (res) => {},
+          })
+          return resolve(res);
+        }
+      })
+    })
+  },
   /**
    * 生命周期函数--监听页面加载
    */
@@ -117,7 +144,22 @@ Page({
     await this.getList()
     this.createtype()
     this.setData({
-      group:options.id
+      group:options.id,
+      actid:options.actid
+    })
+    await this.getactivity()
+    if(this.data.actid!==0)
+    {
+      console.log(1)
+      this.setData({
+        group:this.data.activity.group._id,
+      })
+    }
+    this.setData({
+      name:this.data.activity.name,
+      limit:this.data.activity.limit,
+      position:this.data.activity.location,
+      intro:this.data.activity.intro
     })
   },
   create(){
@@ -143,9 +185,49 @@ Page({
         }
       },
       success:(res)=>{
-      
-        console.log(res)
-        
+        wx.hideLoading({
+          success: (res) => {},
+        })
+        wx.showToast({
+          title: res.result.des,
+          icon:'none',
+        })
+        if(res.result.code=="success"){
+          setTimeout(() => {
+            wx.navigateBack({
+              delta: 0,
+            })
+          }, 1000);
+        }
+        return resolve(res);
+      }
+    })
+  })
+  },
+  modify(){
+    var startTime=this.data.sdate+" "+this.data.stime;
+    var endTime=this.data.edate+" "+this.data.etime;
+    wx.showLoading({
+      title: '加载中',
+    })
+  return new Promise((resolve,reject)=>{
+    wx.cloud.callFunction({
+      name:'activity',
+      data:{
+        type: "modify",
+        info:{
+          _id:this.data.actid,
+          group: this.data.group,
+          name: this.data.name,
+          intro: this.data.intro,
+          limit: this.data.limit,
+          startTime: startTime,
+          endTime: endTime,
+          location: this.data.position,
+          type: this.data.index,
+        }
+      },
+      success:(res)=>{
         wx.hideLoading({
           success: (res) => {},
         })

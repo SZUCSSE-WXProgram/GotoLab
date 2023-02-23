@@ -5,12 +5,15 @@ Page({
    * 页面的初始数据
    */
   data: {
-    id:'',
-    mygroups:[],
+    id: '',
+    mygroups: [],
     activity: {},
     inAttend: true,
     permission: 0,
-    flag: false
+    flag: false,
+    isStart: false,
+    isFull: false,
+    signable: false
   },
   attend() {
     wx.cloud.callFunction({
@@ -31,24 +34,61 @@ Page({
       }
     })
   },
-  cancel(){
+  cancel() {
     wx.cloud.callFunction({
       name: 'activity',
       data: {
-        type: "deleteActivity",
+        type: "deleteAttender",
         info: {
           activityId: this.options._id
         }
       },
-      success:async (res) => {
+      success: async (res) => {
         await this.getList()
         this.setattend()
-        wx.showToast({
-          title: res.result.des,
-          icon: 'none'
-        })
+        console.log(res)
+        if (res.result.code === "success") {
+          wx.showToast({
+            title: "取消成功",
+          })
+        } else {
+          wx.showToast({
+            title: res.result.des,
+            icon: 'none'
+          })
+        }
       }
     })
+  },
+  setsignable() {
+    if (this.data.activity.attenders === Number(this.data.activity.limit)) {
+      this.setData({
+        isFull: true
+      })
+    } else {
+      this.setData({
+        isFull: false
+      })
+    }
+    var startTime = new Date(this.data.activity.startTime)
+    if (startTime < new Date()) {
+      this.setData({
+        isStart: true
+      })
+    } else {
+      this.setData({
+        isStart: false
+      })
+    }
+    if (this.data.activity.signable) {
+      this.setData({
+        signable: true
+      })
+    } else {
+      this.setData({
+        signable: false
+      })
+    }
   },
   getList() {
     wx.showLoading({
@@ -81,29 +121,21 @@ Page({
       })
     })
   },
-  setattend()
-  {
+  setattend() {
     if (String(this.data.activity.isAttend) === "-1")
-    this.setData({
-      isAttend: false
-    })
+      this.setData({
+        isAttend: false
+      })
     if (String(this.data.activity.isAttend) === "0")
-    this.setData({
-      isAttend: true
-    })
+      this.setData({
+        isAttend: true
+      })
   },
   /**
    * 生命周期函数--监听页面加载
    */
-  async onLoad(options) {
-    this.setData({
-      id: options._id,
-      permission: wx.getStorageSync('myself').permission,
-      mygroups: wx.getStorageSync('myself').groups
-    })
-    await this.getList()
-   this.setattend()
-      this.setflag()
+  onLoad(options) {
+    
   },
   setflag() {
     if (this.data.permission === 0) {
@@ -139,8 +171,16 @@ Page({
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow() {
-
+  async onShow() {
+    this.setData({
+      id: this.options._id,
+      permission: wx.getStorageSync('myself').permission,
+      mygroups: wx.getStorageSync('myself').groups
+    })
+    await this.getList()
+    this.setattend()
+    this.setflag()
+    this.setsignable()
   },
 
   /**
