@@ -30,7 +30,12 @@ exports.main = async (event, context) => {
     }
     const permissionCheck = await permission.isActivityAdmin(info.activityId)
     // 既没有管理员权限也不是本人参与的活动
-    if (permissionCheck.code !== 'success' && info.userId !== wxContext.OPENID) {
+    const currentUser = await db.collection('User').where({
+        openid: wxContext.OPENID,
+    }).get().then(res => {
+        return res.data[0]
+    })
+    if (permissionCheck.code !== 'success' && info.userId !== currentUser._id) {
         return permissionCheck
     }
     return await db.collection('UserToActivity').where({
