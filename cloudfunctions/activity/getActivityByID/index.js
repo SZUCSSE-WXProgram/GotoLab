@@ -38,7 +38,7 @@ exports.main = async (event, context) => {
     })
     return await db.collection('Activity').aggregate()
         .match({
-            _id: event.info.activityID
+            _id: event.info.activityId
         })
         .lookup({
             from: 'Group',
