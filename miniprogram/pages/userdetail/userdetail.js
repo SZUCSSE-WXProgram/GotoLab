@@ -5,6 +5,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    TypeArray:['学生','研究所管理员','超级管理员'],
     mypermission: false,
     multiArray: [],
     multiIndex: [0, 0],
@@ -13,7 +14,7 @@ Page({
     name: '',
     id: '',
     phone: '',
-    permission: '',
+    permission:'',
     _class: '',
     _grade: '',
     _id: '',
@@ -44,12 +45,9 @@ Page({
       phone: value
     })
   },
-  handleInputPermission(e) {
-    const {
-      value
-    } = e.detail;
+  bindTypeChange: function(e) {console.log(e)
     this.setData({
-      permission: value
+      permission:e.detail.value,
     })
   },
   getClass() {
