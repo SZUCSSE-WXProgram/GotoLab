@@ -40,20 +40,20 @@ exports.main = async (event, context) => {
     const _activity = await db.collection('Activity').doc(info._id).get()
     const changeableFields = ['name', 'intro', 'limit', 'signable', 'startTime', 'endTime', 'location', 'type']
     for (let field of changeableFields) {
-      if (info[field] === undefined||info[field]===null||info[field]==="") {
-          info[field] = _activity.data[field]
-      }
-  }
-  if (isNaN(Date.parse(info.startTime)) || isNaN(Date.parse(info.endTime)) || new Date(info.endTime).toString() === 'Invalid Date' || new Date(info.startTime).toString() === 'Invalid Date') {
-    return {
-        status: 402,
-        code: 'fail',
-        des: '时间格式错误'
+        if (info[field] === undefined || info[field] === null || info[field] === "") {
+            info[field] = _activity.data[field]
+        }
     }
-  }
+    if (isNaN(Date.parse(info.startTime)) || isNaN(Date.parse(info.endTime)) || new Date(info.endTime).toString() === 'Invalid Date' || new Date(info.startTime).toString() === 'Invalid Date') {
+        return {
+            status: 402,
+            code: 'fail',
+            des: '时间格式错误'
+        }
+    }
     try {
-            info.startTime = new Date(info.startTime)
-            info.endTime = new Date(info.endTime)
+        info.startTime = new Date(info.startTime)
+        info.endTime = new Date(info.endTime)
     } catch (e) {
         return {
             status: 402,
@@ -61,7 +61,7 @@ exports.main = async (event, context) => {
             des: '时间格式错误'
         }
     }
-    
+
     if (info.startTime >= info.endTime) {
         return {
             status: 402,
@@ -79,7 +79,6 @@ exports.main = async (event, context) => {
             code: 'success',
             des: '修改成功',
             status: 200,
-            info: res,
         }
     }).catch(e => {
         return {

@@ -21,6 +21,7 @@ exports.main = async (event, context) => {
         phone: event.info.phone,
         class: event.info.class,
         openid: wxContext.OPENID,
+        email: event.info.email,
     }
     const checkResult = await validator.check(info, checkList.registerCheck);
     if (checkResult.code !== 'success') {
@@ -34,15 +35,14 @@ exports.main = async (event, context) => {
             phone: info.phone,
             permission: 0,
             class: info.class,
+            email: info.email,
             groups: [],
         }
     }).then(res => {
-        console.log(res)
         return {
             code: 'success',
             des: '注册成功',
             status: 200,
-            info: res,
         }
     }).catch(e => {
         return {

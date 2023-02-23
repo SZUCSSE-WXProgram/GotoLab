@@ -11,15 +11,11 @@ cloud.init({
 const db = cloud.database({
     throwOnNotFound: false
 })
-const changeableItems = ['name', 'stuid', 'phone', 'class']
+const changeableItems = ['name', 'stuid', 'phone', 'class', 'email']
 const _ = db.command;
 // 云函数入口函数
 exports.main = async (event, context) => {
     const wxContext = cloud.getWXContext()
-    const permissionCheck = await permission.isNotStudent()
-    if (permissionCheck.code === 'fail') {
-        return permissionCheck;
-    }
     let info = {}
     for (let items of changeableItems) {
         if (event.info[items] && event.info[items] !== undefined && event.info[items] !== '') {

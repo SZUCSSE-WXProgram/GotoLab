@@ -18,7 +18,8 @@ exports.registerCheck = {
     name: {des: '姓名', type: 'string', required: true, minLength: 2, maxLength: 10},
     phone: {des: '手机号', type: 'string', required: true, minLength: 11, maxLength: 11, validator: [isNumber]},
     class: {des: '班级', type: 'string', required: true, validator: [validateClass]},
-    openid: {des: '用户ID', type: 'string', required: true, validator: [uniqueOpenid]}
+    openid: {des: '用户ID', type: 'string', required: true, validator: [uniqueOpenid]},
+    email: {des: '邮箱', type: 'string', required: true, validator: [validateEmail]}
 }
 
 exports.modifyCheck = {
@@ -33,6 +34,7 @@ exports.modifyCheck = {
     name: {des: '姓名', type: 'string', required: false, minLength: 2, maxLength: 10},
     phone: {des: '手机号', type: 'string', required: false, minLength: 11, maxLength: 11, validator: [isNumber]},
     class: {des: '班级', type: 'string', required: false, validator: [validateClass]},
+    email: {des: '邮箱', type: 'string', required: false, validator: [validateEmail]}
 
 }
 
@@ -42,7 +44,8 @@ exports.manageUserCheck = {
     name: {des: '姓名', type: 'string', required: false, minLength: 2, maxLength: 10},
     phone: {des: '手机号', type: 'string', required: false, minLength: 11, maxLength: 11, validator: [isNumber]},
     class: {des: '班级', type: 'string', required: false, validator: [validateClass]},
-    permission: {des: '权限', type: 'enum', required: false, range: [0, 1, 2]}
+    permission: {des: '权限', type: 'enum', required: false, range: [0, 1, 2]},
+    email: {des: '邮箱', type: 'string', required: false, validator: [validateEmail]}
 }
 
 async function uniqueStuid(stuid) {
@@ -131,6 +134,22 @@ async function validateStu_id(_id) {
             code: 'fail',
             des: '该学生不存在',
             status: 402,
+        }
+    }
+}
+
+async function validateEmail(email) {
+    const reg = /^(\w-*\.*)+@(\w-?)+(\.\w{2,})+$/;
+    if (reg.test(email)) {
+        return {
+            code: 'success',
+            status: 200,
+        }
+    } else {
+        return {
+            code: 'fail',
+            status: 402,
+            des: '邮箱格式不正确'
         }
     }
 }

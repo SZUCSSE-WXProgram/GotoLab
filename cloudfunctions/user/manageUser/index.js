@@ -13,7 +13,7 @@ const db = cloud.database({
 })
 const _ = db.command;
 const $ = _.aggregate
-const changeableItems = ['name', 'stuid', 'phone', 'class', 'permission', 'docid']
+const changeableItems = ['name', 'stuid', 'phone', 'class', 'permission', 'docid','email']
 
 // 云函数入口函数
 exports.main = async (event, context) => {
