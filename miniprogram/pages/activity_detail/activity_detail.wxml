@@ -6,65 +6,78 @@
   </view>
 </view>
 <view class="body">
-    <view class="item">
-      <view class="left iconfont icon-all:before">
+  <view class="item">
+    <view class="left iconfont icon-all:before">
       活动类别
-      </view>
-      <view class="right">
-        {{activity.type.typeName}}
-      </view>
     </view>
-    <view class="item">
-      <view class="left iconfont icon--Manager">
+    <view class="right">
+      {{activity.type.typeName}}
+    </view>
+  </view>
+  <view class="item">
+    <view class="left iconfont icon--Manager">
       发布人
-      </view>
-      <view class="right">
-        {{activity.creator.name}}
-      </view>
     </view>
-    <view class="item">
-      <view class="left iconfont icon-yonghuyanjiusuo">
+    <view class="right">
+      {{activity.creator.name}}
+    </view>
+  </view>
+  <view class="item">
+    <view class="left iconfont icon-yonghuyanjiusuo">
       研究所
-      </view>
-      <view class="right">
-        {{activity.group.groupName}}
-      </view>
     </view>
-    <view class="item">
-      <view class="left iconfont icon-nav_icon_zhiduguanli">
+    <view class="right">
+      {{activity.group.groupName}}
+    </view>
+  </view>
+  <view class="item">
+    <view class="left iconfont icon-nav_icon_zhiduguanli">
       活动名额
-      </view>
-      <view class="right">
-        {{activity.attenders}}/{{activity.limit}}
-      </view>
     </view>
-    <view class="item">
-      <view class="left iconfont icon-map">
+    <view class="right">
+      {{activity.attenders}}/{{activity.limit}}
+    </view>
+  </view>
+  <view class="item">
+    <view class="left iconfont icon-map">
       地点
-      </view>
-      <view class="right">
-        {{activity.location}}
-      </view>
     </view>
-    <view class="item">
-      <view class="left iconfont icon-shizhong">
+    <view class="right">
+      {{activity.location}}
+    </view>
+  </view>
+  <view class="item">
+    <view class="left iconfont icon-shizhong">
       开始时间
-      </view>
-      <view class="right">
-        {{activity.startTime}}
-      </view>
     </view>
-    <view class="item">
-      <view class="left iconfont icon-shizhong1">
+    <view class="right">
+      {{activity.startTime}}
+    </view>
+  </view>
+  <view class="item">
+    <view class="left iconfont icon-shizhong1">
       结束时间
-      </view>
-      <view class="right">
-        {{activity.endTime}}
-      </view>
     </view>
-    <view class="item intro-h">活动描述</view>
-    <view class="item intro">{{activity.intro}}</view>
+    <view class="right">
+      {{activity.endTime}}
+    </view>
   </view>
-  <view>
-    <button class="red">yiman+</button>
+  <view class="item intro-h">活动描述</view>
+  <view class="item intro">{{activity.intro}}</view>
+</view>
+
+<view wx:if="{{permission===0}}">
+  <view wx:if="{{!isAttend}}">
+    <button class="green" bindtap="attend">报名</button>
   </view>
+  <view wx:if="{{isAttend}}">
+    <button class="blue" bindtap="cancel">取消报名</button>
+  </view>
+</view>
+<view wx:if="{{(permission===1)&&!flag}}">
+  <button class="red">管理员无需报名</button>
+</view>
+<view wx:if="{{flag}}">
+  <button class="green">活动名单</button>
+  <button class="blue">编辑活动</button>
+</view>

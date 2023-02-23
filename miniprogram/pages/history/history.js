@@ -26,12 +26,20 @@ Page({
           }
         },
         success:(res)=>{
-          console.log(res)
+          let offset=this.data.offset
           this.setData({
             activity:[...this.data.activity,...res.result.data],
             hasMore:res.result.hasMore,
             offset:this.data.offset+this.data.limit
           })
+          let act=this.data.activity
+          for (let index = Number(offset); index < act.length; index++) {
+            act[index].startTime=act[index].startTime.slice(0,10)+' '+act[index].startTime.slice(11,16)
+            act[index].endTime=act[index].endTime.slice(0,10)+' '+act[index].endTime.slice(11,16)
+          }
+          this.setData({
+              activity:act
+            }) 
           wx.hideLoading({
             success: (res) => {},
           })

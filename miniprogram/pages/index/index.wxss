@@ -1,11 +1,9 @@
 .indexswp swiper{
   margin-top: 20rpx;
-  width: 750rpx;
   height: 340rpx;
-  position: relative;
 }
 
-.indexswp swiper image{
+image{
   width: 100%;
 }
 .indexswp swiper view{

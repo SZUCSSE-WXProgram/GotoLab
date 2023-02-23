@@ -2,7 +2,7 @@
 <view>
   <view class="nav-son">
     <view class="flex">{{group.groupName}}</view>
-    <view wx:if="{{permission!=0}}" class="iconfont icon-shezhi" bindtap="listpx"></view>
+    <view wx:if="{{flag}}" class="iconfont icon-shezhi" bindtap="listpx"></view>
   </view>
   <view class="temp {{pxopen ? 'slidown' : 'slidup'}} {{pxshow ? 'disappear':''}}">
     <navigator url="/pages/createactivity/createactivity?id={{group._id}}">
