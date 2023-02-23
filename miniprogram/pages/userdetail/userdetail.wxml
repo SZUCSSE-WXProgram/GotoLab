@@ -19,11 +19,17 @@
 		</view>
 		<input type="text" placeholder="{{phone}}" bindinput="handleInputPhone" />
 	</view>
-  <view class="item" wx:if="{{mypermission}}">
-		<view class="left iconfont icon-quanxian">
-			权限
-		</view>
-		<input type="text" placeholder="{{permission}}" bindinput="handleInputPermission" />
+  <view class="section" wx:if="{{!flag}}">
+    <picker mode="selector" range="{{TypeArray}}" bindchange="bindTypeChange">
+      <view class="item">
+				<view class="left iconfont icon-quanxian">
+		    	权限
+		    </view>
+				<view class="picker">
+					{{TypeArray[permission]}}
+				</view>
+			</view>	
+      </picker>
 	</view>
 	<view class="section">
 		<picker header-text="班级" mode="multiSelector" bindchange="bindMultiPickerChange" bindcolumnchange="bindMultiPickerColumnChange" value="{{multiIndex}}" range="{{multiArray}}">
