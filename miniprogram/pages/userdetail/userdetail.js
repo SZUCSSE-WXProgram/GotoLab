@@ -20,6 +20,7 @@ Page({
     _id: '',
     flag:false,
     change:'',
+    email:''
   },
   handleInputName(e) {
     const {
@@ -43,6 +44,14 @@ Page({
     } = e.detail;
     this.setData({
       phone: value
+    })
+  },
+  handleInputEmail(e) {
+    const {
+      value
+    } = e.detail;
+    this.setData({
+      email: value
     })
   },
   bindTypeChange: function(e) {console.log(e)
@@ -127,6 +136,7 @@ Page({
               name: this.data.name,
               phone: this.data.phone,
               class: this.data._class,
+              email:this.data.email
             }
           },
           success:async (res) => {
@@ -164,7 +174,8 @@ Page({
               name: this.data.name,
               phone: this.data.phone,
               class: this.data._class,
-              permission: this.data.permission
+              permission: this.data.permission,
+              email:this.data.email
             }
           },
           success:async (res) => {
@@ -204,6 +215,7 @@ Page({
             name: this.data.name,
             phone: this.data.phone,
             class: this.data._class,
+            email:this.data.email
           }
         },
         success:async (res) => {
@@ -265,6 +277,7 @@ Page({
       change:options.permission,
       _id: options._id,
       flag:options.flag,
+      email:options.email,
       mypermission: wx.getStorageSync('myself').permission === 2
     })
   },

@@ -21,6 +21,12 @@
 		</view>
 		<input type="text" bindinput="handleInputPhone" />
 	</view>
+  <view class="item">
+		<view class="left iconfont icon-dianhua">
+			邮箱
+		</view>
+		<input type="text" bindinput="handleInputEmail" />
+	</view>
 	<view class="section">
 		<picker header-text="班级" mode="multiSelector" bindchange="bindMultiPickerChange" bindcolumnchange="bindMultiPickerColumnChange" value="{{multiIndex}}" range="{{multiArray}}">
 			<view class="item">

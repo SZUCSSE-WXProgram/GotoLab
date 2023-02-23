@@ -1,6 +1,6 @@
 <!--pages/user/user.wxml-->
 <view class="head">
-  <image class="avatar" src="{{avatar}}"></image>
+  <image class="avatar" src="../../images/avatar.svg"></image>
   <view class="name">{{myself.name}}</view>
   <view wx:if="{{type0}}" class="contain">{{myself.stuid}}</view>
   <view wx:if="{{type0}}" class="contain">{{myself.grade.gradeName}}{{myself.class.className}}</view>
@@ -32,7 +32,7 @@
     <view class="itemname iconfont icon-leixing"> 活动类型管理</view>
     <view class="iconfont icon-chevron-right"></view>
   </navigator>
-  <navigator wx:if="{{type1||type2}}" url="/pages/userdetail/userdetail?name={{myself.name}}&permission={{myself.permission}}&id={{myself.stuid}}&phone={{myself.phone}}&flag=true">
+  <navigator wx:if="{{type1||type2}}" url="/pages/userdetail/userdetail?name={{myself.name}}&permission={{myself.permission}}&id={{myself.stuid}}&phone={{myself.phone}}&email={{myself.email}}&flag=true">
     <view class="itemname iconfont icon-xiugai"> 修改个人信息</view>
     <view class="iconfont icon-chevron-right"></view>
   </navigator>

@@ -11,3 +11,6 @@ button{
 	margin: 70rpx;
 	color: #fff;
 }
+input{
+  width: 500rpx;
+}

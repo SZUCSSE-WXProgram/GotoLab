@@ -46,7 +46,6 @@ Page({
   onShow() {
     
     this.setData({
-      avatar: wx.getStorageSync('userInfo').avatarUrl,
       myself: wx.getStorageSync('myself'),
       type0: wx.getStorageSync('myself').permission === 0,
       type1: wx.getStorageSync('myself').permission === 1,
