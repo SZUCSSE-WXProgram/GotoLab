@@ -72,9 +72,9 @@ Page({
         console.log(res)
         if(res.result.code=="success"){
           setTimeout(() => {
-            wx.navigateTo({
-            url: '/pages/mygroup/mygroup',
-          })
+            wx.navigateBack({
+              delta: 0,
+            })
           }, 2000);
         }
       }

@@ -1,1 +1,33 @@
-/* pages/modifygroup/modifygroup.wxss */
+/* pages/creategroup/creategroup.wxss */
+.item{
+	border-bottom:2rpx solid rgb(235, 234, 234) ;
+	padding: 25rpx 25rpx;
+  }
+  .flex{
+    display: flex;
+  }
+.left{
+	width: 200rpx;
+}
+.img{
+  right: 200rpx;
+  height: 300rpx;
+  width: 300rpx;
+  background-color: rgb(222, 222, 222);
+  line-height: 300rpx;
+  margin-top: 20rpx;
+  color: gray;
+}
+.btn{
+  margin: 30rpx 70rpx;
+  color: #fff;
+}
+.red{
+  background-color: rgb(235, 84, 77);
+}
+.green{
+  background-color: rgb(88, 190, 106);
+}
+.blue{
+  background-color: rgb(82, 151, 247);
+}

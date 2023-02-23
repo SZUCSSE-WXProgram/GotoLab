@@ -12,7 +12,7 @@ const db = cloud.database({
     throwOnNotFound: false
 })
 const changeableItems = ['name', 'stuid', 'phone', 'class']
-
+const _ = db.command;
 // 云函数入口函数
 exports.main = async (event, context) => {
     const wxContext = cloud.getWXContext()
@@ -36,6 +36,17 @@ exports.main = async (event, context) => {
     const checkResult = await validator.check(info, checkList.modifyCheck);
     if (checkResult.code !== 'success') {
         return checkResult;
+    }
+    const stuidCheck = await db.collection('User').where({
+        stuid: info.stuid,
+        openid: _.neq(wxContext.OPENID),
+    }).count()
+    if (stuidCheck.total > 0) {
+        return {
+            code: 'fail',
+            des: '学号已存在！',
+            status: 402,
+        }
     }
     return await db.collection('User').where({
         openid: wxContext.OPENID

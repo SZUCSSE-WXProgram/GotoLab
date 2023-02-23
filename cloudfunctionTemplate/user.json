@@ -42,5 +42,17 @@
     "value": {
       "type": "getMyself"
     }
+  },
+  {
+    "name": "user.modify",
+    "value": {
+      "type": "modify",
+      "info": {
+        "stuid": "2019284073",
+        "name": "董芸豪",
+        "phone": "18312345415",
+        "class": "a9ad01ce638e057d0134d1bd5fb7ecc6"
+      }
+    }
   }
 ]

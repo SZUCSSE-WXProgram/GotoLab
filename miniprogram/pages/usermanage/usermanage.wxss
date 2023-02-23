@@ -6,6 +6,7 @@
   margin-left: 10rpx;
   border-bottom: 2rpx solid rgb(220, 220, 220);
   height: 70rpx;
+  background-color: white;
 }
 .text{
   font-size: 40rpx;
@@ -15,7 +16,7 @@
 .search_row
 {
   height: 60rpx;
-  width: 450rpx;
+  width: 400rpx;
   box-shadow: 1rpx 1rpx 15rpx #ddd;
   border-radius: 20rpx;
   margin: 10rpx;
@@ -23,7 +24,7 @@
 input{
   border-radius: 20rpx;
   height: 100%;
-  background: rgb(230, 230, 230);
+  background: rgb(235, 235, 235);
   font-size: 28rpx;
   padding-left: 30rpx;
 }
@@ -32,7 +33,7 @@ input{
 }
 .head{
   display: flex;
-  background-color: rgb(230, 230, 230);
+  background-color: white;
   height: 70rpx;
   padding: 10rpx;
   align-items: center;
@@ -40,7 +41,6 @@ input{
   border-radius: 5rpx;
 }
 .name{
-  display: flex;
   flex: 1;
 }
 .stuid{
@@ -54,11 +54,13 @@ input{
 	font-weight: 600;
 }
 .butn{
-	height: 100%;
-	width: 110rpx;
-	font-size: 28rpx;
-	padding: 0;
+	height: 60rpx;
+	width: 80rpx;
+	font-size: 26rpx;
+  padding: 0;
+  margin-left: 20rpx;
 	justify-content: center;
 	align-items: center;
-	line-height: 70rpx;
+  line-height: 60rpx;
+  color: white;
   }

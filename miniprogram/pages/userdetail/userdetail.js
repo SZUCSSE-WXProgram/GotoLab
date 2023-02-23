@@ -16,7 +16,9 @@ Page({
     permission: '',
     _class: '',
     _grade: '',
-    _id: ''
+    _id: '',
+    flag:false,
+    change:'',
   },
   handleInputName(e) {
     const {
@@ -114,41 +116,84 @@ Page({
     })
   },
   manage() {
-    return new Promise((resolve, reject) => {
-      wx.cloud.callFunction({
-        name: 'user',
-        data: {
-          type: "manageUser",
-          info: {
-            docid: this.data._id,
-            stuid: this.data.id,
-            name: this.data.name,
-            phone: this.data.phone,
-            class: this.data._class,
-            permission: this.data.permission
+    if(this.data.change===this.data.permission)
+    {
+      return new Promise((resolve, reject) => {
+        wx.cloud.callFunction({
+          name: 'user',
+          data: {
+            type: "manageUser",
+            info: {
+              docid: this.data._id,
+              stuid: this.data.id,
+              name: this.data.name,
+              phone: this.data.phone,
+              class: this.data._class,
+            }
+          },
+          success:async (res) => {
+            await this.getMyself()
+            if (res.result.code === "fail") {
+              wx.showToast({
+                title: res.result.des,
+                icon: 'none',
+                duration: 2000
+              })
+            } else {
+              wx.navigateBack({
+                delta: 0,
+              })
+              wx.showToast({
+                title: res.result.des,
+                icon: 'none',
+                duration: 2000
+              })
+            }
+            return resolve(res);
           }
-        },
-        success: (res) => {
-          if (res.result.code === "fail") {
-            wx.showToast({
-              title: res.result.des,
-              icon: 'none',
-              duration: 2000
-            })
-          } else {
-            wx.navigateBack({
-              delta: 0,
-            })
-            wx.showToast({
-              title: res.result.des,
-              icon: 'none',
-              duration: 2000
-            })
-          }
-          return resolve(res);
-        }
+        })
       })
-    })
+    }
+    else{
+      return new Promise((resolve, reject) => {
+        wx.cloud.callFunction({
+          name: 'user',
+          data: {
+            type: "manageUser",
+            info: {
+              docid: this.data._id,
+              stuid: this.data.id,
+              name: this.data.name,
+              phone: this.data.phone,
+              class: this.data._class,
+              permission: this.data.permission
+            }
+          },
+          success:async (res) => {
+            await this.getMyself()
+            if (res.result.code === "fail") {
+              wx.showToast({
+                title: res.result.des,
+                icon: 'none',
+                duration: 2000
+              })
+            } else {
+              wx.navigateBack({
+                delta: 0,
+              })
+              wx.showToast({
+                title: res.result.des,
+                icon: 'none',
+                duration: 2000
+              })
+            }
+            return resolve(res);
+          }
+        })
+      })
+    }
+    
+    
   },
   modify() {
     return new Promise((resolve, reject) => {
@@ -163,7 +208,8 @@ Page({
             class: this.data._class,
           }
         },
-        success: (res) => {
+        success:async (res) => {
+         await this.getMyself()
           if (res.result.code === "fail") {
             wx.showToast({
               title: res.result.des,
@@ -201,12 +247,11 @@ Page({
   })
   },
   click() {
-    if (this.data.mypermission) {
-      this.manage()
-    } else {
+    if (this.data.flag) {
       this.modify()
+    } else {
+      this.manage()
     }
-    this.getMyself()
   },
   /**
    * 生命周期函数--监听页面加载
@@ -219,7 +264,9 @@ Page({
       id: options.id,
       phone: options.phone,
       permission: options.permission,
+      change:options.permission,
       _id: options._id,
+      flag:options.flag,
       mypermission: wx.getStorageSync('myself').permission === 2
     })
   },

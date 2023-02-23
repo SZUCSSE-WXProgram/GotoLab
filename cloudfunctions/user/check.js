@@ -46,22 +46,23 @@ exports.manageUserCheck = {
 }
 
 async function uniqueStuid(stuid) {
-    const _cnt = await db.collection('User').where({
+    return await db.collection('User').where({
         stuid: stuid,
         openid: _.neq(wxContext.OPENID)
-    }).count()
-    if (_cnt.total === 0) {
-        return {
-            code: 'success',
-            status: 200,
+    }).count().then(res => {
+        if (res.total === 0) {
+            return {
+                code: 'success',
+                status: 200,
+            }
+        } else {
+            return {
+                code: 'fail',
+                status: 402,
+                des: '该学号已经被注册了'
+            }
         }
-    } else {
-        return {
-            code: 'fail',
-            status: 402,
-            des: '该学号已经被注册了'
-        }
-    }
+    })
 }
 
 async function isNumber(str) {

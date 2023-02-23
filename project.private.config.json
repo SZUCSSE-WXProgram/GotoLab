@@ -121,6 +121,27 @@
           "query": "",
           "launchMode": "default",
           "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/groupadmin/groupadmin",
+          "query": "id=f80c64da63934b580140309c62346f93",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/groupintro/groupintro",
+          "query": "_id=f80c64da63934b580140309c62346f93",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/groupintro/groupintro",
+          "query": "_id=80eed14863934dc70121272a05416cab",
+          "launchMode": "default",
+          "scene": null
         }
       ]
     }

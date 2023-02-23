@@ -8,7 +8,8 @@ Page({
     users:[],
     hasMore:true,
     offset:0,
-    limit:15
+    limit:15,
+    id:0
   },
   async handleInput(e){
     const {value}=e.detail;
@@ -44,11 +45,55 @@ Page({
       }
     })
   },
+  create(e){
+    wx.showLoading({
+      title: '加载中',
+    })
+    return new Promise((resolve, reject) => {
+      wx.cloud.callFunction({
+        name: 'group',
+        data: {
+          type: "addGroupAdmin",
+          info: {
+            groupId: this.data.id,
+            userId:e.currentTarget.dataset.id
+          }
+        },
+        success: (res) => {
+          wx.hideLoading({
+            success: (res) => {},
+          })
+          if(res.result.code=="success"){
+            wx.showToast({
+              title: '添加成功',
+              duration:2000
+            })
+            setTimeout(() => {
+              wx.navigateBack({
+                delta: 0,
+              })
+            }, 1000);
+          }
+          else{
+            wx.showToast({
+              title: res.result.des,
+              icon:'none',
+              duration:2000
+            })
+          }
+          return resolve(res);
+        }
+      })
+    })
+  },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
-    this.getUser('')
+    
+    this.setData({
+      id:options.id
+    })
   },
 
   /**
@@ -62,7 +107,13 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow() {
-
+    this.setData({
+      users:[],
+    hasMore:true,
+    offset:0,
+    limit:15,
+    })
+    this.getUser('')
   },
 
   /**

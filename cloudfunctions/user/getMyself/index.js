@@ -9,7 +9,7 @@ cloud.init({
 const db = cloud.database({
     throwOnNotFound: true
 })
-
+const _ = db.command;
 // 云函数入口函数
 exports.main = async (event, context) => {
     const wxContext = cloud.getWXContext()
@@ -28,7 +28,17 @@ exports.main = async (event, context) => {
             foreignField: '_id',
             as: 'grade',
         })
-        .end().then(res => {
+        .end().then(async res => {
+            if (res.list[0].permission === 1) {
+                await db.collection('Group').where({
+                    _id: _.in(res.list[0].groups)
+                }).field({
+                    groupName: true,
+                    _id: true
+                }).get().then(_groups => {
+                    res.list[0].groups = _groups.data
+                })
+            }
             if (res.list.length === 0) {
                 return {
                     code: 'success',
