@@ -5,14 +5,14 @@
     <view wx:if="{{flag}}" class="iconfont icon-shezhi" bindtap="listpx"></view>
   </view>
   <view class="temp {{pxopen ? 'slidown' : 'slidup'}} {{pxshow ? 'disappear':''}}">
-    <navigator url="/pages/createactivity/createactivity?id={{group._id}}">
-      >发布活动
+    <navigator url="/pages/createactivity/createactivity?id={{group._id}}" class="iconfont icon-fabu1">
+      发布活动
     </navigator>
-    <navigator url="/pages/groupadmin/groupadmin?id={{group._id}}">
-      >管理员列表
+    <navigator url="/pages/groupadmin/groupadmin?id={{group._id}}" class="iconfont icon-liebiao">
+      管理员列表
     </navigator>
-    <navigator url="/pages/modifygroup/modifygroup?id={{group._id}}">
-      >编辑研究所信息
+    <navigator url="/pages/modifygroup/modifygroup?id={{group._id}}" class="iconfont icon-fabu">
+      编辑研究所信息
     </navigator>
   </view>
 </view>

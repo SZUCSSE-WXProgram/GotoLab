@@ -156,6 +156,13 @@
           "query": "_id=93e4b6a063f739ec01b4f3af64bd57f0",
           "launchMode": "default",
           "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/usermanage/usermanage",
+          "query": "id=f80c64da63934b580140309c62346f93",
+          "launchMode": "default",
+          "scene": null
         }
       ]
     }

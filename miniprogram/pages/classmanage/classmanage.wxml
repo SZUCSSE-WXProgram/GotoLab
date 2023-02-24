@@ -2,7 +2,7 @@
 <view class="title">班级管理</view>
 <view class="body">
   <view class="part" wx:for="{{class}}" wx:key="_id" >
-    <view class="grade">
+    <view class="grade" bindtap="modifygrade" data-grade="{{item._id}}">
       {{item.gradeName}}
     </view>
     <view class="class">

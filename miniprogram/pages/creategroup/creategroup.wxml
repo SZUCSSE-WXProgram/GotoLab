@@ -17,10 +17,9 @@
 		<view class="left iconfont icon-tupian">
 			图片
 		</view>
-    <button class="img" bindtap="click">
-      <view wx:if="{{!finish}}">上传图片</view>
-      <view wx:if="{{finish}}">上传成功</view>
-    </button>
+
+    <button class="img" wx:if="{{!finish}}" bindtap="click">上传图片</button>
+    <image class="img" wx:if="{{finish}}" src="{{url}}"></image>
   </view>
 </view>
 <button class="btn blue" bindtap="create">

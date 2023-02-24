@@ -8,7 +8,8 @@ Page({
     name:'',
     intro:'',
     img:'',
-    finish:false
+    finish:false,
+    url:''
   },
   handleInputName(e) {
 		const {
@@ -38,7 +39,8 @@ Page({
         let imge=wx.getFileSystemManager().readFileSync(tempFilePaths,'base64');
         this.setData({
           img:'data:image/'+format+';base64,'+imge,
-          finish:true
+          finish:true,
+          url:tempFilePaths
         })
         wx.showToast({
           title: '上传成功',

@@ -9,7 +9,8 @@ Page({
     hasMore: true,
     offset: 0,
     limit: 15,
-    id: 0
+    id: 0,
+    oldpermission: ''
   },
   handleInput(e) {
     const {
@@ -47,12 +48,12 @@ Page({
       }
     })
   },
-  addAdmin(e){
+  addAdmin(e) {
     wx.showModal({
       title: '系统提示',
       content: '确认要添加吗？',
       cancelColor: 'cancelColor',
-      success: async (res)=> {
+      success: async (res) => {
         if (res.confirm) {
           this.create(e)
         }
@@ -105,6 +106,7 @@ Page({
   onLoad(options) {
     this.setData({
       id: options.id,
+      oldpermission: wx.getStorageSync('myself').permission
     })
   },
 
@@ -124,9 +126,10 @@ Page({
       hasMore: true,
       offset: 0,
       limit: 15,
+
     })
     this.getUser('')
-    if (wx.getStorageSync('myself').permission !== 2) {
+    if (this.data.oldpermission === 2 && wx.getStorageSync('myself').permission !== 2) {
       wx.navigateBack({
         delta: 0,
       })

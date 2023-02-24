@@ -90,7 +90,7 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  async onLoad(options) {
+  onLoad(options) {
     wx.showLoading({
       title: '加载中',
       }),
@@ -111,8 +111,7 @@ Page({
         // }
       },
     })
-    await this.getList();
-    this.setValue();
+
   },
 
   /**
@@ -125,8 +124,16 @@ Page({
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow() {
-
+  async onShow() {
+    this.setData({
+      activity:[],
+      hasMore:true,
+      offset:0,
+      limit:5,
+      value:"",
+    })
+    await this.getList();
+    this.setValue();
   },
 
   /**

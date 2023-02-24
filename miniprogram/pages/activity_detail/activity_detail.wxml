@@ -93,4 +93,7 @@
   <navigator url="/pages/createactivity/createactivity?actid={{id}}">
     <button class="blue">编辑活动</button>
   </navigator>
+  <navigator>
+    <button class="red" bindtap="delete">删除活动</button>
+  </navigator>
 </view>

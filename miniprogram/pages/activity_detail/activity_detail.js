@@ -60,6 +60,28 @@ Page({
       }
     })
   },
+  delete() {
+    wx.cloud.callFunction({
+      name: 'activity',
+      data: {
+        type: "deleteActivity",
+        info: {
+          activityId: this.options._id
+        }
+      },
+      success: (res) => {
+        wx.showToast({
+          title: res.result.des,
+          icon: 'none'
+        })
+        if (res.result.code === "success") {
+          wx.navigateBack({
+            delta: 0,
+          })
+        }
+      }
+    })
+  },
   setsignable() {
     if (this.data.activity.attenders === Number(this.data.activity.limit)) {
       this.setData({
@@ -135,7 +157,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
-    
+
   },
   setflag() {
     if (this.data.permission === 0) {
@@ -143,18 +165,21 @@ Page({
         flag: false
       })
     } else if (this.data.permission === 1) {
-      for (let index = 0; index < this.data.mygroups.length; index++) {
-        if (this.data.id === this.data.mygroups[index]._id)
+      let index;
+      for (index = 0; index < this.data.mygroups.length; index++) {
+        if (this.data.activity.group._id === this.data.mygroups[index]._id) {
           break;
+        }
       }
-      if (index === this.data.mygroups.length)
+      if (index === this.data.mygroups.length) {
         this.setData({
           flag: false
         })
-      else
+      } else {
         this.setData({
           flag: true
         })
+      }
     } else if (this.data.permission === 2) {
       this.setData({
         flag: true

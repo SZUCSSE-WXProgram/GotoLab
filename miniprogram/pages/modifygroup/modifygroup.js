@@ -5,30 +5,30 @@ Page({
    * 页面的初始数据
    */
   data: {
-    name:'',
-    intro:'',
-    img:'',
-    finish:false,
-    group:{}
+    name: '',
+    intro: '',
+    img: '',
+    url:'',
+    finish: false,
+    group: {}
   },
   handleInputName(e) {
-		const {
-			value
-		} = e.detail;
-		this.setData({
-			name: value
-		})
-	},
-	handleInputIntro(e) {
-		const {
-			value
-		} = e.detail;
-		this.setData({
-			intro: value
-		})
+    const {
+      value
+    } = e.detail;
+    this.setData({
+      name: value
+    })
   },
-  modify()
-  {
+  handleInputIntro(e) {
+    const {
+      value
+    } = e.detail;
+    this.setData({
+      intro: value
+    })
+  },
+  modify() {
     wx.showLoading({
       title: '加载中',
     })
@@ -36,8 +36,8 @@ Page({
       name: 'group',
       data: {
         type: "modify",
-        info:{
-          _id:this.options.id,
+        info: {
+          _id: this.options.id,
           groupName: this.data.name,
           intro: this.data.intro,
           pic_base64: this.data.img
@@ -49,11 +49,11 @@ Page({
         })
         wx.showToast({
           title: res.result.des,
-          icon:'none',
-          duration:2000
+          icon: 'none',
+          duration: 2000
         })
         console.log(res)
-        if(res.result.code=="success"){
+        if (res.result.code == "success") {
           setTimeout(() => {
             wx.navigateBack({
               delta: 0,
@@ -63,19 +63,20 @@ Page({
       }
     })
   },
-  click(){
+  click() {
     wx.chooseImage({
       count: 1,
-      sizeType:['compressed'],
-      sourceType:['album'],
-      success:(res)=>{
-        const tempFilePaths=res.tempFilePaths[0]
-        const format=tempFilePaths.substring(tempFilePaths.lastIndexOf('.')+1).toLowerCase()
+      sizeType: ['compressed'],
+      sourceType: ['album'],
+      success: (res) => {
+        const tempFilePaths = res.tempFilePaths[0]
+        const format = tempFilePaths.substring(tempFilePaths.lastIndexOf('.') + 1).toLowerCase()
         console.log(format)
-        let imge=wx.getFileSystemManager().readFileSync(tempFilePaths,'base64');
+        let imge = wx.getFileSystemManager().readFileSync(tempFilePaths, 'base64');
         this.setData({
-          img:'data:image/'+format+';base64,'+imge,
-          finish:true
+          img: 'data:image/' + format + ';base64,' + imge,
+          finish: true,
+          url:tempFilePaths
         })
         wx.showToast({
           title: '上传成功',
@@ -91,18 +92,18 @@ Page({
       title: '加载中',
     })
     wx.cloud.callFunction({
-      name:'group',
-      data:{
+      name: 'group',
+      data: {
         type: "getGroupByID",
-        info:{
-          _id:options.id
+        info: {
+          _id: options.id
         }
       },
-      success:(res)=>{
+      success: (res) => {
         this.setData({
-          name:res.result.info.groupName,
-          img:res.result.info.picLink,
-          intro:res.result.info.intro
+          name: res.result.info.groupName,
+          url: res.result.info.picLink,
+          intro: res.result.info.intro
         })
         wx.hideLoading({
           success: (res) => {},

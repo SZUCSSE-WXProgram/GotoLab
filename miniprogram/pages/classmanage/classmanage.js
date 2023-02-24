@@ -34,6 +34,9 @@ Page({
 			name: value
 		})
   },
+  modifygrade(e){
+    console.log(e)
+  },
   create(e){
     const {index}=e.currentTarget.dataset;
     return new Promise((resolve, reject) => {
@@ -53,6 +56,9 @@ Page({
             icon:'none'
           })
           this.getClass()
+          this.setData({
+            name:''
+          })
 					return resolve(res);
 				}
 			})

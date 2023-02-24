@@ -39,7 +39,8 @@ Page({
     }
     else if(this.data.permission===1)
     {
-      for (let index = 0; index < this.data.mygroups.length; index++) {
+      let index;
+      for (index = 0; index < this.data.mygroups.length; index++) {
         if(this.data.id===this.data.mygroups[index]._id)
           break;
       }

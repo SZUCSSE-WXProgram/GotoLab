@@ -18,9 +18,9 @@ textarea{
   height: 300rpx;
   width: 300rpx;
   background-color: rgb(222, 222, 222);
-  line-height: 300rpx;
   margin-top: 20rpx;
-  color: gray;
+  border-radius: 10rpx;
+  box-shadow: 1rpx 1rpx 5rpx #ddd;
 }
 .btn{
   margin: 30rpx 70rpx;
