@@ -25,7 +25,7 @@ exports.main = async (event, context) => {
         search: event.info.search ? event.info.search : "",
         permission: event.info.permission ? event.info.permission : 0,
     }
-    const permissionValidate = await permission.isSuperAdmin();
+    const permissionValidate = await permission.isNotStudent();
     if (permissionValidate.code !== "success") {
         return permissionValidate;
     }
