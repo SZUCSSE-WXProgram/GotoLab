@@ -3,7 +3,7 @@
 <view class="body">
 	<view class="item flex">
 		<view class="left iconfont icon--Manager">
-			名称
+			名称 
 		</view>
 		<input type="text" value="{{name}}" bindinput="handleInputName" />
 	</view>

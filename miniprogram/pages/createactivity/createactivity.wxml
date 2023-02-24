@@ -6,7 +6,7 @@
     <view class="left iconfont icon-nav_icon_zhiduguanli">
       活动名称
     </view>
-    <input class="right" value="{{name}}" type="text"  bindinput="handleInputname" />
+    <input class="right" value="{{name}}" placeholder="请输入活动名称" type="text"  bindinput="handleInputname" />
   </view>
   <view class="item">
     <view class="left iconfont icon-all:before">
@@ -22,13 +22,13 @@
     <view class="left iconfont icon--Manager">
       活动名额
     </view>
-    <input class="right" type="text" value="{{limit}}" bindinput="handleInputnum" />
+    <input class="right" type="text" placeholder="请输入活动名额" value="{{limit}}" bindinput="handleInputnum" />
   </view>
   <view class="item">
     <view class="left iconfont icon-map">
       地点
     </view>
-    <input class="right" type="text" value="{{position}}" bindinput="handleInputpos" />
+    <input class="right" type="text" placeholder="请输入活动地点" value="{{position}}" bindinput="handleInputpos" />
   </view>
 
   <view class="item">
@@ -61,7 +61,7 @@
     <view class="left iconfont icon-xiugai">
       活动描述
     </view>
-    <textarea class="intro right" maxlength="500" value="{{intro}}" bindinput="handleInputIntro"></textarea>
+    <textarea class="intro right" maxlength="500" placeholder="请输入活动描述" value="{{intro}}" bindinput="handleInputIntro"></textarea>
   </view>
 </view>
 <button wx:if="{{actid===0}}" class="btn blue" bindtap="create">创建</button>

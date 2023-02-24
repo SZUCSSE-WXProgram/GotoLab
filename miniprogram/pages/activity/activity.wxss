@@ -1,19 +1,41 @@
 /* pages/activity/activity.wxss */
-.tabs_title{
+.tabs_title {
   display: flex;
-  padding:10rpx 0;
+  overflow-x: auto;
+  padding: 10rpx 0;
 }
-.title_item{
+
+.tabs_title::-webkit-scrollbar {
+  height: 0;
+  width: 0;
+}
+
+.title_item:first-child {
+  position: sticky;
+  top: 0;
+  left: 0;
+  background-color: rgb(246, 246, 246);
+  z-index: 99;
+  box-sizing: border-box;
+  border-bottom: 5rpx solid transparent;
+  height: 80rpx;
+}
+.title_item {
+  box-sizing: border-box;
+  width: 188rpx;
   height: 75rpx;
-  flex: 1;
+  flex: none;
   display: flex;
   justify-content: center;
   align-items: center;
 }
-.active{
+
+.active {
+  height: 80rpx;
   color: var(--themecolor);
-  border-bottom: 5rpx solid currentColor;
+  border-bottom: 5rpx solid currentColor !important;
 }
+
 .separator {
   margin: 10px 0;
   text-align: center;

@@ -24,6 +24,6 @@
     <navigator wx:if="{{id===0}}" url="/pages/userdetail/userdetail?name={{item.name}}&permission={{item.permission}}&id={{item.stuid}}&phone={{item.phone}}&_id={{item._id}}&email={{item.email}}">
       <button class="butn blue">编辑</button>
     </navigator>
-    <button wx:if="{{id!==0}}" class="butn blue" bindtap="create" data-id="{{item._id}}">添加</button>
+    <button wx:if="{{id!==0}}" class="butn blue" bindtap="addAdmin" data-id="{{item._id}}">添加</button>
   </view>
 </view>

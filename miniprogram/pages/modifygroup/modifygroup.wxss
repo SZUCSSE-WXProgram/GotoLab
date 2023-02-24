@@ -9,6 +9,10 @@
 .left{
 	width: 200rpx;
 }
+textarea{
+  margin-top: 10rpx;
+  width: 100%;
+}
 .img{
   right: 200rpx;
   height: 300rpx;
