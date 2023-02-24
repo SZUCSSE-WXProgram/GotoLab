@@ -16,7 +16,6 @@ const $ = _.aggregate
 
 // 云函数入口函数
 exports.main = async (event, context) => {
-    // console.log(event)
     const pageOffset = {
         limit: event.info.limit ? Math.min(event.info.limit, 20) : 10,
         offset: event.info.offset ? event.info.offset : 0,
