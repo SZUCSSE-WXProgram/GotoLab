@@ -1,12 +1,12 @@
 <view>
-  <!-- searchInput -->
-  <searchInput></searchInput>
-  <!-- swiper -->
+
   <view class="indexswp">
     <swiper indicator-dots autoplay interval="3000" circular>
       <swiper-item wx:for="{{groupList}}" wx:key="index">
+      <navigator url="/pages/groupintro/groupintro?_id={{item._id}}">
           <image mode="widthFix" src="{{item.picLink}}"></image>
           <view>{{item.groupName}}</view>
+      </navigator>    
       </swiper-item>
     </swiper>
   </view>

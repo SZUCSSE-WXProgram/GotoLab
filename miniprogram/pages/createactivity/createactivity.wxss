@@ -9,7 +9,6 @@
 .right{
   display:flex ;
   color: grey;
-  width: 750rpx;
 }
 .intro-h{
   border-bottom:2rpx solid rgb(235, 234, 234) ;

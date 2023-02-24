@@ -5,7 +5,6 @@ Page({
    * 页面的初始数据
    */
   data: {
-    avatar: '',
     myself: {},
     type0: true,
     type1: false,

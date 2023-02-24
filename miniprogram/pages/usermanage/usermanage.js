@@ -47,6 +47,18 @@ Page({
       }
     })
   },
+  addAdmin(e){
+    wx.showModal({
+      title: '系统提示',
+      content: '确认要添加吗？',
+      cancelColor: 'cancelColor',
+      success: async (res)=> {
+        if (res.confirm) {
+          this.create(e)
+        }
+      }
+    })
+  },
   create(e) {
     wx.showLoading({
       title: '加载中',
