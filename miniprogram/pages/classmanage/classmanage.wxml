@@ -1,23 +1,16 @@
 <!--pages/classmanage/classmanage.wxml-->
 <view class="title">班级管理</view>
-<!-- <view class="nav-son">
-    <view class="flex" bindtap="listpx">fffff</view>
-  </view>
-<view class="temp {{pxopen ? 'slidown' : 'slidup'}}">
-  dddd
-</view> -->
 
 <view class="body">
   <view class="part" wx:for="{{class}}" wx:key="_id" >
-    <view class="grade" bindtap="listpx" data-grade="{{item._id}}">
+    <view class="grade" bindtap="listpx" data-index="{{item.index}}">
       {{item.gradeName}}
     </view>
-    <view class="class">
+    <view class="temp {{item.pxopen ? 'slidown' : 'slidup'}}">
       <view class="item" wx:for="{{item.class}}" wx:key="_id">
         {{item.className}}
       </view>
-    </view>
-    <view class="ipt">
+      <view class="ipt">
       <view class="left iconfont icon--Manager">
         名称 :
       </view>
@@ -26,6 +19,8 @@
     <button class="btn blue" bindtap="create" data-index="{{item._id}}">
       创建班级
     </button>
+    </view>
+    
   </view>
   <view class="grade width">
       新建年级

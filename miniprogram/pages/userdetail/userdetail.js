@@ -5,7 +5,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    TypeArray:['学生','研究所管理员','超级管理员'],
+    TypeArray: ['学生', '研究所管理员', '超级管理员'],
     mypermission: false,
     multiArray: [],
     multiIndex: [0, 0],
@@ -14,13 +14,13 @@ Page({
     name: '',
     id: '',
     phone: '',
-    permission:'',
+    permission: '',
     _class: '',
     _grade: '',
     _id: '',
-    flag:false,
-    change:'',
-    email:''
+    flag: false,
+    change: '',
+    email: ''
   },
   handleInputName(e) {
     const {
@@ -54,9 +54,10 @@ Page({
       email: value
     })
   },
-  bindTypeChange: function(e) {console.log(e)
+  bindTypeChange: function (e) {
+    console.log(e)
     this.setData({
-      permission:e.detail.value,
+      permission: e.detail.value,
     })
   },
   getClass() {
@@ -123,8 +124,7 @@ Page({
     })
   },
   manage() {
-    if(this.data.change===this.data.permission)
-    {
+    if (this.data.change === this.data.permission) {
       return new Promise((resolve, reject) => {
         wx.cloud.callFunction({
           name: 'user',
@@ -136,10 +136,10 @@ Page({
               name: this.data.name,
               phone: this.data.phone,
               class: this.data._class,
-              email:this.data.email
+              email: this.data.email
             }
           },
-          success:async (res) => {
+          success: async (res) => {
             await this.getMyself()
             if (res.result.code === "fail") {
               wx.showToast({
@@ -152,20 +152,17 @@ Page({
                 title: '修改成功',
                 duration: 1000
               })
-            
-                setTimeout(() => {
-                  wx.navigateBack({
-                    delta: 0,
-                  })
-                }, 1000);
-              
+              setTimeout(() => {
+                wx.navigateBack({
+                  delta: 0,
+                })
+              }, 1000);
             }
             return resolve(res);
           }
         })
       })
-    }
-    else{
+    } else {
       return new Promise((resolve, reject) => {
         wx.cloud.callFunction({
           name: 'user',
@@ -178,10 +175,10 @@ Page({
               phone: this.data.phone,
               class: this.data._class,
               permission: this.data.permission,
-              email:this.data.email
+              email: this.data.email
             }
           },
-          success:async (res) => {
+          success: async (res) => {
             await this.getMyself()
             if (res.result.code === "fail") {
               wx.showToast({
@@ -204,8 +201,8 @@ Page({
         })
       })
     }
-    
-    
+
+
   },
   modify() {
     return new Promise((resolve, reject) => {
@@ -218,11 +215,11 @@ Page({
             name: this.data.name,
             phone: this.data.phone,
             class: this.data._class,
-            email:this.data.email
+            email: this.data.email
           }
         },
-        success:async (res) => {
-         await this.getMyself()
+        success: async (res) => {
+          await this.getMyself()
           if (res.result.code === "fail") {
             wx.showToast({
               title: res.result.des,
@@ -244,20 +241,20 @@ Page({
       })
     })
   },
-  getMyself(){
-    return new Promise((resolve,reject)=>{
-    wx.cloud.callFunction({
-      name:'user',
-      data:{
-        type: "getMyself",
-      },
-      success:(res)=>{
-        wx.setStorageSync('myself', res.result.info)
-        wx.setStorageSync('isRegister', res.result.isRegistered)
-        return resolve(res);
-      }
+  getMyself() {
+    return new Promise((resolve, reject) => {
+      wx.cloud.callFunction({
+        name: 'user',
+        data: {
+          type: "getMyself",
+        },
+        success: (res) => {
+          wx.setStorageSync('myself', res.result.info)
+          wx.setStorageSync('isRegister', res.result.isRegistered)
+          return resolve(res);
+        }
+      })
     })
-  })
   },
   click() {
     if (this.data.flag) {
@@ -277,10 +274,10 @@ Page({
       id: options.id,
       phone: options.phone,
       permission: options.permission,
-      change:options.permission,
+      change: options.permission,
       _id: options._id,
-      flag:options.flag,
-      email:options.email,
+      flag: options.flag,
+      email: options.email,
       mypermission: wx.getStorageSync('myself').permission === 2
     })
   },

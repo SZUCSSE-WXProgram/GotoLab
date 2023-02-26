@@ -27,7 +27,7 @@
   margin: 20rpx;
   font-size: 34rpx;
   font-weight:500;
-  
+  z-index: 99;
 }
 .ipt{
   margin: 10rpx;
@@ -85,30 +85,12 @@ input{
 
 /* 下拉动画 */
 /* @keyframes Css3 新标签，循环动画 */
-@keyframes slidown{
-  from{
-      transform:  translateY(-100%);
-  }
-  to{
-      transform:  translateY(0%);
-  }
-}
+
 .slidown{
   display: block;
-  animation: slidown .2s ease-in both;
 }
 
-/* 上拉动画 */
-@keyframes slidup{
-  from{
-      transform:  translateY(0%);
-  }
-  to{
-      transform:  translateY(-100%);
-  }
-}
 .slidup{
   display: block;
-  animation: slidup .2s ease-in both;
   height: 0px;
 }

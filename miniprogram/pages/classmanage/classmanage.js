@@ -5,92 +5,101 @@ Page({
    * 页面的初始数据
    */
   data: {
-    class:[],
-    name:'',
-    index:0,
-    pxopen:false
+    class: [],
+    name: '',
+    index: 0,
   },
-  listpx() {
+  listpx(e) {
+    let index = e.currentTarget.dataset.index
+    let eclass = this.data.class
+    eclass[index].pxopen = !eclass[index].pxopen
     this.setData({
-      pxopen: !this.data.pxopen,
+      class: eclass
     })
   },
   getClass() {
-		return new Promise((resolve, reject) => {
-			wx.cloud.callFunction({
-				name: 'class',
-				data: {
-					type: "getList",
-				},
-				success: (res) => {
-					console.log(res)
-					this.setData({
-						class: res.result.info,
-					})
-					return resolve(res);
-				}
-			})
-		})
+    return new Promise((resolve, reject) => {
+      wx.cloud.callFunction({
+        name: 'class',
+        data: {
+          type: "getList",
+        },
+        success: (res) => {
+          console.log(res)
+          let eclass = res.result.info;
+          for (let index = 0; index < eclass.length; index++) {
+            eclass[index].pxopen = false;
+            eclass[index].index = index;
+          }
+          this.setData({
+            class: eclass,
+          })
+          return resolve(res);
+        }
+      })
+    })
   },
   handleInputName(e) {
-		const {
-			value
+    const {
+      value
     } = e.detail;
-		this.setData({
-			name: value
-		})
+    this.setData({
+      name: value
+    })
   },
-  modifygrade(e){
+  modifygrade(e) {
     console.log(e)
   },
-  create(e){
-    const {index}=e.currentTarget.dataset;
+  create(e) {
+    const {
+      index
+    } = e.currentTarget.dataset;
     return new Promise((resolve, reject) => {
-			wx.cloud.callFunction({
-				name: 'class',
-				data: {
+      wx.cloud.callFunction({
+        name: 'class',
+        data: {
           type: "create",
-          info:{
-            className:this.data.name,
-            gradeId:index
+          info: {
+            className: this.data.name,
+            gradeId: index
           }
-				},
-				success: (res) => {
-					console.log(res)
-					wx.showToast({
+        },
+        success: (res) => {
+          console.log(res)
+          wx.showToast({
             title: res.result.des,
-            icon:'none'
+            icon: 'none'
           })
           this.getClass()
           this.setData({
-            name:''
+            name: ''
           })
-					return resolve(res);
-				}
-			})
-		})
+          return resolve(res);
+        }
+      })
+    })
   },
-  creategrd(){
+  creategrd() {
     return new Promise((resolve, reject) => {
-			wx.cloud.callFunction({
-				name: 'grade',
-				data: {
+      wx.cloud.callFunction({
+        name: 'grade',
+        data: {
           type: "create",
-          info:{
-            gradeName:this.data.name,
+          info: {
+            gradeName: this.data.name,
           }
-				},
-				success: (res) => {
-					console.log(res)
-					wx.showToast({
+        },
+        success: (res) => {
+          console.log(res)
+          wx.showToast({
             title: res.result.des,
-            icon:'none'
+            icon: 'none'
           })
           this.getClass()
-					return resolve(res);
-				}
-			})
-		})
+          return resolve(res);
+        }
+      })
+    })
   },
   /**
    * 生命周期函数--监听页面加载

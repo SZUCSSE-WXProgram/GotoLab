@@ -14,7 +14,7 @@ Page({
     isStart: false,
     isFull: false,
     signable: false,
-    isCheck:false
+    isCheck: false
   },
   attend() {
     wx.cloud.callFunction({
@@ -83,12 +83,12 @@ Page({
       }
     })
   },
-  truedelete(){
+  truedelete() {
     wx.showModal({
       title: '系统提示',
       content: '确认要删除吗？',
       cancelColor: 'cancelColor',
-      success: async (res)=> {
+      success: async (res) => {
         if (res.confirm) {
           this.delete()
         }
@@ -124,10 +124,9 @@ Page({
         signable: false
       })
     }
-    if(this.data.activity.isAttend===Number(1))
-    {
+    if (this.data.activity.isAttend === Number(1)) {
       this.setData({
-        isCheck:true
+        isCheck: true
       })
     }
   },
@@ -163,14 +162,15 @@ Page({
     })
   },
   setattend() {
-    if (String(this.data.activity.isAttend) === "-1")
+    if (String(this.data.activity.isAttend) === "-1") {
       this.setData({
         isAttend: false
       })
-    else(String(this.data.activity.isAttend) === "0")
+    } else {
       this.setData({
         isAttend: true
       })
+    }
   },
   /**
    * 生命周期函数--监听页面加载
