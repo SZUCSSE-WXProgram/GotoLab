@@ -71,8 +71,7 @@ Page({
           icon:'none',
           duration:2000
         })
-        console.log(res)
-        if(res.result.code=="success"){
+        if(res.result.code==="success"){
           setTimeout(() => {
             wx.navigateBack({
               delta: 0,

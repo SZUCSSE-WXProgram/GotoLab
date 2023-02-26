@@ -60,12 +60,14 @@ Page({
           icon: "none",
           duration: 2000
         })
-        this.setData({
-          name:''
-        })
-        setTimeout(() => {
-          this.getList()
-        }, 1000);
+        if (res.result.code === "success") {
+          this.setData({
+            name: ''
+          })
+          setTimeout(() => {
+            this.getList()
+          }, 1000);
+        }
       }
     })
   },
@@ -73,6 +75,7 @@ Page({
     const {
       id
     } = e.currentTarget.dataset;
+    console.log(id)
     return new Promise((resolve, reject) => {
       wx.cloud.callFunction({
         name: 'activityType',
@@ -89,10 +92,11 @@ Page({
             title: res.result.des,
             icon: 'none'
           })
-          this.setData({
-            name: ''
-          })
-          this.getList()
+          if (res.result.code === "success") {
+            this.setData({
+              name: ''
+            })
+          }
           return resolve(res);
         },
       })

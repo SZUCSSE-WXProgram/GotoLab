@@ -24,14 +24,19 @@
   height: 90%;
   width: 100%;
 }
+.button{
+  display: flex;
+  width: 120rpx;
+  height: 60rpx;
+  justify-content: center;
+  align-items: center;
+  border-radius: 30rpx;
+}
 .butn{
-	height: 60rpx;
-	width: 80rpx;
+	height: 50rpx;
+	width: 50rpx;
 	font-size: 26rpx;
   padding: 0;
-  margin-left: 20rpx;
-	justify-content: center;
-	align-items: center;
-  line-height: 60rpx;
   color: white;
+  border-radius: 25rpx;
   }
