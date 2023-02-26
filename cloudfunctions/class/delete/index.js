@@ -20,39 +20,14 @@ exports.main = async (event, context) => {
     if (permissionCheck.code !== 'success') {
         return permissionCheck;
     }
-    const checkResult = await validator.check(event.info, createCheck.modifyCheck);
+    const checkResult = await validator.check(event.info, createCheck.deleteCheck);
     if (checkResult.code !== 'success') {
         return checkResult
     }
-    const info = {
-        _id: event.info._id,
-        className: event.info.className,
-        gradeId: event.info.gradeId,
-    }
-    if ((!info.className || info.className === "") && (!info.gradeId || info.gradeId === "")) {
-        return {
-            code: 'fail',
-            des: '修改信息不能为空',
-            status: 402,
-        }
-    }
-    const _cnt = await db.collection('Class').where({
-        _id: _.neq(info._id),
-        className: info.className,
-        gradeId: info.gradeId,
-        available: true,
-    }).count()
-    if (_cnt.total !== 0) {
-        return {
-            code: 'fail',
-            des: '该班级已存在',
-            status: 402,
-        }
-    }
-    const docid = info._id;
-    delete info._id;
-    return await db.collection(('Class')).doc(docid).update({
-        data: info,
+    return await db.collection(('Class')).doc(event.info._id).update({
+        data: {
+            available: false,
+        },
     }).then(res => {
         return {
             code: 'success',

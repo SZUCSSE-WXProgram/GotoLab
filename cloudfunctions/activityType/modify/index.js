@@ -30,7 +30,8 @@ exports.main = async (event, context) => {
     }
     const _cnt = await db.collection('ActivityType').where({
         _id: _.neq(info._id),
-        typeName: info.typeName
+        typeName: info.typeName,
+        available: true
     }).count().then(res => {
         return res.total
     })

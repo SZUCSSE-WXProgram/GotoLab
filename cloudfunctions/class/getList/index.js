@@ -13,33 +13,46 @@ const db = cloud.database({
 })
 
 const _ = db.command;
-const $ = _.aggregate
+const $ = _.aggregate;
 // 云函数入口函数
 exports.main = async (event, context) => {
     // 本api主要做注册时和管理员查看时的班级信息查询 不鉴权也不传入参数
-    return await db.collection('Grade').aggregate()
+    return db.collection('Grade').aggregate()
+        .match({
+            available: true
+        })
         .lookup({
-                from: 'Class',
-                localField: '_id',
-                foreignField: 'gradeId',
-                as: 'class',
-            }
-        ).sort({
+            from: 'Class',
+            let: {
+                gid: '$_id',
+            },
+            pipeline: $.pipeline()
+                .match(_.expr($.and([
+                    $.eq(['$gradeId', '$$gid']),
+                    $.eq([true, '$available'])
+                ])))
+                .project({
+                    _id: true,
+                    className: true,
+                }).sort({
+                    className: 1
+                })
+                .done(),
+            as: 'class',
+        }).project({
+            _id: true,
+            gradeName: true,
+            class: true,
+        }).sort({
             gradeName: 1
         })
         .end().then(res => {
-            for (const i in res.list) {
-                for (const j in res.list[i].class) {
-                    delete res.list[i].class[j].gradeId;
-                }
-            }
             return {
                 code: 'success',
                 des: '查询成功',
                 status: 200,
                 info: res.list,
             }
-
         }).catch(e => {
             return {
                 code: 'fail',

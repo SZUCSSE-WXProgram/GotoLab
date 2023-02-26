@@ -1,7 +1,7 @@
 const create = require('./create/index');
 const modify = require('./modify/index');
 const getList = require('./getList/index');
-
+const deleteClass = require('./delete/index');
 
 // 云函数入口函数
 exports.main = async (event, context) => {
@@ -12,6 +12,8 @@ exports.main = async (event, context) => {
             return await modify.main(event, context);
         case 'getList':
             return await getList.main(event, context);
+        case 'delete':
+            return await deleteClass.main(event, context);
         default :
             return {
                 code: 'fail',
