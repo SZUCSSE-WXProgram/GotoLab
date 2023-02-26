@@ -32,7 +32,7 @@
     <view class="itemname iconfont icon-leixing"> 活动类型管理</view>
     <view class="iconfont icon-chevron-right"></view>
   </navigator>
-  <navigator wx:if="{{type1||type2}}" url="/pages/userdetail/userdetail?name={{myself.name}}&permission={{myself.permission}}&id={{myself.stuid}}&phone={{myself.phone}}&email={{myself.email}}&flag=true">
+  <navigator wx:if="{{type1||type2}}" url="/pages/userdetail/userdetail?name={{myself.name}}&permission={{myself.permission}}&id={{myself.stuid}}&phone={{myself.phone}}&email={{myself.email}}&flag=true&class={{myself.class.className}}&grade={{myself.grade.gradeName}}">
     <view class="itemname iconfont icon-xiugai"> 修改个人信息</view>
     <view class="iconfont icon-chevron-right"></view>
   </navigator>

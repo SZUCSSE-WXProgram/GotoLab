@@ -20,7 +20,9 @@ Page({
     _id: '',
     flag: false,
     change: '',
-    email: ''
+    email: '',
+    mygrade:'',
+    myclass:''
   },
   handleInputName(e) {
     const {
@@ -94,12 +96,27 @@ Page({
       classList.push(classItem)
       classItem = []
     }
+    var x,y;
+    for (let index = 0; index < grade.length; index++) {
+      if(this.data.mygrade===grade[index])
+      {
+        x=index
+        for (let j = 0; j < classList.length; j++) {
+        if(this.data.myclass===classList[index][j])
+          y=j
+        }
+      }
+    }
     var array = []
     array.push(grade)
-    array.push(classList[0])
+    array.push(classList[x])
+    var multiIndex=this.data.multiIndex
+    multiIndex[0]=x;
+    multiIndex[1]=y;
     this.setData({
       multiArray: array,
-      classList: classList
+      classList: classList,
+      multiIndex:multiIndex
     })
   },
   bindMultiPickerChange: function (e) {
@@ -268,7 +285,6 @@ Page({
    */
   async onLoad(options) {
     await this.getClass()
-    this.buildArray()
     this.setData({
       name: options.name,
       id: options.id,
@@ -278,8 +294,11 @@ Page({
       _id: options._id,
       flag: options.flag,
       email: options.email,
+      myclass: options.class,
+      mygrade: options.grade,
       mypermission: wx.getStorageSync('myself').permission === 2
     })
+    this.buildArray()
   },
 
   /**

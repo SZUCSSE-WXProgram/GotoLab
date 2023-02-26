@@ -26,7 +26,7 @@
 		<input type="text" value="{{email}}" bindinput="handleInputEmail" />
 	</view>
   <view class="section" wx:if="{{!flag}}">
-    <picker mode="selector" range="{{TypeArray}}" bindchange="bindTypeChange">
+    <picker mode="selector" range="{{TypeArray}}" value="{{permission}}" bindchange="bindTypeChange">
       <view class="item">
 				<view class="left iconfont icon-quanxian">
 		    	权限

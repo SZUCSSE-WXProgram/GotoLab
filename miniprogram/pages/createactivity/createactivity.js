@@ -137,6 +137,20 @@ Page({
       })
     })
   },
+  setTime() {
+    var sdate, stime, edate, etime
+    let act = this.data.activity
+    sdate = act.startTime.slice(0, 10)
+    stime = act.startTime.slice(11, 16)
+    edate = act.endTime.slice(0, 10)
+    etime = act.endTime.slice(11, 16)
+    this.setData({
+      sdate: sdate,
+      stime: stime,
+      edate: edate,
+      etime: etime
+    })
+  },
   setsignable() {
     this.setData({
       signable: !this.data.signable
@@ -249,8 +263,10 @@ Page({
         limit: this.data.activity.limit,
         position: this.data.activity.location,
         intro: this.data.activity.intro,
-        signable: this.data.activity.signable
+        signable: this.data.activity.signable,
+        mytype: this.data.activity.type.typeName,
       })
+      this.setTime()
     }
   },
   /**

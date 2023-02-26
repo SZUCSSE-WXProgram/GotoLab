@@ -36,10 +36,10 @@
       开始时间
     </view>
     <view class="right">
-      <picker mode="date" bindchange="bindsDateChange">
+      <picker mode="date" value="{{sdate}}" bindchange="bindsDateChange">
         <view>{{sdate}}-</view>
       </picker>
-      <picker mode="time" bindchange="bindsTimeChange">
+      <picker mode="time" value="{{stime}}" bindchange="bindsTimeChange">
         <view>{{stime}}</view>
       </picker>
     </view>
@@ -49,10 +49,10 @@
       结束时间
     </view>
     <view class="right">
-      <picker mode="date" bindchange="bindeDateChange">
+      <picker mode="date" value="{{edate}}" bindchange="bindeDateChange">
         <view>{{edate}}-</view>
       </picker>
-      <picker mode="time" bindchange="bindeTimeChange">
+      <picker mode="time" value="{{etime}}" bindchange="bindeTimeChange">
         <view>{{etime}}</view>
       </picker>
     </view>
