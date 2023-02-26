@@ -34,7 +34,7 @@ async function uniqueType(typeName) {
 }
 
 async function existType(typeId) {
-    const _cnt = await db.collection('Grade').where({
+    const _cnt = await db.collection('ActivityType').where({
         _id: typeId
     }).count()
     if (_cnt.total === 0) {

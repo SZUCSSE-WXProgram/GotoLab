@@ -13,5 +13,14 @@
         "typeName": "123321"
       }
     }
+  },
+  {
+    "name": "activityType.modify",
+    "value": {
+      "type": "modify",
+      "info": {
+        "typeName": "123321"
+      }
+    }
   }
 ]
