@@ -49,4 +49,10 @@ page {
 .blue{
   background-color: rgb(82, 151, 247);
 }
+.gray{
+  background-color: #ddd;
+}
+.white{
+  background-color: white;
+}
 

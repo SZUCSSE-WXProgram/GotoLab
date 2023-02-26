@@ -64,11 +64,16 @@
     <textarea class="intro right" maxlength="500" placeholder="请输入活动描述" value="{{intro}}" bindinput="handleInputIntro"></textarea>
   </view>
   <view wx:if="{{actid!==0}}" class="item flex">
-    <view class="flex">
-      是否可报名
+    <view wx:if="{{signable}}" class="flex">
+      当前可报名
     </view>
-    <button wx:if="{{!signable}}" class="butn green" bindtap="setsignable">开始</button>
-    <button wx:if="{{signable}}" class="butn red" bindtap="setsignable">暂停</button>
+    <view wx:if="{{!signable}}" class="flex">
+      当前不可报名
+    </view>
+    <view class="button {{signable?'green':'gray'}}" bindtap="setsignable">
+    <button class="butn {{signable?'green':'white'}}"></button>
+    <button class="butn {{!signable?'gray':'white'}}"></button>
+    </view>
   </view>
 </view>
 <button wx:if="{{actid===0}}" class="btn blue" bindtap="create">创建</button>
