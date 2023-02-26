@@ -8,7 +8,7 @@ Page({
     name: '',
     intro: '',
     img: '',
-    url:'',
+    url: '',
     finish: false,
     group: {}
   },
@@ -32,36 +32,69 @@ Page({
     wx.showLoading({
       title: '加载中',
     })
-    wx.cloud.callFunction({
-      name: 'group',
-      data: {
-        type: "modify",
-        info: {
-          _id: this.options.id,
-          groupName: this.data.name,
-          intro: this.data.intro,
-          pic_base64: this.data.img
+    if (this.data.finish) {
+      wx.cloud.callFunction({
+        name: 'group',
+        data: {
+          type: "modify",
+          info: {
+            _id: this.options.id,
+            groupName: this.data.name,
+            intro: this.data.intro,
+            pic_base64: this.data.img
+          }
+        },
+        success: (res) => {
+          wx.hideLoading({
+            success: (res) => {},
+          })
+          wx.showToast({
+            title: res.result.des,
+            icon: 'none',
+            duration: 2000
+          })
+          console.log(res)
+          if (res.result.code == "success") {
+            setTimeout(() => {
+              wx.navigateBack({
+                delta: 0,
+              })
+            }, 2000);
+          }
         }
-      },
-      success: (res) => {
-        wx.hideLoading({
-          success: (res) => {},
-        })
-        wx.showToast({
-          title: res.result.des,
-          icon: 'none',
-          duration: 2000
-        })
-        console.log(res)
-        if (res.result.code == "success") {
-          setTimeout(() => {
-            wx.navigateBack({
-              delta: 0,
-            })
-          }, 2000);
+      })
+    } else {
+      console.log(1)
+      wx.cloud.callFunction({
+        name: 'group',
+        data: {
+          type: "modify",
+          info: {
+            _id: this.options.id,
+            groupName: this.data.name,
+            intro: this.data.intro,
+          }
+        },
+        success: (res) => {
+          wx.hideLoading({
+            success: (res) => {},
+          })
+          wx.showToast({
+            title: res.result.des,
+            icon: 'none',
+            duration: 2000
+          })
+          console.log(res)
+          if (res.result.code == "success") {
+            setTimeout(() => {
+              wx.navigateBack({
+                delta: 0,
+              })
+            }, 2000);
+          }
         }
-      }
-    })
+      })
+    }
   },
   click() {
     wx.chooseImage({
@@ -76,7 +109,7 @@ Page({
         this.setData({
           img: 'data:image/' + format + ';base64,' + imge,
           finish: true,
-          url:tempFilePaths
+          url: tempFilePaths
         })
         wx.showToast({
           title: '上传成功',

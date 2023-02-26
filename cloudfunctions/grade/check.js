@@ -10,7 +10,7 @@ exports.createCheck = {
 }
 
 exports.modifyCheck = {
-    name: {des: '年级名', type: 'string', required: true, minLength: 2, maxLength: 10, validator: [uniqueGrade]},
+    gradeName: {des: '年级名', type: 'string', required: true, minLength: 2, maxLength: 10, validator: [uniqueGrade]},
     _id: {des: '年级id', type: 'string', required: true, validator: [existGrade]},
 }
 

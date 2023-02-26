@@ -47,8 +47,64 @@ Page({
       name: value
     })
   },
+  modifyclass(e) {
+    const {
+      id
+    } = e.currentTarget.dataset;
+    return new Promise((resolve, reject) => {
+      wx.cloud.callFunction({
+        name: 'class',
+        data: {
+          type: "modify",
+          info: {
+            className: this.data.name,
+            _id: id
+          }
+        },
+        success: (res) => {
+          console.log(res)
+          wx.showToast({
+            title: res.result.des,
+            icon: 'none'
+          })
+          this.setData({
+            name: ''
+          })
+          return resolve(res);
+        }
+      })
+    })
+  },
   modifygrade(e) {
+    const id = e.currentTarget.dataset.index;
     console.log(e)
+    console.log(id)
+    return new Promise((resolve, reject) => {
+      wx.cloud.callFunction({
+        name: 'grade',
+        data: {
+          type: "modify",
+          info: {
+            gradeName: this.data.name,
+            _id: id
+          }
+        },
+        success: (res) => {
+          console.log(res)
+          wx.showToast({
+            title: res.result.des,
+            icon: 'none'
+          })
+          this.setData({
+            name: ''
+          })
+          if (res.result.code === 'success') {
+            this.getClass()
+          }
+          return resolve(res);
+        }
+      })
+    })
   },
   create(e) {
     const {
@@ -70,7 +126,9 @@ Page({
             title: res.result.des,
             icon: 'none'
           })
-          this.getClass()
+          if (res.result.code === 'success') {
+            this.getClass()
+          }
           this.setData({
             name: ''
           })

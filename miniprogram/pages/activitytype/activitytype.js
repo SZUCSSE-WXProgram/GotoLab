@@ -5,23 +5,23 @@ Page({
    * 页面的初始数据
    */
   data: {
-    type:[],
-    name:''
+    type: [],
+    name: ''
   },
-  getList(){
+  getList() {
     wx.showLoading({
-        title: '加载中',
-      })
-    return new Promise((resolve,reject)=>{
+      title: '加载中',
+    })
+    return new Promise((resolve, reject) => {
       wx.cloud.callFunction({
-        name:'activityType',
-        data:{
+        name: 'activityType',
+        data: {
           type: "getList",
         },
-        success:(res)=>{
+        success: (res) => {
           console.log(res)
           this.setData({
-            type:res.result.info,
+            type: res.result.info,
           })
           wx.hideLoading({
             success: (res) => {},
@@ -32,14 +32,14 @@ Page({
     })
   },
   handleInputName(e) {
-		const {
-			value
-		} = e.detail;
-		this.setData({
-			name: value
-		})
-	},
-  create(){
+    const {
+      value
+    } = e.detail;
+    this.setData({
+      name: value
+    })
+  },
+  create() {
     wx.showLoading({
       title: '加载中',
     })
@@ -47,7 +47,7 @@ Page({
       name: 'activityType',
       data: {
         type: "create",
-        info:{
+        info: {
           typeName: this.data.name,
         }
       },
@@ -55,18 +55,47 @@ Page({
         wx.hideLoading({
           success: (res) => {},
         })
-        
-          wx.showToast({
+        wx.showToast({
           title: res.result.des,
-          icon:"none",
-          duration:2000
+          icon: "none",
+          duration: 2000
+        })
+        this.setData({
+          name:''
         })
         setTimeout(() => {
           this.getList()
         }, 1000);
-        
-        console.log(res)
       }
+    })
+  },
+  modify(e) {
+    const {
+      id
+    } = e.currentTarget.dataset;
+    console.log(id)
+    return new Promise((resolve, reject) => {
+      wx.cloud.callFunction({
+        name: 'activityType',
+        data: {
+          type: "modify",
+          info: {
+            typeName: this.data.name,
+            _id: id
+          }
+        },
+        success: (res) => {
+          console.log(res)
+          wx.showToast({
+            title: res.result.des,
+            icon: 'none'
+          })
+          this.setData({
+            name: ''
+          })
+          return resolve(res);
+        }
+      })
     })
   },
   /**

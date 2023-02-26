@@ -1,26 +1,44 @@
 /* pages/activitytype/activitytype.wxss */
-.type{
-  display: flex;
-  flex-wrap: wrap;
-}
 .item{
   display: flex;
   background-color: white;
-  height: 100rpx;
-  width: 200rpx;
+  height: 75rpx;
   justify-content: center;
   align-items: center;
-  margin: 20rpx;
-  border-radius: 20rpx;
-  box-shadow: 1rpx 1rpx 15rpx #ddd;
+  margin: 10rpx;
+  border-radius: 10rpx;
+  box-shadow: 1rpx 1rpx 5rpx #ddd;
+  font-size: 30rpx;
+  padding: 10rpx;
 }
+.text{
+  flex:1
+}
+.ipt{
+  padding: 15rpx 25rpx;
+  display: flex;
+  background-color: white;
+  align-items: center;
+}
+input{
+  margin-left: 10rpx;
+  border-bottom:2rpx solid rgb(235, 234, 234) ;
+}
+.butn{
+	height: 60rpx;
+	width: 80rpx;
+	font-size: 26rpx;
+  padding: 0;
+  margin-left: 20rpx;
+	justify-content: center;
+	align-items: center;
+  line-height: 60rpx;
+  color: white;
+  }
 .ipt{
   margin: 10rpx;
   border-bottom:2rpx solid rgb(235, 234, 234) ;
   padding: 25rpx 25rpx;
   display: flex;
   background-color: white;
-}
-.left{
-	width: 150rpx;
 }
