@@ -20,14 +20,16 @@ exports.main = async (event, context) => {
     if (checkResult.code !== 'success') {
         return checkResult;
     }
-    let info = {}
-    let validateFields = ['_id', 'groupName', 'intro', 'pic_base64']
-    for (const item in validateFields) {
-        info[validateFields[item]] = event.info[validateFields[item]]
-    }
-    const permissionCheck = await permission.isGroupAdmin(info._id)
+    const permissionCheck = await permission.isGroupAdmin(event.info._id)
     if (permissionCheck.code !== 'success') {
         return permissionCheck;
+    }
+    let info = {}
+    let changeableFields = ['groupName', 'intro', 'pic_base64']
+    for (const item in changeableFields) {
+        if (event.info[changeableFields[item]] !== undefined && event.info[changeableFields[item]] !== '') {
+            info[changeableFields[item]] = event.info[changeableFields[item]]
+        }
     }
     if (info.pic_base64) {
         if (info.pic_base64.length * 0.75 > 5 * 1024 * 1024) {
@@ -61,8 +63,7 @@ exports.main = async (event, context) => {
             }
         }
     }
-    const docId = info._id;
-    delete info._id
+    const docId = event.info._id;
     return await db.collection('Group').doc(docId).update({
         data: info
     }).then(res => {

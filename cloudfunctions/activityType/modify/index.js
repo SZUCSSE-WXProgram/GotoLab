@@ -16,11 +16,11 @@ const _ = db.command;
 const $ = _.aggregate
 // 云函数入口函数
 exports.main = async (event, context) => {
-    const permissionCheck = permission.isSuperAdmin()
+    const permissionCheck = await permission.isSuperAdmin()
     if (permissionCheck.code !== 'success') {
         return permissionCheck;
     }
-    const checkResult = validator.check(event.info, checkList.modifyCheck);
+    const checkResult = await validator.check(event.info, checkList.modifyCheck);
     if (checkResult.code !== 'success') {
         return checkResult
     }
@@ -29,15 +29,16 @@ exports.main = async (event, context) => {
         _id: event.info._id
     }
     const _cnt = await db.collection('ActivityType').where({
-        _id: info._id,
+        _id: _.neq(info._id),
         typeName: info.typeName
-    }).count()
-
-    if (_cnt.total === 1) {
+    }).count().then(res => {
+        return res.total
+    })
+    if (_cnt !== 0) {
         return {
             code: 'fail',
-            des: '未发生更改',
             status: 402,
+            des: '该类别已经被创建了'
         }
     }
     return await db.collection('ActivityType').doc(info._id).update({

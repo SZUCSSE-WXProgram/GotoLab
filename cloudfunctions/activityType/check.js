@@ -6,7 +6,7 @@ const db = cloud.database()
 const _ = db.command;
 const $ = _.aggregate
 exports.createCheck = {
-    typeName: {des: '活动类别名', type: 'string', required: true, minLength: 2, maxLength: 10, validator: [uniqueType]},
+    typeName: {des: '活动类别名', type: 'string', required: true, minLength: 2, maxLength: 10},
 }
 
 exports.modifyCheck = {

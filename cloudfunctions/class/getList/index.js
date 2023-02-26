@@ -24,7 +24,10 @@ exports.main = async (event, context) => {
                 foreignField: 'gradeId',
                 as: 'class',
             }
-        ).end().then(res => {
+        ).sort({
+            gradeName: 1
+        })
+        .end().then(res => {
             for (const i in res.list) {
                 for (const j in res.list[i].class) {
                     delete res.list[i].class[j].gradeId;

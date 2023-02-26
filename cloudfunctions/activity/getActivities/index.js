@@ -62,7 +62,10 @@ exports.main = async (event, context) => {
                 regexp: '.*' + pageQuery.type,
                 options: 'i',
             })
-        }).skip(pageOffset.offset)
+        }).sort({
+            createTime: -1
+        })
+        .skip(pageOffset.offset)
         .limit(pageOffset.limit + 1)// tricky做法 多取一条数据判断数据是不是取完了
         .end().then(res => {
             const hasMore = res.list.length > pageOffset.limit
