@@ -16,32 +16,27 @@ const _ = db.command;
 const $ = _.aggregate
 // 云函数入口函数
 exports.main = async (event, context) => {
+    const changeableFields = ['name', 'intro', 'limit', 'signable', 'startTime', 'endTime', 'location', 'type']
     const wxContext = cloud.getWXContext()
-    let info = {
-        _id: event.info._id,
-        group: event.info.group,
-        name: event.info.name,
-        intro: event.info.intro,
-        limit: event.info.limit,
-        signable: true,
-        startTime: event.info.startTime,
-        endTime: event.info.endTime,
-        location: event.info.location,
-        type: event.info.type,
-    }
-    const checkResult = await validator.check(info, checkList.modifyCheck);
+    const checkResult = await validator.check(event.info, checkList.modifyCheck);
     if (checkResult.code !== 'success') {
         return checkResult
     }
-    const permissionCheck = await permission.isGroupAdmin(info.group)
+    const permissionCheck = await permission.isActivityAdmin(event.info._id)
     if (permissionCheck.code !== 'success') {
         return permissionCheck
     }
-    const _activity = await db.collection('Activity').doc(info._id).get()
-    const changeableFields = ['name', 'intro', 'limit', 'signable', 'startTime', 'endTime', 'location', 'type']
+    const _activity = await db.collection('Activity').doc(event.info._id).get().then(res => {
+        return res.data
+    })
+    let info = {
+        _id: event.info._id,
+    }
     for (let field of changeableFields) {
-        if (info[field] === undefined || info[field] === null || info[field] === "") {
-            info[field] = _activity.data[field]
+        if (event.info[field] === undefined || event.info[field] === null || event.info[field] === "") {
+            info[field] = _activity[field]
+        } else {
+            info[field] = event.info[field]
         }
     }
     if (isNaN(Date.parse(info.startTime)) || isNaN(Date.parse(info.endTime)) || new Date(info.endTime).toString() === 'Invalid Date' || new Date(info.startTime).toString() === 'Invalid Date') {
@@ -70,7 +65,6 @@ exports.main = async (event, context) => {
         }
     }
     const doc_id = info._id
-    delete info.group
     delete info._id
     return await db.collection('Activity').doc(doc_id).update({
         data: info
