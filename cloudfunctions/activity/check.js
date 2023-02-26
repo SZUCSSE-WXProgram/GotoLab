@@ -53,7 +53,6 @@ exports.createCheck = {
 
 exports.modifyCheck = {
     _id: {des: '活动id', type: 'string', required: true, validator: [existActivity]},
-    group: {des: '研究所', required: true, type: 'string', validator: [existGroup]},
     name: {des: '活动名', type: 'string', required: false, minLength: 2, maxLength: 20},
     intro: {des: '活动简介', type: 'string', required: false, minLength: 2},
     limit: {des: '人数限制', type: 'number', required: false, validator: [positiveInteger]},
