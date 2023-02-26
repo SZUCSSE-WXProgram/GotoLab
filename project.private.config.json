@@ -170,6 +170,13 @@
           "query": "",
           "launchMode": "default",
           "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/activitytype/activitytype",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
         }
       ]
     }

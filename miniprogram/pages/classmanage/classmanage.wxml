@@ -40,7 +40,7 @@
     <view class="left iconfont icon--Manager">
       名称 :
     </view>
-    <input type="text" bindinput="handleInputName" />
+    <input class="text" bindinput="handleInputName" />
   </view>
   <button class="btn blue" bindtap="creategrd">
     创建年级

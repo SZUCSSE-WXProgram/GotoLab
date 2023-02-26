@@ -73,7 +73,6 @@ Page({
     const {
       id
     } = e.currentTarget.dataset;
-    console.log(id)
     return new Promise((resolve, reject) => {
       wx.cloud.callFunction({
         name: 'activityType',
@@ -93,8 +92,9 @@ Page({
           this.setData({
             name: ''
           })
+          this.getList()
           return resolve(res);
-        }
+        },
       })
     })
   },
