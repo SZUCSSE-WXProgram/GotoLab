@@ -1,30 +1,22 @@
-// pages/activitytype/activitytype.js
+// pages/grademanage/grademanage.js
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    type: [],
-    name: ''
+    grade:[]
   },
   getList() {
-    wx.showLoading({
-      title: '加载中',
-    })
     return new Promise((resolve, reject) => {
       wx.cloud.callFunction({
-        name: 'activityType',
+        name: 'class',
         data: {
           type: "getList",
         },
         success: (res) => {
-          console.log(res)
           this.setData({
-            type: res.result.info,
-          })
-          wx.hideLoading({
-            success: (res) => {},
+            grade: res.result.info,
           })
           return resolve(res);
         }
@@ -44,11 +36,11 @@ Page({
       title: '加载中',
     })
     wx.cloud.callFunction({
-      name: 'activityType',
+      name: 'grade',
       data: {
         type: "create",
         info: {
-          typeName: this.data.name,
+          gradeName: this.data.name,
         }
       },
       success: (res) => {
@@ -75,14 +67,13 @@ Page({
     const {
       id
     } = e.currentTarget.dataset;
-    console.log(id)
     return new Promise((resolve, reject) => {
       wx.cloud.callFunction({
-        name: 'activityType',
+        name: 'grade',
         data: {
           type: "modify",
           info: {
-            typeName: this.data.name,
+            gradeName: this.data.name,
             _id: id
           }
         },
@@ -105,7 +96,7 @@ Page({
   deleteType(id){
     return new Promise((resolve, reject) => {
       wx.cloud.callFunction({
-        name: 'activityType',
+        name: 'grade',
         data: {
           type: "delete",
           info: {

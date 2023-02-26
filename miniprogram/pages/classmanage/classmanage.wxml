@@ -4,14 +4,14 @@
 <view class="body">
   <view class="part" wx:for="{{class}}" wx:key="_id">
     <view class="grade" bindtap="listpx" data-index="{{item.index}}">
-      <view class="iconfont {{item.pxopen ? 'icon-chevron-right-copy' : 'icon-chevron-right'}}"></view>
-      {{item.gradeName}}
+      <view class="iconfont {{item.pxopen ? 'icon-chevron-right-copy' : 'icon-chevron-right'}}">{{item.gradeName}}</view>
     </view>
     <view class="temp {{item.pxopen ? 'slidown' : 'slidup'}}">
       <view class="item" wx:for="{{item.class}}" wx:key="_id">
         <view class="iconfont icon-xiugai"></view>
         <input class="text" placeholder="{{item.className}}" bindinput="handleInputName"></input>
         <button class="butn blue" bindtap="modifyclass" data-id="{{item._id}}">修改</button>
+        <button class="butn red" bindtap="delete" data-id="{{item._id}}">删除</button>
       </view>
       <view class="item">
         <view class="iconfont icon--Manager">
@@ -23,26 +23,5 @@
         </button>
       </view>
     </view>
-    <view class="ipt">
-      <view class="iconfont icon-xiugai">
-        年级名称 :
-      </view>
-      <input class="text" bindinput="handleInputName" />
-      <button class="butn blue" bindtap="modifygrade" data-index="{{item._id}}">
-        修改
-      </button>
-    </view>
   </view>
-  <view class="grade width">
-    新建年级
-  </view>
-  <view class="ipt">
-    <view class="left iconfont icon--Manager">
-      名称 :
-    </view>
-    <input class="text" bindinput="handleInputName" />
-  </view>
-  <button class="btn blue" bindtap="creategrd">
-    创建年级
-  </button>
 </view>

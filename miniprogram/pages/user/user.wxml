@@ -17,11 +17,15 @@
     <view class="iconfont icon-chevron-right"></view>
   </navigator>
   <navigator wx:if="{{type2}}" url="/pages/usermanage/usermanage">
-    <view class="itemname iconfont icon-yonghu"> 用户管理</view>
+    <view class="itemname iconfont icon-banji"> 用户管理</view>
+    <view class="iconfont icon-chevron-right"></view>
+  </navigator>
+  <navigator wx:if="{{type2}}" url="/pages/grademanage/grademanage">
+    <view class="itemname iconfont icon-yonghuyanjiusuo"> 年级管理</view>
     <view class="iconfont icon-chevron-right"></view>
   </navigator>
   <navigator wx:if="{{type2}}" url="/pages/classmanage/classmanage">
-    <view class="itemname iconfont icon-banji"> 班级管理</view>
+    <view class="itemname iconfont icon-yonghu"> 班级管理</view>
     <view class="iconfont icon-chevron-right"></view>
   </navigator>
   <navigator wx:if="{{type2}}" url="/pages/mygroup/mygroup">

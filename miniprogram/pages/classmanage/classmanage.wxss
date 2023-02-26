@@ -1,31 +1,35 @@
 /* pages/classmanage/classmanage.wxss */
-.body{
-  background-color: white;
+
+.part {
   box-shadow: 1rpx 1rpx 15rpx #ddd;
-}
-.part{
-  border-bottom: 2rpx solid rgb(220, 220, 220);
-}
-.text{
-  flex:1
-}
-.temp{
-display:none;
-overflow-y: scroll;
-padding: 0 0 0 35rpx;
-line-height:100rpx;
-background: white;
+  margin: 10rpx;
+  background-color: white;
+  border-radius: 15rpx;
 }
 
-.slidown{
-display: block;
+.text {
+  flex: 1
 }
 
-.slidup{
-display: block;
-height: 0px;
+.temp {
+  display: none;
+  overflow-y: scroll;
+  padding: 0 0 0 35rpx;
+  line-height: 100rpx;
+  background: white;
 }
-.item{
+
+.slidown {
+  display: block;
+  padding-bottom: 20rpx;
+}
+
+.slidup {
+  display: block;
+  height: 0;
+}
+
+.item {
   display: flex;
   background-color: white;
   height: 75rpx;
@@ -37,40 +41,46 @@ height: 0px;
   font-size: 30rpx;
   padding: 10rpx;
 }
-.grade{
+
+.grade {
+  height: 100rpx;
   display: flex;
-  align-items:center; 
-  margin: 20rpx;
+  margin-left: 10rpx;
+  align-items: center;
   font-size: 34rpx;
-  font-weight:500;
+  font-weight: 500;
   z-index: 99;
 }
-.ipt{
+
+.ipt {
 
   padding: 15rpx 25rpx;
   display: flex;
   background-color: white;
   align-items: center;
 }
-input{
+
+input {
   margin-left: 10rpx;
-  border-bottom:2rpx solid rgb(235, 234, 234) ;
+  border-bottom: 2rpx solid rgb(235, 234, 234);
 }
-.left{
-	width: 150rpx;
+
+.left {
+  width: 150rpx;
 }
-.width{
+
+.width {
   font-weight: 700;
 }
-.butn{
-	height: 60rpx;
-	width: 80rpx;
-	font-size: 26rpx;
+
+.butn {
+  height: 60rpx;
+  width: 80rpx;
+  font-size: 26rpx;
   padding: 0;
   margin-left: 20rpx;
-	justify-content: center;
-	align-items: center;
+  justify-content: center;
+  align-items: center;
   line-height: 60rpx;
   color: white;
-  }
-  
+}

@@ -75,35 +75,40 @@ Page({
       })
     })
   },
-  modifygrade(e) {
-    const id = e.currentTarget.dataset.index;
-    console.log(e)
-    console.log(id)
+  deleteClass(id){
     return new Promise((resolve, reject) => {
       wx.cloud.callFunction({
-        name: 'grade',
+        name: 'class',
         data: {
-          type: "modify",
+          type: "delete",
           info: {
-            gradeName: this.data.name,
             _id: id
           }
         },
         success: (res) => {
-          console.log(res)
           wx.showToast({
             title: res.result.des,
             icon: 'none'
           })
-          this.setData({
-            name: ''
-          })
-          if (res.result.code === 'success') {
-            this.getClass()
-          }
           return resolve(res);
-        }
+        },
       })
+    })
+  },
+  delete(e) {
+    let id = e.currentTarget.dataset.id
+    wx.showModal({
+      title: '系统提示',
+      content: '确认要删除吗？',
+      cancelColor: 'cancelColor',
+      success: async (res)=> {
+        if (res.confirm) {
+          await this.deleteClass(id)
+          setTimeout(() => {
+            this.getClass()
+          }, 1000);
+        }
+      }
     })
   },
   create(e) {
@@ -132,28 +137,6 @@ Page({
           this.setData({
             name: ''
           })
-          return resolve(res);
-        }
-      })
-    })
-  },
-  creategrd() {
-    return new Promise((resolve, reject) => {
-      wx.cloud.callFunction({
-        name: 'grade',
-        data: {
-          type: "create",
-          info: {
-            gradeName: this.data.name,
-          }
-        },
-        success: (res) => {
-          console.log(res)
-          wx.showToast({
-            title: res.result.des,
-            icon: 'none'
-          })
-          this.getClass()
           return resolve(res);
         }
       })
