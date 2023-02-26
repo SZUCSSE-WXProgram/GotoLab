@@ -10,7 +10,7 @@ exports.createCheck = {
 }
 
 exports.modifyCheck = {
-    typeName: {des: '活动类别名', type: 'string', required: true, minLength: 2, maxLength: 10, validator: [uniqueType]},
+    typeName: {des: '活动类别名', type: 'string', required: true, minLength: 2, maxLength: 10},
     _id: {des: '活动id', type: 'string', required: true, validator: [existType]},
 }
 
@@ -34,7 +34,7 @@ async function uniqueType(typeName) {
 }
 
 async function existType(typeId) {
-    const _cnt = await db.collection('Grade').where({
+    const _cnt = await db.collection('ActivityType').where({
         _id: typeId
     }).count()
     if (_cnt.total === 0) {

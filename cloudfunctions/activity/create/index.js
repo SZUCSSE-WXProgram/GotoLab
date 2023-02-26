@@ -35,6 +35,7 @@ exports.main = async (event, context) => {
         endTime: event.info.endTime,
         location: event.info.location,
         type: event.info.type,
+        createTime: new Date(),
     }
     // 校验日期格式
     if (isNaN(Date.parse(event.info.startTime)) || isNaN(Date.parse(event.info.endTime)) || new Date(info.endTime).toString() === 'Invalid Date' || new Date(info.startTime).toString() === 'Invalid Date') {

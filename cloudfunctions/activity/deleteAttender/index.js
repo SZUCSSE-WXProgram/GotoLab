@@ -40,6 +40,19 @@ exports.main = async (event, context) => {
         }).get().then(res => {
             info.userId = res.data[0]._id
         })
+        const isCheck = await db.collection('UserToActivity').where({
+            userId: info.userId,
+            activityId: info.activityId,
+        }).get().then(res => {
+            return res.data[0].status
+        })
+        if (isCheck === 1) {
+            return {
+                code: 'fail',
+                status: 403,
+                des: '已经签到确认，无法取消参与'
+            }
+        }
     }
     return await db.collection('UserToActivity').where({
         userId: info.userId,
