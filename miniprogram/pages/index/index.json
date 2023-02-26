@@ -1,5 +1,5 @@
 {
-  "usingComponents": {
-    "searchInput":"../../components/searchInput/searchInput"
-  }
+  "usingComponents": {},
+  "enablePullDownRefresh": true,
+  "backgroundColor": "#efefef"
 }

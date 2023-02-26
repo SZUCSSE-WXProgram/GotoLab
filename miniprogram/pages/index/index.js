@@ -6,26 +6,29 @@ Page({
    * 页面的初始数据
    */
   data: {
-    groupList:[]
+    groupList: []
   },
-  getgroupList(){
+  getgroupList() {
     wx.showLoading({
       title: '加载中',
     })
-    wx.cloud.callFunction({
-      name:'group',
-      data:{
-        type: "getFullList",
-      },
-      success:(res)=>{
-        this.setData({
-          // groupList.append(...res.result.info),
-          groupList:[...this.data.groupList,...res.result.info]
-        })
-        wx.hideLoading({
-          success: (res) => {},
-        })
-      }
+    return new Promise((resolve, reject) => {
+      wx.cloud.callFunction({
+        name: 'group',
+        data: {
+          type: "getFullList",
+        },
+        success: (res) => {
+          this.setData({
+            // groupList.append(...res.result.info),
+            groupList: res.result.info
+          })
+          wx.hideLoading({
+            success: (res) => {},
+          })
+          return resolve(res);
+        }
+      })
     })
   },
   /**
@@ -34,7 +37,7 @@ Page({
   onLoad(options) {
     this.getgroupList()
   },
-  
+
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
@@ -66,15 +69,18 @@ Page({
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh() {
-
+  async onPullDownRefresh() {
+    await this.getgroupList()
+    wx.stopPullDownRefresh({
+      success: (res) => {},
+    })
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
   onReachBottom() {
-    
+
   },
 
   /**

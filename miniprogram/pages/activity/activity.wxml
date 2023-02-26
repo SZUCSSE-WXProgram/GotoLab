@@ -13,7 +13,7 @@
     setColor:setColor
   }
 </wxs>
-<view>
+<view class="body">
   <view wx:for="{{activity}}" wx:key="_id">
     <activitycard activity="{{item}}" color="{{format.setColor()}}"></activitycard>
   </view>

@@ -96,7 +96,7 @@ Page({
       classList.push(classItem)
       classItem = []
     }
-    var x,y;
+    var x=0,y=0;
     for (let index = 0; index < grade.length; index++) {
       if(this.data.mygrade===grade[index])
       {
@@ -116,7 +116,9 @@ Page({
     this.setData({
       multiArray: array,
       classList: classList,
-      multiIndex:multiIndex
+      multiIndex:multiIndex,
+      _grade:_class[x]._id,
+      _class:_class[x].class[y]._id
     })
   },
   bindMultiPickerChange: function (e) {
@@ -292,7 +294,7 @@ Page({
       permission: options.permission,
       change: options.permission,
       _id: options._id,
-      flag: options.flag,
+      flag: Boolean(options.flag),
       email: options.email,
       myclass: options.class,
       mygrade: options.grade,

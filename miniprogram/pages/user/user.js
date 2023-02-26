@@ -11,6 +11,9 @@ Page({
     type2: false,
   },
   getMyself(){
+    wx.showLoading({
+      title: '加载中',
+    })
     return new Promise((resolve,reject)=>{
     wx.cloud.callFunction({
       name:'user',
@@ -19,7 +22,9 @@ Page({
       },
       success:(res)=>{
         wx.setStorageSync('myself', res.result.info)
-        wx.setStorageSync('isRegister', res.result.isRegistered)
+        wx.hideLoading({
+          success: (res) => {},
+        })
         return resolve(res);
       }
     })
@@ -42,8 +47,8 @@ Page({
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow() {
-    
+  async onShow() {
+    await this.getMyself()
     this.setData({
       myself: wx.getStorageSync('myself'),
       type0: wx.getStorageSync('myself').permission === 0,
@@ -69,8 +74,17 @@ Page({
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh() {
-
+  async onPullDownRefresh() {
+    await this.getMyself()
+    this.setData({
+      myself: wx.getStorageSync('myself'),
+      type0: wx.getStorageSync('myself').permission === 0,
+      type1: wx.getStorageSync('myself').permission === 1,
+      type2: wx.getStorageSync('myself').permission === 2
+    })
+    wx.stopPullDownRefresh({
+      success: (res) => {},
+    })
   },
 
   /**
