@@ -84,7 +84,8 @@ async function existUser(user_id) {
 
 async function existType(type_id) {
     const _cnt = await db.collection('ActivityType').where({
-        _id: type_id
+        _id: type_id,
+        available: true
     }).count()
     if (_cnt.total === 0) {
         return {

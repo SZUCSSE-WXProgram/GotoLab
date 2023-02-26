@@ -104,7 +104,8 @@ async function uniqueOpenid(openID) {
 
 async function validateClass(classid) {
     const _cnt = await db.collection('Class').where({
-        _id: classid
+        _id: classid,
+        available: true
     }).count()
     if (_cnt.total === 0) {
         return {
