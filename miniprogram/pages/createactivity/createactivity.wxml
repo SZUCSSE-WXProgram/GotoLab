@@ -1,12 +1,12 @@
 <!--pages/createactivity/createactivity.wxml-->
 <view wx:if="{{actid===0}}" class="title">创建活动</view>
-<view wx:if="{{actid!==0}}" class="title">修改活动</view>
+<view wx:if="{{actid!==0}}" class="title">编辑活动</view>
 <view class="body">
   <view class="item">
     <view class="left iconfont icon-nav_icon_zhiduguanli">
       活动名称
     </view>
-    <input class="right" value="{{name}}" placeholder="请输入活动名称" type="text"  bindinput="handleInputname" />
+    <input class="right" value="{{name}}" placeholder="请输入活动名称" type="text" bindinput="handleInputname" />
   </view>
   <view class="item">
     <view class="left iconfont icon-all:before">
@@ -62,6 +62,13 @@
       活动描述
     </view>
     <textarea class="intro right" maxlength="500" placeholder="请输入活动描述" value="{{intro}}" bindinput="handleInputIntro"></textarea>
+  </view>
+  <view wx:if="{{actid!==0}}" class="item flex">
+    <view class="flex">
+      是否可报名
+    </view>
+    <button wx:if="{{!signable}}" class="butn green" bindtap="setsignable">开始</button>
+    <button wx:if="{{signable}}" class="butn red" bindtap="setsignable">暂停</button>
   </view>
 </view>
 <button wx:if="{{actid===0}}" class="btn blue" bindtap="create">创建</button>

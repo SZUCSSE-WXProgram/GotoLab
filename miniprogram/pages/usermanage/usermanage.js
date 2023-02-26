@@ -78,10 +78,10 @@ Page({
           wx.hideLoading({
             success: (res) => {},
           })
-          if (res.result.code == "success") {
+          if (res.result.code === "success") {
             wx.showToast({
               title: '添加成功',
-              duration: 2000
+              duration: 1000
             })
             setTimeout(() => {
               wx.navigateBack({

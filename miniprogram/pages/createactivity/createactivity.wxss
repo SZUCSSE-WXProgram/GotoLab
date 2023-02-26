@@ -6,6 +6,11 @@
 .left{
   margin-bottom: 20rpx;
 }
+.flex{
+  display: flex;
+  flex: 1;
+  align-items: center;
+}
 .right{
   display:flex ;
   color: grey;
@@ -13,9 +18,20 @@
 .intro-h{
   border-bottom:2rpx solid rgb(235, 234, 234) ;
   padding: 20rpx 25rpx;
-  height: 600rpx;
+  height: 500rpx;
 }
 .intro{
   height: 90%;
   width: 100%;
 }
+.butn{
+	height: 60rpx;
+	width: 80rpx;
+	font-size: 26rpx;
+  padding: 0;
+  margin-left: 20rpx;
+	justify-content: center;
+	align-items: center;
+  line-height: 60rpx;
+  color: white;
+  }

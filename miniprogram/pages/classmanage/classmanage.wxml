@@ -1,8 +1,15 @@
 <!--pages/classmanage/classmanage.wxml-->
 <view class="title">班级管理</view>
+<!-- <view class="nav-son">
+    <view class="flex" bindtap="listpx">fffff</view>
+  </view>
+<view class="temp {{pxopen ? 'slidown' : 'slidup'}}">
+  dddd
+</view> -->
+
 <view class="body">
   <view class="part" wx:for="{{class}}" wx:key="_id" >
-    <view class="grade" bindtap="modifygrade" data-grade="{{item._id}}">
+    <view class="grade" bindtap="listpx" data-grade="{{item._id}}">
       {{item.gradeName}}
     </view>
     <view class="class">

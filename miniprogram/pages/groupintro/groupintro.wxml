@@ -4,7 +4,7 @@
     <view class="flex">{{group.groupName}}</view>
     <view wx:if="{{flag}}" class="iconfont icon-shezhi" bindtap="listpx"></view>
   </view>
-  <view class="temp {{pxopen ? 'slidown' : 'slidup'}} {{pxshow ? 'disappear':''}}">
+  <view class="temp {{pxopen ? 'slidown' : 'slidup'}}">
     <navigator url="/pages/createactivity/createactivity?id={{group._id}}" class="iconfont icon-fabu1">
       发布活动
     </navigator>

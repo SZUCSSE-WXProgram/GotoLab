@@ -7,7 +7,13 @@ Page({
   data: {
     class:[],
     name:'',
-    index:0
+    index:0,
+    pxopen:false
+  },
+  listpx() {
+    this.setData({
+      pxopen: !this.data.pxopen,
+    })
   },
   getClass() {
 		return new Promise((resolve, reject) => {

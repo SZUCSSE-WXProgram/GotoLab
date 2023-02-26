@@ -8,12 +8,13 @@ Page({
     id: '',
     mygroups: [],
     activity: {},
-    inAttend: true,
+    isAttend: false,
     permission: 0,
     flag: false,
     isStart: false,
     isFull: false,
-    signable: false
+    signable: false,
+    isCheck:false
   },
   attend() {
     wx.cloud.callFunction({
@@ -82,8 +83,20 @@ Page({
       }
     })
   },
+  truedelete(){
+    wx.showModal({
+      title: '系统提示',
+      content: '确认要删除吗？',
+      cancelColor: 'cancelColor',
+      success: async (res)=> {
+        if (res.confirm) {
+          this.delete()
+        }
+      }
+    })
+  },
   setsignable() {
-    if (this.data.activity.attenders === Number(this.data.activity.limit)) {
+    if (this.data.activity.attenders >= Number(this.data.activity.limit)) {
       this.setData({
         isFull: true
       })
@@ -109,6 +122,12 @@ Page({
     } else {
       this.setData({
         signable: false
+      })
+    }
+    if(this.data.activity.isAttend===Number(1))
+    {
+      this.setData({
+        isCheck:true
       })
     }
   },
@@ -148,7 +167,7 @@ Page({
       this.setData({
         isAttend: false
       })
-    if (String(this.data.activity.isAttend) === "0")
+    else(String(this.data.activity.isAttend) === "0")
       this.setData({
         isAttend: true
       })

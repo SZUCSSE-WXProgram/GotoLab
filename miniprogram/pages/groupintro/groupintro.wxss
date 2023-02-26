@@ -14,14 +14,6 @@
   display: flex;
   align-items: center;
 }
-/* 下拉列表 下三角的样式 */
-.nav-son image{
-  position: absolute;
-  right: 30rpx;
-  width: 50rpx;
-  height: 50rpx;
-}
-
 /* 下拉框的样式 */
 .temp{
   /* 默认为不显示 */

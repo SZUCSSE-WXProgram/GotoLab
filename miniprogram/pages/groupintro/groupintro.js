@@ -5,7 +5,6 @@ Page({
    */
   data: {
     pxopen: false,
-    pxshow: false,
     group: {},
     activity: [],
     hasMore: true,
@@ -15,47 +14,35 @@ Page({
     permission: '',
     id: '',
     mygroups: [],
-    flag:false
+    flag: false
   },
-  listpx: function (e) {
-    if (this.data.pxopen) {
-      this.setData({
-        pxopen: false,
-        pxshow: false,
-      })
-    } else {
-      this.setData({
-        pxopen: true,
-        pxshow: false,
-      })
-    }
+  listpx() {
+    this.setData({
+      pxopen: !this.data.pxopen,
+    })
   },
-  setflag(){
-    if(this.data.permission===0)
-    {
+  setflag() {
+    if (this.data.permission === 0) {
       this.setData({
-        flag:false
+        flag: false
       })
-    }
-    else if(this.data.permission===1)
-    {
+    } else if (this.data.permission === 1) {
       let index;
       for (index = 0; index < this.data.mygroups.length; index++) {
-        if(this.data.id===this.data.mygroups[index]._id)
+        if (this.data.id === this.data.mygroups[index]._id)
           break;
       }
-      if(index===this.data.mygroups.length)
+      if (index === this.data.mygroups.length)
+        this.setData({
+          flag: false
+        })
+      else
+        this.setData({
+          flag: true
+        })
+    } else if (this.data.permission === 2) {
       this.setData({
-        flag:false
-      })
-       else
-       this.setData({
-        flag:true
-      })
-    }
-    else if (this.data.permission===2) {
-      this.setData({
-        flag:true
+        flag: true
       })
     }
   },
@@ -78,20 +65,20 @@ Page({
           }
         },
         success: (res) => {
-          let offset=this.data.offset
+          let offset = this.data.offset
           this.setData({
-            activity:[...this.data.activity,...res.result.data],
-            hasMore:res.result.hasMore,
-            offset:this.data.offset+this.data.limit
+            activity: [...this.data.activity, ...res.result.data],
+            hasMore: res.result.hasMore,
+            offset: this.data.offset + this.data.limit
           })
-          let act=this.data.activity
+          let act = this.data.activity
           for (let index = Number(offset); index < act.length; index++) {
-            act[index].startTime=act[index].startTime.slice(0,10)+' '+act[index].startTime.slice(11,16)
-            act[index].endTime=act[index].endTime.slice(0,10)+' '+act[index].endTime.slice(11,16)
+            act[index].startTime = act[index].startTime.slice(0, 10) + ' ' + act[index].startTime.slice(11, 16)
+            act[index].endTime = act[index].endTime.slice(0, 10) + ' ' + act[index].endTime.slice(11, 16)
           }
           this.setData({
-              activity:act
-            }) 
+            activity: act
+          })
           wx.hideLoading({
             success: (res) => {},
           })

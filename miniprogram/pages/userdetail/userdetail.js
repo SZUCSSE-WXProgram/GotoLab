@@ -148,14 +148,17 @@ Page({
                 duration: 2000
               })
             } else {
-              wx.navigateBack({
-                delta: 0,
-              })
               wx.showToast({
-                title: res.result.des,
-                icon: 'none',
-                duration: 2000
+                title: '修改成功',
+                duration: 1000
               })
+            
+                setTimeout(() => {
+                  wx.navigateBack({
+                    delta: 0,
+                  })
+                }, 1000);
+              
             }
             return resolve(res);
           }
