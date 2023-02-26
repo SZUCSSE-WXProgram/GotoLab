@@ -27,6 +27,7 @@ exports.main = async (event, context) => {
     return await db.collection('ActivityType').add({
         data: {
             typeName: event.info.typeName,
+            available: true,
         }
     }).then(res => {
         return {

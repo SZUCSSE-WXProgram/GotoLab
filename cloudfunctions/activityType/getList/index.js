@@ -17,7 +17,12 @@ const $ = _.aggregate
 // 云函数入口函数
 exports.main = async (event, context) => {
     // 获取整个活动类型列表
-    return await db.collection('ActivityType').get().then(res => {
+    return await db.collection('ActivityType').where({
+        available: true
+    }).field({
+        _id: true,
+        typeName: true,
+    }).get().then(res => {
         return {
             code: 'success',
             des: '获取成功',

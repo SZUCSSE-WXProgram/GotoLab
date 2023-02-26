@@ -16,10 +16,15 @@ exports.modifyCheck = {
     gradeId: {des: '年级id', type: 'string', required: false, validator: [existGrade]},
 }
 
+exports.deleteCheck = {
+    _id:{des:'班级id',type:'string',required:true,validator:[existClass]},
+}
+
 
 async function existGrade(_id) {
     const _cnt = await db.collection('Grade').where({
-        _id: _id
+        _id: _id,
+        available: true,
     }).count()
     if (_cnt.total === 0) {
         return {
@@ -36,7 +41,8 @@ async function existGrade(_id) {
 
 async function existClass(_id) {
     const _cnt = await db.collection('Class').where({
-        _id: _id
+        _id: _id,
+        available: true,
     }).count()
     if (_cnt.total === 0) {
         return {

@@ -20,22 +20,20 @@ exports.main = async (event, context) => {
     if (permissionCheck.code !== 'success') {
         return permissionCheck;
     }
-    const checkResult = await validator.check(event.info, checkList.createCheck);
+    const checkResult = await validator.check(event.info, checkList.deleteCheck);
     if (checkResult.code !== 'success') {
         return checkResult
     }
-    const info = {
-        gradeName: event.info.gradeName,
-        available: true
-    }
-    return await db.collection('Grade').add({
-        data: info
+
+    return await db.collection('Grade').doc(event.info._id).update({
+        data: {
+            available: false,
+        }
     }).then(res => {
         return {
             code: 'success',
-            des: '创建成功',
+            des: '删除成功',
             status: 200,
-            info: res,
         }
     }).catch(e => {
         return {

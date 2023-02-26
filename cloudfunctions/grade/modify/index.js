@@ -30,7 +30,8 @@ exports.main = async (event, context) => {
     }
     const _cnt = await db.collection('Grade').where({
         _id: _.neq(info._id),
-        gradeName: info.gradeName
+        gradeName: info.gradeName,
+        available: true
     }).count()
     if (_cnt.total !== 0) {
         return {
