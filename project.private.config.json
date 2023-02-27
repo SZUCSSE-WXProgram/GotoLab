@@ -198,6 +198,13 @@
           "query": "id=f80c64da63934b580140309c62346f93",
           "launchMode": "default",
           "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/createactivity/createactivity",
+          "query": "id=098f4f8063fc65680016242067a431f5",
+          "launchMode": "default",
+          "scene": null
         }
       ]
     }

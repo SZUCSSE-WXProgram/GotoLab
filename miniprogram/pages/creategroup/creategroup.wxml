@@ -19,7 +19,7 @@
 		</view>
 
     <button class="img" wx:if="{{!finish}}" bindtap="click">上传图片</button>
-    <image class="img" wx:if="{{finish}}" src="{{url}}"></image>
+    <image class="img" wx:if="{{finish}}" bindtap="click" src="{{url}}"></image>
   </view>
 </view>
 <button class="btn blue" bindtap="create">

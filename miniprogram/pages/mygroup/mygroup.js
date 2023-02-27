@@ -37,16 +37,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
-    this.setData({
-      permission: wx.getStorageSync('myself').permission
-    })
-    if (wx.getStorageSync('myself').permission === 1) {
-      this.setData({
-        groupList: wx.getStorageSync('myself').groups
-      })
-    } else if (wx.getStorageSync('myself').permission === 2) {
-      this.getgroupList()
-    }
+    
 
   },
 
@@ -61,7 +52,17 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow() {
-
+    this.setData({
+      permission: wx.getStorageSync('myself').permission,
+      groupList: [],
+    })
+    if (wx.getStorageSync('myself').permission === 1) {
+      this.setData({
+        groupList: wx.getStorageSync('myself').groups
+      })
+    } else if (wx.getStorageSync('myself').permission === 2) {
+      this.getgroupList()
+    }
   },
 
   /**

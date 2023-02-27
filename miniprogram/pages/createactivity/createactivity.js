@@ -11,7 +11,7 @@ Page({
     edate: "请选择日期",
     etime: "请选择时间",
     intro: "",
-    limit: '',
+    limit: "",
     position: "",
     name: '',
     type: [],
@@ -69,7 +69,7 @@ Page({
       value
     } = e.detail;
     this.setData({
-      limit: Number(value)
+      limit: value
     })
   },
   handleInputname(e) {
@@ -172,7 +172,7 @@ Page({
             group: this.data.group,
             name: this.data.name,
             intro: this.data.intro,
-            limit: this.data.limit,
+            limit: Number(this.data.limit),
             startTime: startTime,
             endTime: endTime,
             location: this.data.position,
@@ -214,7 +214,7 @@ Page({
             _id: this.data.actid,
             name: this.data.name,
             intro: this.data.intro,
-            limit: this.data.limit,
+            limit: Number(this.data.limit),
             startTime: startTime,
             endTime: endTime,
             location: this.data.position,

@@ -56,11 +56,18 @@ Page({
           type: "getList",
         },
         success: (res) => {
-          console.log(res)
+          const _class = res.result.info
+          for (var i = 0; i < _class.length; i++) {
+            if (_class[i].class.length == 0) {
+              for (let j = i; j < _class.length-1; j++) {
+                _class[j]=_class[j+1]
+              }
+            }
+          }
           this.setData({
-            class: res.result.info,
-            _class: res.result.info[0].class[0]._id,
-            _grade: res.result.info[0]._id
+            class: _class,
+            _class: _class[0].class[0]._id,
+            _grade: _class[0]._id
           })
           return resolve(res);
         }
@@ -71,7 +78,7 @@ Page({
     const _class = this.data.class
     var grade = []
     for (var i = 0; i < _class.length; i++) {
-      grade.push(_class[i].gradeName)
+        grade.push(_class[i].gradeName)
     }
     var classList = []
     var classItem = []

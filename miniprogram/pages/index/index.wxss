@@ -1,6 +1,6 @@
 .indexswp swiper{
   margin-top: 20rpx;
-  height: 340rpx;
+  height: 450rpx;
 }
 
 image{

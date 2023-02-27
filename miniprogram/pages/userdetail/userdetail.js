@@ -21,8 +21,8 @@ Page({
     flag: false,
     change: '',
     email: '',
-    mygrade:'',
-    myclass:''
+    mygrade: '',
+    myclass: ''
   },
   handleInputName(e) {
     const {
@@ -70,11 +70,18 @@ Page({
           type: "getList",
         },
         success: (res) => {
-          console.log(res)
+          const _class = res.result.info
+          for (var i = 0; i < _class.length; i++) {
+            if (_class[i].class.length == 0) {
+              for (let j = i; j < _class.length-1; j++) {
+                _class[j]=_class[j+1]
+              }
+            }
+          }
           this.setData({
-            class: res.result.info,
-            _class: res.result.info[0].class[0]._id,
-            _grade: res.result.info[0]._id
+            class: _class,
+            _class: _class[0].class[0]._id,
+            _grade: _class[0]._id
           })
           return resolve(res);
         }
@@ -85,7 +92,7 @@ Page({
     const _class = this.data.class
     var grade = []
     for (var i = 0; i < _class.length; i++) {
-      grade.push(_class[i].gradeName)
+        grade.push(_class[i].gradeName)
     }
     var classList = []
     var classItem = []
@@ -96,29 +103,29 @@ Page({
       classList.push(classItem)
       classItem = []
     }
-    var x=0,y=0;
+    var x = 0,
+      y = 0;
     for (let index = 0; index < grade.length; index++) {
-      if(this.data.mygrade===grade[index])
-      {
-        x=index
+      if (this.data.mygrade === grade[index]) {
+        x = index
         for (let j = 0; j < classList.length; j++) {
-        if(this.data.myclass===classList[index][j])
-          y=j
+          if (this.data.myclass === classList[index][j])
+            y = j
         }
       }
     }
     var array = []
     array.push(grade)
     array.push(classList[x])
-    var multiIndex=this.data.multiIndex
-    multiIndex[0]=x;
-    multiIndex[1]=y;
+    var multiIndex = this.data.multiIndex
+    multiIndex[0] = x;
+    multiIndex[1] = y;
     this.setData({
       multiArray: array,
       classList: classList,
-      multiIndex:multiIndex,
-      _grade:_class[x]._id,
-      _class:_class[x].class[y]._id
+      multiIndex: multiIndex,
+      _grade: _class[x]._id,
+      _class: _class[x].class[y]._id
     })
   },
   bindMultiPickerChange: function (e) {

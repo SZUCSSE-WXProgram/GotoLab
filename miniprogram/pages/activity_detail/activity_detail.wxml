@@ -82,11 +82,11 @@
     </view>
   </view>
   <view wx:elif="{{isAttend}}">
-    <view wx:if="{{!isStart}}">
-      <button class="blue" bindtap="cancel">取消报名</button>
-    </view>
-    <view wx:elif="{{isCheck}}">
+    <view wx:if="{{isCheck}}">
       <button class="green">已签到</button>
+    </view>
+    <view wx:elif="{{!isStart}}">
+      <button class="blue" bindtap="cancel">取消报名</button>
     </view>
     <view wx:elif="{{!isCheck}}">
       <button class="green">等待管理员确认签到</button>
