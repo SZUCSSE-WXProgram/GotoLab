@@ -23,7 +23,7 @@ Page({
       },
       {
         _id:2,
-        typeName:"超级管理员",
+        typeName:"超级管理",
         isActive:false
       },
     ], 
@@ -165,6 +165,11 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow() {
+   if (this.data.oldpermission === 2 && wx.getStorageSync('myself').permission !== 2) {
+      wx.navigateBack({
+        delta: 0,
+      })
+    }
     this.setData({
       users: [],
       hasMore: true,
@@ -172,11 +177,6 @@ Page({
       search:''
     })
     this.getUser()
-    if (this.data.oldpermission === 2 && wx.getStorageSync('myself').permission !== 2) {
-      wx.navigateBack({
-        delta: 0,
-      })
-    }
   },
 
   /**
