@@ -8,7 +8,7 @@ const $ = _.aggregate
 exports.createCheck = {
     groupName: {des: '研究所名', type: 'string', required: true, minLength: 2, validator: [uniqueGroupName]},
     intro: {des: '简介', type: 'string', required: true, minLength: 10},
-    pic_base64: {des: '研究所图片', type: 'string', required: true}
+    picLink: {des: '研究所图片', type: 'string', required: true}
 }
 exports.getByIDCheck = {
     _id: {des: '研究所ID', type: 'string', required: true, validator: [existGroupId]},
@@ -17,7 +17,7 @@ exports.modifyCheck = {
     _id: {des: '文档id', type: 'string', required: true, validator: [existGroupId]},
     groupName: {des: '研究所名', type: 'string', required: false, minLength: 2},
     intro: {des: '简介', type: 'string', required: false, minLength: 10},
-    pic_base64: {des: '研究所图片', type: 'string', required: false}
+    picLink: {des: '研究所图片', type: 'string', required: false}
 }
 
 exports.getAdminCheck = {
