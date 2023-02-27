@@ -40,13 +40,20 @@ exports.main = async (event, context) => {
         }).get().then(res => {
             info.userId = res.data[0]._id
         })
-        const isCheck = await db.collection('UserToActivity').where({
+        const curActivity = await db.collection('UserToActivity').where({
             userId: info.userId,
             activityId: info.activityId,
         }).get().then(res => {
-            return res.data[0].status
+            return res.data
         })
-        if (isCheck === 1) {
+        if (curActivity.length === 0) {
+            return {
+                code: 'fail',
+                status: 403,
+                des: '未参与该活动'
+            }
+        }
+        if (curActivity[0].status === 1) {
             return {
                 code: 'fail',
                 status: 403,
