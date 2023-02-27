@@ -32,15 +32,27 @@ exports.main = async (event, context) => {
         }
     }
     const docId = event.info._id;
-    return await db.collection('Group').doc(docId).update({
-        data: info
-    }).then(res => {
-        return {
-            code: 'success',
-            status: 200,
-            des: '修改成功',
-            info: res,
-        }
+    const curGroup = await db.collection('Group').doc(docId).get().then(res => {
+        return res.data
+    })
+    return await cloud.deleteFile({
+        fileList: [curGroup.picLink]
+    }).then(async deleteRes => {
+        return await db.collection('Group').doc(docId).update({
+            data: info
+        }).then(updateRes => {
+            return {
+                code: 'success',
+                status: 200,
+                des: '修改成功'
+            }
+        }).catch(e => {
+            return {
+                code: 'fail',
+                status: 500,
+                des: e,
+            }
+        })
     }).catch(e => {
         return {
             code: 'fail',
@@ -48,4 +60,6 @@ exports.main = async (event, context) => {
             des: e,
         }
     })
+
+
 }
