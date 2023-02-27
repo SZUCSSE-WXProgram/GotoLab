@@ -13,7 +13,7 @@
   <view class="left iconfont icon--Manager">
     名称 :
   </view>
-  <input class="text" bindinput="handleInputName" />
+  <input class="text" value="{{name}}" bindinput="handleInputName" />
 </view>
 <button class="btn blue" bindtap="create">
   创建
