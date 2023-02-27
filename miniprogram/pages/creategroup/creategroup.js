@@ -7,7 +7,6 @@ Page({
   data: {
     name:'',
     intro:'',
-    img:'',
     finish:false,
     url:''
   },
@@ -27,24 +26,58 @@ Page({
 			intro: value
 		})
   },
-  click(){
+  click() {
     wx.chooseImage({
       count: 1,
-      sizeType:['compressed'],
-      sourceType:['album'],
-      success:(res)=>{
-        const tempFilePaths=res.tempFilePaths[0]
-        const format=tempFilePaths.substring(tempFilePaths.lastIndexOf('.')+1).toLowerCase()
-        console.log(format)
-        let imge=wx.getFileSystemManager().readFileSync(tempFilePaths,'base64');
-        this.setData({
-          img:'data:image/'+format+';base64,'+imge,
-          finish:true,
-          url:tempFilePaths
+      sizeType: ['compressed'],
+      sourceType: ['album'],
+      success: (res) => {
+        const tempFilePaths = res.tempFilePaths[0]
+        const picType = tempFilePaths.substring(tempFilePaths.lastIndexOf('.') + 1).toLowerCase()
+        const allowedPicType = ['jpg', 'jpeg', 'png', 'bmp']
+        if (res.tempFiles[0].size > 5000000) {
+          wx.showToast({
+            title: '图片过大，最大5M',
+            icon: 'none'
+          })
+          return
+        }
+        if (!allowedPicType.includes(picType)) {
+          wx.showToast({
+            title: '非法的图片类型',
+            icon: 'error'
+          })
+          return
+        }
+        const cloudPath = 'picture/' + new Date().getTime() + '.' + picType
+        wx.showLoading({
+          title: '正在上传',
+        });
+        wx.cloud.uploadFile({
+          cloudPath: cloudPath,
+          filePath: tempFilePaths,
+          success: (res) => {
+            this.setData({
+              url: res.fileID,
+              finish:true
+            })
+            wx.hideLoading({
+              success: (res) => {},
+            })
+            wx.showToast({
+              title: '上传成功',
+            })
+          },
+          fail: (res) => {
+            console.log(res)
+          }
         })
-        wx.showToast({
-          title: '上传成功',
-        })
+        // let imge = wx.getFileSystemManager().readFileSync(tempFilePaths, 'base64');
+        // this.setData({
+        //   img: 'data:image/' + format + ';base64,' + imge,
+        //   finish: true,
+        //   url: tempFilePaths
+        // })
       }
     })
   },
@@ -59,7 +92,7 @@ Page({
         info:{
           groupName: this.data.name,
           intro: this.data.intro,
-          pic_base64: this.data.img
+          picLink: this.data.url
         }
       },
       success: (res) => {

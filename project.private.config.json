@@ -191,6 +191,13 @@
           "query": "",
           "launchMode": "default",
           "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/modifygroup/modifygroup",
+          "query": "id=f80c64da63934b580140309c62346f93",
+          "launchMode": "default",
+          "scene": null
         }
       ]
     }
