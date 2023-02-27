@@ -7,9 +7,7 @@ Page({
   data: {
     name: '',
     intro: '',
-    img: '',
     url: '',
-    finish: false,
     group: {}
   },
   handleInputName(e) {
@@ -32,69 +30,35 @@ Page({
     wx.showLoading({
       title: '加载中',
     })
-    if (this.data.finish) {
-      wx.cloud.callFunction({
-        name: 'group',
-        data: {
-          type: "modify",
-          info: {
-            _id: this.options.id,
-            groupName: this.data.name,
-            intro: this.data.intro,
-            pic_base64: this.data.img
-          }
-        },
-        success: (res) => {
-          wx.hideLoading({
-            success: (res) => {},
-          })
-          wx.showToast({
-            title: res.result.des,
-            icon: 'none',
-            duration: 2000
-          })
-          console.log(res)
-          if (res.result.code == "success") {
-            setTimeout(() => {
-              wx.navigateBack({
-                delta: 0,
-              })
-            }, 2000);
-          }
+    wx.cloud.callFunction({
+      name: 'group',
+      data: {
+        type: "modify",
+        info: {
+          _id: this.options.id,
+          groupName: this.data.name,
+          intro: this.data.intro,
+          picLink: this.data.url
         }
-      })
-    } else {
-      console.log(1)
-      wx.cloud.callFunction({
-        name: 'group',
-        data: {
-          type: "modify",
-          info: {
-            _id: this.options.id,
-            groupName: this.data.name,
-            intro: this.data.intro,
-          }
-        },
-        success: (res) => {
-          wx.hideLoading({
-            success: (res) => {},
-          })
-          wx.showToast({
-            title: res.result.des,
-            icon: 'none',
-            duration: 2000
-          })
-          console.log(res)
-          if (res.result.code == "success") {
-            setTimeout(() => {
-              wx.navigateBack({
-                delta: 0,
-              })
-            }, 2000);
-          }
+      },
+      success: (res) => {
+        wx.hideLoading({
+          success: (res) => {},
+        })
+        wx.showToast({
+          title: res.result.des,
+          icon: 'none',
+          duration: 2000
+        })
+        if (res.result.code == "success") {
+          setTimeout(() => {
+            wx.navigateBack({
+              delta: 0,
+            })
+          }, 2000);
         }
-      })
-    }
+      }
+    })
   },
   click() {
     wx.chooseImage({
@@ -103,17 +67,50 @@ Page({
       sourceType: ['album'],
       success: (res) => {
         const tempFilePaths = res.tempFilePaths[0]
-        const format = tempFilePaths.substring(tempFilePaths.lastIndexOf('.') + 1).toLowerCase()
-        console.log(format)
-        let imge = wx.getFileSystemManager().readFileSync(tempFilePaths, 'base64');
-        this.setData({
-          img: 'data:image/' + format + ';base64,' + imge,
-          finish: true,
-          url: tempFilePaths
+        const picType = tempFilePaths.substring(tempFilePaths.lastIndexOf('.') + 1).toLowerCase()
+        const allowedPicType = ['jpg', 'jpeg', 'png', 'bmp']
+        if (res.tempFiles[0].size > 5000000) {
+          wx.showToast({
+            title: '图片过大，最大5M',
+            icon: 'none'
+          })
+          return
+        }
+        if (!allowedPicType.includes(picType)) {
+          wx.showToast({
+            title: '非法的图片类型',
+            icon: 'error'
+          })
+          return
+        }
+        const cloudPath = 'picture/' + new Date().getTime() + '.' + picType
+        wx.showLoading({
+          title: '正在上传',
+        });
+        wx.cloud.uploadFile({
+          cloudPath: cloudPath,
+          filePath: tempFilePaths,
+          success: (res) => {
+            this.setData({
+              url: res.fileID,
+            })
+            wx.hideLoading({
+              success: (res) => {},
+            })
+            wx.showToast({
+              title: '上传成功',
+            })
+          },
+          fail: (res) => {
+            console.log(res)
+          }
         })
-        wx.showToast({
-          title: '上传成功',
-        })
+        // let imge = wx.getFileSystemManager().readFileSync(tempFilePaths, 'base64');
+        // this.setData({
+        //   img: 'data:image/' + format + ';base64,' + imge,
+        //   finish: true,
+        //   url: tempFilePaths
+        // })
       }
     })
   },
