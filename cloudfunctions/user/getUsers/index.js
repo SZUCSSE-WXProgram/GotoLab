@@ -16,68 +16,123 @@ const $ = _.aggregate
 
 // 云函数入口函数
 exports.main = async (event, context) => {
+    const permissionValidate = await permission.isNotStudent();
+    if (permissionValidate.code !== "success") {
+        return permissionValidate;
+    }
     const pageOffset = {
         limit: event.info.limit ? Math.min(event.info.limit, 20) : 10,
         offset: event.info.offset ? event.info.offset : 0,
     }
     const pageQuery = {
         search: event.info.search ? event.info.search : "",
-        permission: event.info.permission ? event.info.permission : 0,
+        permission: event.info.permission,
     }
-    const permissionValidate = await permission.isNotStudent();
-    if (permissionValidate.code !== "success") {
-        return permissionValidate;
+    if (pageQuery.permission === undefined || pageQuery.permission === null || pageQuery.permission === "") {
+        return await db.collection('User').aggregate()
+            .match(_.or([{
+                name: db.RegExp({
+                    regexp: '.*' + pageQuery.search,
+                    options: 'i',
+                })
+            }, {
+                stuid: db.RegExp({
+                    regexp: '.*' + pageQuery.search,
+                    options: 'i',
+                })
+            }]))
+            .lookup({
+                from: 'Class',
+                localField: 'class',
+                foreignField: '_id',
+                as: 'class',
+            }).lookup({
+                from: 'Grade',
+                localField: 'class.gradeId',
+                foreignField: '_id',
+                as: 'grade'
+            }).sort({
+                stuid: 1,
+            })
+            .skip(pageOffset.offset)
+            .limit(pageOffset.limit + 1)// tricky做法 多取一条数据判断数据是不是取完了
+            .end().then(res => {
+                const hasMore = res.list.length > pageOffset.limit
+                if (hasMore) {
+                    res.list.pop()
+                }
+                for (let i in res.list) {
+                    res.list[i].class = res.list[i].class[0]
+                    delete res.list[i].class.gradeId
+                    res.list[i].grade = res.list[i].grade[0]
+                }
+                return {
+                    code: 'success',
+                    data: res.list,
+                    hasMore: hasMore,
+                    status: 200
+                }
+            }).catch(e => {
+                return {
+                    code: 'fail',
+                    status: 500,
+                    des: e
+                }
+            })
+    } else {
+        return await db.collection('User').aggregate()
+            .match(_.or([{
+                name: db.RegExp({
+                    regexp: '.*' + pageQuery.search,
+                    options: 'i',
+                })
+            }, {
+                stuid: db.RegExp({
+                    regexp: '.*' + pageQuery.search,
+                    options: 'i',
+                })
+            }]).and({
+                permission: pageQuery.permission
+            }))
+            .lookup({
+                from: 'Class',
+                localField: 'class',
+                foreignField: '_id',
+                as: 'class',
+            }).lookup({
+                from: 'Grade',
+                localField: 'class.gradeId',
+                foreignField: '_id',
+                as: 'grade'
+            }).sort({
+                stuid: 1,
+            })
+            .skip(pageOffset.offset)
+            .limit(pageOffset.limit + 1)// tricky做法 多取一条数据判断数据是不是取完了
+            .end().then(res => {
+                const hasMore = res.list.length > pageOffset.limit
+                if (hasMore) {
+                    res.list.pop()
+                }
+                for (let i in res.list) {
+                    res.list[i].class = res.list[i].class[0]
+                    delete res.list[i].class.gradeId
+                    res.list[i].grade = res.list[i].grade[0]
+                }
+                return {
+                    code: 'success',
+                    data: res.list,
+                    hasMore: hasMore,
+                    status: 200
+                }
+            }).catch(e => {
+                return {
+                    code: 'fail',
+                    status: 500,
+                    des: e
+                }
+            })
     }
-    return await db.collection('User').aggregate()
-        .match(_.or([{
-            name: db.RegExp({
-                regexp: '.*' + pageQuery.search,
-                options: 'i',
-            })
-        }, {
-            stuid: db.RegExp({
-                regexp: '.*' + pageQuery.search,
-                options: 'i',
-            })
-        }]).and({
-            permission: _.gte(pageQuery.permission)
-        }))
-        .lookup({
-            from: 'Class',
-            localField: 'class',
-            foreignField: '_id',
-            as: 'class',
-        }).lookup({
-            from: 'Grade',
-            localField: 'class.gradeId',
-            foreignField: '_id',
-            as: 'grade'
-        }).sort({
-            stuid: 1,
-        })
-        .skip(pageOffset.offset)
-        .limit(pageOffset.limit + 1)// tricky做法 多取一条数据判断数据是不是取完了
-        .end().then(res => {
-            const hasMore = res.list.length > pageOffset.limit
-            if (hasMore) {
-                res.list.pop()
-            }
-            for (let i in res.list) {
-                res.list[i].class = res.list[i].class[0]
-                delete res.list[i].class.gradeId
-                res.list[i].grade = res.list[i].grade[0]
-            }
-            return {
-                code: 'success',
-                data: res.list,
-                hasMore: hasMore,
-                status: 200
-            }
-        }).catch(e => {
-            return {
-                code: 'fail',
-                status: 500,
-                des: e
-            }
-        })
+
+
 }
