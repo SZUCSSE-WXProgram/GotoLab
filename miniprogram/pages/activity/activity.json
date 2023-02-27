@@ -2,5 +2,7 @@
   "usingComponents": {
     "searchInput":"../../components/searchInput/searchInput",
     "activitycard":"../../components/activitycard/activitycard"
-  }
+  },
+  "enablePullDownRefresh": true,
+  "backgroundColor": "#5297F7"
 }

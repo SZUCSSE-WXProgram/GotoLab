@@ -1,25 +1,27 @@
 <!--pages/usermanage/usermanage.wxml-->
 <view class="top">
-  <view class="text">所有用户</view>
+  <view class="text">用户列表</view>
   <view class="search_row">
-    <input value="{{iptvalue}}" placeholder="请输入用户的姓名或学号" bindconfirm="handleInput"></input>
+    <input value="{{search}}" placeholder="请输入用户的姓名或学号" bindconfirm="handleInput"></input>
   </view>
 </view>
 <view class="list">
-  <view class="head">
-    <view class="name weight">
-      姓名
-    </view>
-    <view class="stuid weight">
-      学号
+  <view class="tabs">
+    <view class="tabs_title">
+      <view wx:for="{{tabs}}" wx:key="_id" class="title_item {{item.isActive?'active':''}}" bindtap="tabclick" data-index="{{index}}">{{item.typeName}} </view>
     </view>
   </view>
   <view wx:for="{{users}}" wx:key="_id" class="head">
-    <view class="name font">
-      {{item.name}}
-    </view>
-    <view class="font">
-      {{item.stuid}}     |
+    <view class="msg name">
+      <view class=" font">
+        姓名: {{item.name}}
+      </view>
+      <view class="font">
+        学号: {{item.stuid}}
+      </view>
+      <view class="font">
+        权限: {{TypeArray[item.permission]}}
+      </view>
     </view>
     <navigator wx:if="{{id===0}}" url="/pages/userdetail/userdetail?name={{item.name}}&permission={{item.permission}}&id={{item.stuid}}&phone={{item.phone}}&_id={{item._id}}&email={{item.email}}&class={{item.class.className}}&grade={{item.grade.gradeName}}">
       <button class="butn blue">编辑</button>

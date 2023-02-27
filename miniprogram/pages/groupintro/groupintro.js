@@ -205,6 +205,8 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage() {
-
+    return{
+      title:this.data.group.groupName
+    }
   }
 })

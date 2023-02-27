@@ -5,12 +5,54 @@ Page({
    * 页面的初始数据
    */
   data: {
+    tabs:[
+      {
+        _id:'',
+        typeName:"全部",
+        isActive:true
+      },
+      {
+        _id:0,
+        typeName:"学生",
+        isActive:false
+      },
+      {
+        _id:1,
+        typeName:"研究所管理",
+        isActive:false
+      },
+      {
+        _id:2,
+        typeName:"超级管理员",
+        isActive:false
+      },
+    ], 
     users: [],
     hasMore: true,
     offset: 0,
     limit: 15,
     id: 0,
-    oldpermission: ''
+    oldpermission: '',
+    TypeArray: ['学生', '研究所管理员', '超级管理员'],
+    index:0,
+    search:''
+  },
+  tabclick(e){
+    console.log(e)
+    const {index}=e.currentTarget.dataset;
+    if(!this.data.tabs[index].isActive)
+    {
+      let {tabs}=this.data;
+      tabs.forEach((v,i)=>i===index?v.isActive=true:v.isActive=false);
+      this.setData({
+        tabs,
+        offset:0,
+        hasmore:true,  
+        users:[],
+        index:index
+      })
+      this.getUser()
+    }
   },
   handleInput(e) {
     const {
@@ -18,11 +60,12 @@ Page({
     } = e.detail;
     this.setData({
       users: [],
-      offset: 0
+      offset: 0,
+      search:value
     })
-    this.getUser(value)
+    this.getUser()
   },
-  getUser(search) {
+  getUser() {
     wx.showLoading({
       title: '加载中',
     })
@@ -33,7 +76,8 @@ Page({
         info: {
           limit: this.data.limit,
           offset: this.data.offset,
-          search: search
+          search: this.data.search,
+          permission:this.data.tabs[this.data.index]._id
         }
       },
       success: (res) => {
@@ -125,10 +169,9 @@ Page({
       users: [],
       hasMore: true,
       offset: 0,
-      limit: 15,
-
+      search:''
     })
-    this.getUser('')
+    this.getUser()
     if (this.data.oldpermission === 2 && wx.getStorageSync('myself').permission !== 2) {
       wx.navigateBack({
         delta: 0,
@@ -154,7 +197,16 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh() {
-
+    this.setData({
+      users: [],
+      hasMore: true,
+      offset: 0,
+      search:''
+    })
+    this.getUser()
+    wx.stopPullDownRefresh({
+      success: (res) => {},
+    })
   },
 
   /**

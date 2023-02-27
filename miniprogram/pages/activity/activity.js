@@ -153,8 +153,19 @@ Page({
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh() {
-
+  async onPullDownRefresh() {
+    this.setData({
+      activity:[],
+      hasMore:true,
+      offset:0,
+      limit:5,
+      value:"",
+    })
+    await this.getList();
+    this.setValue();
+    wx.stopPullDownRefresh({
+      success: (res) => {},
+    })
   },
 
   /**
