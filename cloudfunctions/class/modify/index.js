@@ -27,19 +27,14 @@ exports.main = async (event, context) => {
     const info = {
         _id: event.info._id,
         className: event.info.className,
-        gradeId: event.info.gradeId,
     }
-    if ((!info.className || info.className === "") && (!info.gradeId || info.gradeId === "")) {
-        return {
-            code: 'fail',
-            des: '修改信息不能为空',
-            status: 402,
-        }
-    }
+    const curClass = await db.collection('Class').doc(info._id).get().then(res => {
+        return res.data
+    })
     const _cnt = await db.collection('Class').where({
         _id: _.neq(info._id),
         className: info.className,
-        gradeId: info.gradeId,
+        gradeId: curClass.gradeId,
         available: true,
     }).count()
     if (_cnt.total !== 0) {

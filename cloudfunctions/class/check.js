@@ -12,8 +12,7 @@ exports.createCheck = {
 
 exports.modifyCheck = {
     _id:{des:'班级id',type:'string',required:true,validator:[existClass]},
-    className: {des: '班级名', type: 'string', required: false, minLength: 2, maxLength: 10},
-    gradeId: {des: '年级id', type: 'string', required: false, validator: [existGrade]},
+    className: {des: '班级名', type: 'string', required: true, minLength: 2, maxLength: 10},
 }
 
 exports.deleteCheck = {
