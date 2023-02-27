@@ -8,6 +8,21 @@ Page({
   data: {
     groupList: []
   },
+  getMyself() {
+    return new Promise((resolve, reject) => {
+      wx.cloud.callFunction({
+        name: 'user',
+        data: {
+          type: "getMyself",
+        },
+        success: (res) => {
+          wx.setStorageSync('myself', res.result.info)
+          wx.setStorageSync('isRegister', res.result.isRegistered)
+          return resolve(res);
+        }
+      })
+    })
+  },
   getgroupList() {
     wx.showLoading({
       title: '加载中',
@@ -71,6 +86,7 @@ Page({
    */
   async onPullDownRefresh() {
     await this.getgroupList()
+    this.getMyself();
     wx.stopPullDownRefresh({
       success: (res) => {},
     })

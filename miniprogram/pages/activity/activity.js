@@ -1,3 +1,4 @@
+
 // pages/activity/activity.js
 Page({
 
@@ -16,6 +17,21 @@ Page({
     limit: 5,
     value: "",
     index: 0
+  },
+  getMyself() {
+    return new Promise((resolve, reject) => {
+      wx.cloud.callFunction({
+        name: 'user',
+        data: {
+          type: "getMyself",
+        },
+        success: (res) => {
+          wx.setStorageSync('myself', res.result.info)
+          wx.setStorageSync('isRegister', res.result.isRegistered)
+          return resolve(res);
+        }
+      })
+    })
   },
   getList() {
     wx.showLoading({
@@ -174,6 +190,7 @@ Page({
       limit: 5,
       value: "",
     })
+    this.getMyself();
     await this.getList();
     this.setValue();
     wx.stopPullDownRefresh({
