@@ -17,7 +17,7 @@
         <view class="iconfont icon--Manager">
           新建班级 :
         </view>
-        <input class="text" bindinput="handleInputName" />
+        <input class="text" value="{{name}}" bindinput="handleInputName" />
         <button class="butn green" bindtap="create" data-index="{{item._id}}">
           创建
         </button>

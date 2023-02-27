@@ -22,7 +22,7 @@
 		<input type="text" bindinput="handleInputPhone" />
 	</view>
   <view class="item">
-		<view class="left iconfont icon-dianhua">
+		<view class="left iconfont icon-youxiang">
 			邮箱
 		</view>
 		<input type="text" bindinput="handleInputEmail" />
