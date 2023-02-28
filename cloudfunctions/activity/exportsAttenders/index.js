@@ -156,6 +156,7 @@ exports.main = async (event, context) => {
                 url: res.fileID,
                 activityId: info.activityId,
                 createTime: new Date(),
+                type: 'exports',
             }
         })
         return {

@@ -4,4 +4,5 @@ cloudfunctions/class/node_modules/
 cloudfunctions/grade/node_modules/
 cloudfunctions/group/node_modules/
 cloudfunctions/user/node_modules/
+cloudfunctions/clearFiles/node_modules/
 .idea/
