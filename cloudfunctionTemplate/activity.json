@@ -55,5 +55,14 @@
         "type": "eef212816398c28e0000acb8171b25ab"
       }
     }
+  },
+  {
+    "name": "activity.exportsAttenders",
+    "value": {
+      "type": "exportsAttenders",
+      "info": {
+        "activityId": "987a453763fddf0c025bc9896451fd0d"
+      }
+    }
   }
 ]

@@ -9,6 +9,7 @@
   "author": "yunhao",
   "license": "ISC",
   "dependencies": {
+    "node-xlsx": "^0.21.0",
     "wx-server-sdk": "~2.4.0"
   }
 }
