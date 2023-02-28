@@ -5,32 +5,32 @@ Page({
    * 页面的初始数据
    */
   data: {
-    users:[],
-    hasMore:true,
-    offset:0,
-    limit:15,
-    actid:0,
-    status:0
+    users: [],
+    hasMore: true,
+    offset: 0,
+    limit: 15,
+    actid: 0,
+    status: 0
   },
-  getAttenders(){
+  getAttenders() {
     wx.showLoading({
       title: '加载中',
     })
     wx.cloud.callFunction({
-      name:'activity',
-      data:{
+      name: 'activity',
+      data: {
         type: "getAttender",
         info: {
-          activityId:this.data.actid,
-          limit:this.data.limit,
-          offset:this.data.offset,
+          activityId: this.data.actid,
+          limit: this.data.limit,
+          offset: this.data.offset,
         }
       },
-      success:(res)=>{
+      success: (res) => {
         this.setData({
-          users:[...this.data.users,...res.result.data],
-          hasMore:res.result.hasMore,
-          offset:this.data.offset+this.data.limit
+          users: [...this.data.users, ...res.result.data],
+          hasMore: res.result.hasMore,
+          offset: this.data.offset + this.data.limit
         })
         wx.hideLoading({
           success: (res) => {},
@@ -38,24 +38,24 @@ Page({
       }
     })
   },
-  choose(e){
+  choose(e) {
     console.log(e)
-    var id=e.currentTarget.dataset.id
-    var status=e.currentTarget.dataset.status
+    var id = e.currentTarget.dataset.id
+    var status = e.currentTarget.dataset.status
     wx.showLoading({
       title: '加载中',
     })
     wx.cloud.callFunction({
-      name:'activity',
-      data:{
+      name: 'activity',
+      data: {
         type: "checkAttender",
         info: {
-          activityId:this.data.actid,
-          userId:id,
-          status:1-Number(status)
+          activityId: this.data.actid,
+          userId: id,
+          status: 1 - Number(status)
         }
       },
-      success:(res)=>{
+      success: (res) => {
         this.setData({
           users: [],
           hasMore: true,
@@ -69,44 +69,91 @@ Page({
       }
     })
   },
-  delete(e)
-  {
-      var id=e.currentTarget.dataset.id
-      wx.showLoading({
-        title: '加载中',
-      })
-      wx.cloud.callFunction({
-        name:'activity',
-        data:{
-          type: "deleteAttender",
-          info: {
-            activityId:this.data.actid,
-            userId:id
-          }
-        },
-        success:(res)=>{
-          this.setData({
-            users: [],
-            hasMore: true,
-            offset: 0,
-            limit: 15,
-          })
-          this.getAttenders()
-          wx.hideLoading({
-            success: (res) => {},
-          })
-          wx.showToast({
-            title: '删除成功',
-          })
+  delete(e) {
+    var id = e.currentTarget.dataset.id
+    wx.showLoading({
+      title: '加载中',
+    })
+    wx.cloud.callFunction({
+      name: 'activity',
+      data: {
+        type: "deleteAttender",
+        info: {
+          activityId: this.data.actid,
+          userId: id
         }
-      })
+      },
+      success: (res) => {
+        this.setData({
+          users: [],
+          hasMore: true,
+          offset: 0,
+          limit: 15,
+        })
+        this.getAttenders()
+        wx.hideLoading({
+          success: (res) => {},
+        })
+        wx.showToast({
+          title: '删除成功',
+        })
+      }
+    })
+  },
+  excel() {
+    wx.showLoading({
+      title: '加载中',
+    })
+    wx.cloud.callFunction({
+      name: 'activity',
+      data: {
+        type: "exportsAttenders",
+        info: {
+          activityId: this.data.actid,
+        }
+      },
+      success: (res) => {
+        console.log(res)
+        wx.hideLoading({
+          success: (res) => {},
+        })
+        wx.showToast({
+          title: res.result.des,
+          icon: 'none'
+        })
+        console.log(res.result.data)
+        wx.cloud.getTempFileURL({
+          fileList: [res.result.data],
+          success: res => {
+            wx.downloadFile({
+              url: res.fileList[0].tempFileURL,
+              success: function (res) {
+                const filePath = res.tempFilePath
+                wx.openDocument({
+                  filePath: filePath,
+                  success: function (res) {
+                    console.log('打开文档成功')
+                  }
+                })
+              },
+              fail: function (res) {
+                console.log(res)
+              }
+            })
+          },
+          fail: function (res) {
+            console.log(res)
+          }
+        })
+      }
+    })
   },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
     this.setData({
-      actid:options.actid
+      actid: options.actid
     })
   },
 
@@ -148,7 +195,7 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh() {
-    
+
   },
 
   /**

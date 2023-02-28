@@ -1,6 +1,7 @@
 {
   "setting": {
-    "compileHotReLoad": true
+    "compileHotReLoad": true,
+    "urlCheck": false
   },
   "condition": {
     "miniprogram": {
@@ -156,6 +157,13 @@
           "name": "",
           "pathName": "pages/createactivity/createactivity",
           "query": "id=098f4f8063fc65680016242067a431f5",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/attenderlist/attenderlist",
+          "query": "actid=987a453763fddf0c025bc9896451fd0d",
           "launchMode": "default",
           "scene": null
         }

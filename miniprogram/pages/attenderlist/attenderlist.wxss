@@ -4,7 +4,8 @@
   display: flex;
   align-items: center;
   padding: 10rpx;
-  margin-left: 10rpx;
+  margin:0 10rpx;
+  padding-right: 25rpx;
   border-bottom: 2rpx solid rgb(220, 220, 220);
   height: 70rpx;
   background-color: white;
@@ -50,3 +51,6 @@
   line-height: 60rpx;
   color: white;
   }
+.width{
+ width: 130rpx;
+}

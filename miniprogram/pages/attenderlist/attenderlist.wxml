@@ -1,6 +1,7 @@
 <!--pages/attenderlist/attenderlist.wxml-->
 <view class="top">
   <view class="text">所有用户</view>
+  <button wx:if="{{users[0]}}" class="butn green width" bindtap="excel">导出名单</button>
 </view>
 <view class="list">
   <view class="head">
