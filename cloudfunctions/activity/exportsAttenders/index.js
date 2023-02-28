@@ -154,7 +154,6 @@ exports.main = async (event, context) => {
         await db.collection('Files').add({
             data: {
                 url: res.fileID,
-                activityId: info.activityId,
                 createTime: new Date(),
                 type: 'exports',
             }

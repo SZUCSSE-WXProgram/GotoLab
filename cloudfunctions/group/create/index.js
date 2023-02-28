@@ -29,6 +29,13 @@ exports.main = async (event, context) => {
     for (const item in validateFields) {
         info[validateFields[item]] = event.info[validateFields[item]]
     }
+    await db.collection('Files').add({
+        data: {
+            url: info.picLink,
+            createTime: new Date(),
+            type: 'upload',
+        }
+    })
     return await db.collection('Group').add({
         data: info
     }).then(res => {
