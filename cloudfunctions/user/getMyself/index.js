@@ -31,10 +31,10 @@ exports.main = async (event, context) => {
         .end().then(async res => {
             if (res.list.length === 0) {
                 return {
-                    code: 'success',
+                    code: 'fail',
                     isRegistered: false,
                     des: '用户未注册',
-                    status: 200,
+                    status: 404,
                 }
             }
             if (res.list[0].permission === 1) {
