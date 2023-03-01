@@ -29,6 +29,14 @@ exports.main = async (event, context) => {
             as: 'grade',
         })
         .end().then(async res => {
+            if (res.list.length === 0) {
+                return {
+                    code: 'success',
+                    isRegistered: false,
+                    des: '用户未注册',
+                    status: 200,
+                }
+            }
             if (res.list[0].permission === 1) {
                 await db.collection('Group').where({
                     _id: _.in(res.list[0].groups)
@@ -38,14 +46,6 @@ exports.main = async (event, context) => {
                 }).get().then(_groups => {
                     res.list[0].groups = _groups.data
                 })
-            }
-            if (res.list.length === 0) {
-                return {
-                    code: 'success',
-                    isRegistered: false,
-                    des: '用户未注册',
-                    status: 200,
-                }
             }
             delete res.list[0].class[0].gradeId
             res.list[0].class = res.list[0].class[0]
