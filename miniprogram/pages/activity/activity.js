@@ -160,7 +160,7 @@ Page({
       value: "",
       index: 0
     })
-    await this.gettype();
+    this.gettype();
     await this.getList();
     this.setValue();
   },
@@ -191,6 +191,7 @@ Page({
       value: "",
     })
     this.getMyself();
+    this.gettype();
     await this.getList();
     this.setValue();
     wx.stopPullDownRefresh({

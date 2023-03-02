@@ -6,7 +6,8 @@ Page({
    */
   data: {
     type: [],
-    name: ''
+    name: '',
+    tname:''
   },
   getList() {
     wx.showLoading({
@@ -39,6 +40,14 @@ Page({
       name: value
     })
   },
+  handleInputtName(e) {
+    const {
+      value
+    } = e.detail;
+    this.setData({
+      tname: value
+    })
+  },
   create() {
     wx.showLoading({
       title: '加载中',
@@ -48,25 +57,32 @@ Page({
       data: {
         type: "create",
         info: {
-          typeName: this.data.name,
+          typeName: this.data.tname,
         }
       },
       success: (res) => {
         wx.hideLoading({
           success: (res) => {},
         })
-        wx.showToast({
-          title: res.result.des,
-          icon: "none",
-          duration: 2000
-        })
         if (res.result.code === "success") {
           this.setData({
-            name: ''
+            tname: ''
+          })
+          wx.showToast({
+            title: res.result.des,
+            icon: "success",
+            duration: 2000
           })
           setTimeout(() => {
             this.getList()
           }, 1000);
+        }
+        else{
+          wx.showToast({
+            title: res.result.des,
+            icon: "none",
+            duration: 2000
+          })
         }
       }
     })
@@ -87,14 +103,24 @@ Page({
           }
         },
         success: (res) => {
-          console.log(res)
-          wx.showToast({
-            title: res.result.des,
-            icon: 'none'
-          })
           if (res.result.code === "success") {
             this.setData({
               name: ''
+            })
+            wx.showToast({
+              title: res.result.des,
+              icon: "success",
+              duration: 2000
+            })
+            setTimeout(() => {
+              this.getList()
+            }, 1000);
+          }
+          else{
+            wx.showToast({
+              title: res.result.des,
+              icon: "none",
+              duration: 2000
             })
           }
           return resolve(res);
@@ -113,10 +139,23 @@ Page({
           }
         },
         success: (res) => {
-          wx.showToast({
-            title: res.result.des,
-            icon: 'none'
-          })
+          if (res.result.code === "success") {
+            wx.showToast({
+              title: res.result.des,
+              icon: "success",
+              duration: 2000
+            })
+            setTimeout(() => {
+              this.getList()
+            }, 1000);
+          }
+          else{
+            wx.showToast({
+              title: res.result.des,
+              icon: "none",
+              duration: 2000
+            })
+          }
           return resolve(res);
         },
       })
@@ -128,12 +167,9 @@ Page({
       title: '系统提示',
       content: '确认要删除吗？',
       cancelColor: 'cancelColor',
-      success: async (res)=> {
+      success: (res)=> {
         if (res.confirm) {
-          await this.deleteType(id)
-          setTimeout(() => {
-            this.getList()
-          }, 1000);
+          this.deleteType(id)
         }
       }
     })

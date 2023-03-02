@@ -166,6 +166,20 @@
           "query": "actid=987a453763fddf0c025bc9896451fd0d",
           "launchMode": "default",
           "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/grademanage/grademanage",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/classmanage/classmanage",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
         }
       ]
     }

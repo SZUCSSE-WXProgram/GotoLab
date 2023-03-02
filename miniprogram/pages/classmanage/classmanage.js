@@ -7,6 +7,7 @@ Page({
   data: {
     class: [],
     name: '',
+    cname: '',
     index: 0,
   },
   listpx(e) {
@@ -47,6 +48,14 @@ Page({
       name: value
     })
   },
+  handleInputcName(e) {
+    const {
+      value
+    } = e.detail;
+    this.setData({
+      cname: value
+    })
+  },
   modifyclass(e) {
     const {
       id
@@ -62,20 +71,26 @@ Page({
           }
         },
         success: (res) => {
-          console.log(res)
-          wx.showToast({
-            title: res.result.des,
-            icon: 'none'
-          })
-          this.setData({
-            name: ''
-          })
+          if (res.result.code === 'success') {
+            this.setData({
+              name: ''
+            })
+            wx.showToast({
+              title: res.result.des,
+              icon: 'success'
+            })
+          } else {
+            wx.showToast({
+              title: res.result.des,
+              icon: 'none'
+            })
+          }
           return resolve(res);
         }
       })
     })
   },
-  deleteClass(id){
+  deleteClass(id) {
     return new Promise((resolve, reject) => {
       wx.cloud.callFunction({
         name: 'class',
@@ -86,10 +101,18 @@ Page({
           }
         },
         success: (res) => {
-          wx.showToast({
-            title: res.result.des,
-            icon: 'none'
-          })
+          if (res.result.code === 'success') {
+            this.getClass()
+            wx.showToast({
+              title: '删除成功',
+              icon: 'success'
+            })
+          } else {
+            wx.showToast({
+              title: res.result.des,
+              icon: 'none'
+            })
+          }
           return resolve(res);
         },
       })
@@ -101,12 +124,9 @@ Page({
       title: '系统提示',
       content: '确认要删除吗？',
       cancelColor: 'cancelColor',
-      success: async (res)=> {
+      success: (res) => {
         if (res.confirm) {
-          await this.deleteClass(id)
-          setTimeout(() => {
-            this.getClass()
-          }, 1000);
+          this.deleteClass(id)
         }
       }
     })
@@ -121,22 +141,26 @@ Page({
         data: {
           type: "create",
           info: {
-            className: this.data.name,
+            className: this.data.cname,
             gradeId: index
           }
         },
         success: (res) => {
-          console.log(res)
-          wx.showToast({
-            title: res.result.des,
-            icon: 'none'
-          })
           if (res.result.code === 'success') {
             this.getClass()
+            this.setData({
+              cname: ''
+            })
+            wx.showToast({
+              title: res.result.des,
+              icon: 'success'
+            })
+          } else {
+            wx.showToast({
+              title: res.result.des,
+              icon: 'none'
+            })
           }
-          this.setData({
-            name: ''
-          })
           return resolve(res);
         }
       })

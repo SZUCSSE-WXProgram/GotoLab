@@ -155,7 +155,6 @@ Page({
     this.setData({
       signable: !this.data.signable
     })
-    console.log(this.data.signable)
   },
   create() {
     var startTime = this.data.sdate + " " + this.data.stime;
@@ -183,16 +182,22 @@ Page({
           wx.hideLoading({
             success: (res) => {},
           })
-          wx.showToast({
-            title: res.result.des,
-            icon: 'none',
-          })
           if (res.result.code == "success") {
+            wx.showToast({
+              title: res.result.des,
+              icon: 'success',
+            })
             setTimeout(() => {
               wx.navigateBack({
                 delta: 0,
               })
             }, 1000);
+          }
+          else{
+            wx.showToast({
+              title: res.result.des,
+              icon: 'none',
+            })
           }
           return resolve(res);
         }
@@ -226,16 +231,22 @@ Page({
           wx.hideLoading({
             success: (res) => {},
           })
-          wx.showToast({
-            title: res.result.des,
-            icon: 'none',
-          })
           if (res.result.code == "success") {
+            wx.showToast({
+              title: res.result.des,
+              icon: 'success',
+            })
             setTimeout(() => {
               wx.navigateBack({
                 delta: 0,
               })
             }, 1000);
+          }
+          else{
+            wx.showToast({
+              title: res.result.des,
+              icon: 'none',
+            })
           }
           return resolve(res);
         }

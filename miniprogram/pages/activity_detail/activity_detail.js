@@ -28,10 +28,18 @@ Page({
       success: async (res) => {
         await this.getList()
         this.setattend()
-        wx.showToast({
-          title: res.result.des,
-          icon: 'none'
-        })
+        if (res.result.code === "success") {
+          wx.showToast({
+            title: res.result.des,
+            icon: 'success'
+          })
+        }
+        else{
+          wx.showToast({
+            title: res.result.des,
+            icon: 'none'
+          })
+        }
       }
     })
   },
@@ -47,7 +55,6 @@ Page({
       success: async (res) => {
         await this.getList()
         this.setattend()
-        console.log(res)
         if (res.result.code === "success") {
           wx.showToast({
             title: "取消成功",
@@ -71,13 +78,21 @@ Page({
         }
       },
       success: (res) => {
-        wx.showToast({
-          title: res.result.des,
-          icon: 'none'
-        })
         if (res.result.code === "success") {
-          wx.navigateBack({
-            delta: 0,
+          wx.showToast({
+            title: res.result.des,
+            icon: 'success'
+          })
+          setTimeout(() => {
+            wx.navigateBack({
+              delta: 0,
+            })
+          }, 2000);
+        }
+        else{
+          wx.showToast({
+            title: res.result.des,
+            icon: 'none'
           })
         }
       }
@@ -88,7 +103,7 @@ Page({
       title: '系统提示',
       content: '确认要删除吗？',
       cancelColor: 'cancelColor',
-      success: async (res) => {
+      success: (res) => {
         if (res.confirm) {
           this.delete()
         }

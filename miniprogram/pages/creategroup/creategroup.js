@@ -5,26 +5,26 @@ Page({
    * 页面的初始数据
    */
   data: {
-    name:'',
-    intro:'',
-    finish:false,
-    url:''
+    name: '',
+    intro: '',
+    finish: false,
+    url: ''
   },
   handleInputName(e) {
-		const {
-			value
-		} = e.detail;
-		this.setData({
-			name: value
-		})
-	},
-	handleInputIntro(e) {
-		const {
-			value
-		} = e.detail;
-		this.setData({
-			intro: value
-		})
+    const {
+      value
+    } = e.detail;
+    this.setData({
+      name: value
+    })
+  },
+  handleInputIntro(e) {
+    const {
+      value
+    } = e.detail;
+    this.setData({
+      intro: value
+    })
   },
   click() {
     wx.chooseImage({
@@ -59,7 +59,7 @@ Page({
           success: (res) => {
             this.setData({
               url: res.fileID,
-              finish:true
+              finish: true
             })
             wx.hideLoading({
               success: (res) => {},
@@ -81,7 +81,7 @@ Page({
       }
     })
   },
-  create(){
+  create() {
     wx.showLoading({
       title: '加载中',
     })
@@ -89,7 +89,7 @@ Page({
       name: 'group',
       data: {
         type: "create",
-        info:{
+        info: {
           groupName: this.data.name,
           intro: this.data.intro,
           picLink: this.data.url
@@ -99,17 +99,23 @@ Page({
         wx.hideLoading({
           success: (res) => {},
         })
-        wx.showToast({
-          title: res.result.des,
-          icon:'none',
-          duration:2000
-        })
-        if(res.result.code==="success"){
+        if (res.result.code === "success") {
+          wx.showToast({
+            title: res.result.des,
+            icon: 'success',
+            duration: 2000
+          })
           setTimeout(() => {
             wx.navigateBack({
               delta: 0,
             })
           }, 2000);
+        } else {
+          wx.showToast({
+            title: res.result.des,
+            icon: 'none',
+            duration: 2000
+          })
         }
       }
     })

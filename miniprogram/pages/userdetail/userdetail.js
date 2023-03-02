@@ -176,6 +176,7 @@ Page({
             } else {
               wx.showToast({
                 title: '修改成功',
+                icon:'success',
                 duration: 1000
               })
               setTimeout(() => {
@@ -253,14 +254,16 @@ Page({
               duration: 2000
             })
           } else {
-            wx.navigateBack({
-              delta: 0,
-            })
             wx.showToast({
               title: res.result.des,
-              icon: 'none',
+              icon: 'success',
               duration: 2000
             })
+            setTimeout(() => {
+              wx.navigateBack({
+                delta: 0,
+              })
+            }, 1000);
           }
           return resolve(res);
         }

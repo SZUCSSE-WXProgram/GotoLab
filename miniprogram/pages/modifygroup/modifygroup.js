@@ -45,17 +45,24 @@ Page({
         wx.hideLoading({
           success: (res) => {},
         })
-        wx.showToast({
-          title: res.result.des,
-          icon: 'none',
-          duration: 2000
-        })
         if (res.result.code == "success") {
+          wx.showToast({
+            title: res.result.des,
+            icon: 'success',
+            duration: 2000
+          })
           setTimeout(() => {
             wx.navigateBack({
               delta: 0,
             })
           }, 2000);
+        }
+        else{
+          wx.showToast({
+            title: res.result.des,
+            icon: 'none',
+            duration: 2000
+          })
         }
       }
     })

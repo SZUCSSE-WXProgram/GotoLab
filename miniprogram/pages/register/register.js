@@ -177,6 +177,7 @@ Page({
   async onLoad(options) {
     wx.showToast({
       title: '请先注册',
+      icon:'error'
     })
     await this.getClass()
     this.buildArray()
