@@ -1,0 +1,7 @@
+/* pages/exportsAttenders/exportsAttenders.wxss */
+.url{
+  word-break: break-all;
+  margin: 10rpx;
+  color: rgb(44, 144, 204);
+  text-decoration: underline;
+}

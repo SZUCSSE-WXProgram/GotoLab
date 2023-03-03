@@ -18,7 +18,8 @@
     "pages/groupadmin/groupadmin",
     "pages/modifygroup/modifygroup",
     "pages/attenderlist/attenderlist",
-    "pages/grademanage/grademanage"
+    "pages/grademanage/grademanage",
+    "pages/exportsAttenders/exportsAttenders"    
   ],
   "window": {
     "backgroundColor": "#F6F6F6",

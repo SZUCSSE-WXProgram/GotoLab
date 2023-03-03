@@ -10,7 +10,8 @@ Page({
     offset: 0,
     limit: 15,
     actid: 0,
-    status: 0
+    status: 0,
+    url: ''
   },
   getAttenders() {
     wx.showLoading({
@@ -113,33 +114,29 @@ Page({
         }
       },
       success: (res) => {
-        console.log(res)
         wx.hideLoading({
           success: (res) => {},
         })
-        wx.showToast({
-          title: res.result.des,
-          icon: 'none'
-        })
-        console.log(res.result.data)
+        if (res.result.code === "success") {
+          wx.showToast({
+            title: res.result.des,
+            icon: 'success'
+          })
+        } else {
+          wx.showToast({
+            title: res.result.des,
+            icon: 'none'
+          })
+        }
         wx.cloud.getTempFileURL({
           fileList: [res.result.data],
-          success: res => {
-            wx.downloadFile({
-              url: res.fileList[0].tempFileURL,
-              success: function (res) {
-                const filePath = res.tempFilePath
-                wx.openDocument({
-                  filePath: filePath,
-                  showMenu:true,
-                  success: function (res) {
-                    console.log('打开文档成功')
-                  }
-                })
-              },
-              fail: function (res) {
-                console.log(res)
-              }
+          success: (res) => {
+            console.log(res.fileList[0].tempFileURL)
+            this.setData({
+              url: res.fileList[0].tempFileURL
+            })
+            wx.navigateTo({
+              url: '/pages/exportsAttenders/exportsAttenders?url='+res.fileList[0].tempFileURL,
             })
           },
           fail: function (res) {
