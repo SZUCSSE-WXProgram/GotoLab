@@ -5,7 +5,9 @@ Page({
    * 页面的初始数据
    */
   data: {
-    url:''
+    url: '',
+    flag: false,
+    copy: false
   },
   open() {
     wx.downloadFile({
@@ -14,13 +16,30 @@ Page({
         wx.showLoading({
           title: '正在打开',
         })
+        setTimeout(() => {
+          if (!this.data.flag) {
+            wx.hideLoading({
+              success: (res) => {},
+            })
+            wx.showToast({
+              title: '打开失败，请复制到浏览器中打开',
+              icon: 'none'
+            })
+            this.setData({
+              copy: true
+            })
+          }
+        }, 5000);
         const filePath = res.tempFilePath
         wx.openDocument({
           filePath: filePath,
           showMenu: true,
-          success: function (res) {
+          success: (res) => {
             wx.hideLoading({
               success: (res) => {},
+            })
+            this.setData({
+              flag: true
             })
             console.log('打开文档成功')
           }
@@ -31,12 +50,27 @@ Page({
       }
     })
   },
+  copy() {
+    wx.setClipboardData({
+      data: this.data.url,
+      success: (res) => {
+        wx.getClipboardData({
+          success: (option) => {
+            wx.showToast({
+              title: '复制成功',
+              icon: 'success'
+            })
+          },
+        })
+      }
+    })
+  },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
     this.setData({
-      url:options.url
+      url: options.url
     })
   },
 
