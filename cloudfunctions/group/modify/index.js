@@ -26,33 +26,29 @@ exports.main = async (event, context) => {
     }
     let info = {}
     let changeableFields = ['groupName', 'intro', 'picLink']
+    let cnt = 0;
     for (const item in changeableFields) {
         if (event.info[changeableFields[item]] !== undefined && event.info[changeableFields[item]] !== '') {
+            cnt++;
             info[changeableFields[item]] = event.info[changeableFields[item]]
         }
     }
+    if (cnt === 0) {
+        return {
+            code: 'success',
+            status: 200,
+            des: '修改成功'
+        }
+    }
     const docId = event.info._id;
-    const curGroup = await db.collection('Group').doc(docId).get().then(res => {
-        return res.data
-    })
-    return await cloud.deleteFile({
-        fileList: [curGroup.picLink]
-    }).then(async deleteRes => {
-        return await db.collection('Group').doc(docId).update({
-            data: info
-        }).then(updateRes => {
-            return {
-                code: 'success',
-                status: 200,
-                des: '修改成功'
-            }
-        }).catch(e => {
-            return {
-                code: 'fail',
-                status: 500,
-                des: e,
-            }
-        })
+    return await db.collection('Group').doc(docId).update({
+        data: info
+    }).then(updateRes => {
+        return {
+            code: 'success',
+            status: 200,
+            des: '修改成功'
+        }
     }).catch(e => {
         return {
             code: 'fail',

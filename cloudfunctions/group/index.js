@@ -6,6 +6,7 @@ const addGroupAdmin = require('./addGroupAdmin/index')
 const deleteGroupAdmin = require('./deleteGroupAdmin/index')
 const getFullList = require('./getFullList/index')
 const getGroupByID = require('./getGroupByID/index')
+const handleUpload = require('./handleUpload/index')
 
 // 云函数入口函数
 exports.main = async (event, context) => {
@@ -26,6 +27,8 @@ exports.main = async (event, context) => {
             return await getFullList.main(event, context);
         case 'getGroupByID':
             return await getGroupByID.main(event, context);
+        case 'handleUpload':
+            return await handleUpload.main(event, context);
         default :
             return {
                 code: 'fail',
