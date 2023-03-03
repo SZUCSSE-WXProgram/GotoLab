@@ -20,17 +20,16 @@ exports.main = async (event, context) => {
     if (checkResult.code !== 'success') {
         return checkResult;
     }
-    const info = {
-        createTime: new Date(),
-        url: event.info.picLink,
-        type: 'upload'
-    }
     const permissionCheck = await permission.isGroupAdmin(event.info._id)
     if (permissionCheck.code !== 'success') {
         return permissionCheck;
     }
     return await db.collection('Files').add({
-        data: info
+        data: {
+            createTime: new Date(),
+            url: event.info.picLink,
+            type: 'upload'
+        }
     }).then(res => {
         return {
             code: 'success',
