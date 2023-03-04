@@ -19,7 +19,7 @@ exports.main = async (event, context) => {
     const excelList = await db.collection('Files').where({
         createTime: _.lte(current),
         type: 'exports',
-    }).limit(20)
+    }).limit(10)
         .get().then(res => {
             return res.data
         })
