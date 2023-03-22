@@ -41,6 +41,7 @@
 }
 .intro{
   font-size: 30rpx;
+  word-break: break-all;
 }
 button{
   margin: 30rpx 70rpx;
