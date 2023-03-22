@@ -12,6 +12,7 @@ Page({
     permission: 0,
     flag: false,
     isStart: false,
+    isEnd:false,
     isFull: false,
     signable: false,
     isCheck: false
@@ -121,6 +122,7 @@ Page({
       })
     }
     var startTime = new Date(this.data.activity.startTime)
+    var endTime = new Date(this.data.activity.endTime)
     if (startTime < new Date()) {
       this.setData({
         isStart: true
@@ -128,6 +130,15 @@ Page({
     } else {
       this.setData({
         isStart: false
+      })
+    }
+    if (endTime < new Date()) {
+      this.setData({
+        isEnd: true
+      })
+    } else {
+      this.setData({
+        isEnd: false
       })
     }
     if (this.data.activity.signable) {
