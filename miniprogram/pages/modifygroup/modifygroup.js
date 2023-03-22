@@ -74,7 +74,6 @@ Page({
         data: {
           type: "handleUpload",
           info: {
-          _id: this.options.id,
           picLink: this.data.url
           }
         },

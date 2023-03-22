@@ -63,7 +63,7 @@
     </view>
   </view>
   <view class="item intro-h">活动描述</view>
-  <text class="item intro" selectable="true">{{activity.intro}}</text>
+  <text class="item intro" selectable="true" user-select="true">{{activity.intro}}</text>
 </view>
 
 <view wx:if="{{permission===0}}">

@@ -26,6 +26,39 @@ Page({
       intro: value
     })
   },
+  handleUpload(){
+    return new Promise((resolve, reject) => {
+      wx.cloud.callFunction({
+        name: 'group',
+        data: {
+          type: "handleUpload",
+          info: {
+          picLink: this.data.url
+          }
+        },
+        success: (res) => {
+          console.log(res)
+          wx.hideLoading({
+            success: (res) => {
+            },
+          })
+          if(res.result.code=="success"){
+            wx.showToast({
+              title: '上传成功',
+            })
+        }
+        else{
+          wx.showToast({
+            title: res.result.des,
+            icon: 'none',
+            duration: 2000
+          })
+        }
+          return resolve(res);
+        }
+      })
+    })
+  },
   click() {
     wx.chooseImage({
       count: 1,
@@ -61,12 +94,7 @@ Page({
               url: res.fileID,
               finish: true
             })
-            wx.hideLoading({
-              success: (res) => {},
-            })
-            wx.showToast({
-              title: '上传成功',
-            })
+           this.handleUpload()
           },
           fail: (res) => {
             console.log(res)

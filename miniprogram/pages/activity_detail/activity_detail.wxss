@@ -20,7 +20,7 @@
   position: absolute;
   white-space: nowrap;
   transform: translateX(-50%);
-  font-size: 20px;
+  font-size: 18px;
   z-index: 99;
   color: #fff;
 }
