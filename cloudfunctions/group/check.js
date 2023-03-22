@@ -21,7 +21,6 @@ exports.modifyCheck = {
 }
 
 exports.handleUploadCheck = {
-    _id: {des: '研究所id', type: 'string', required: true, validator: [existGroupId]},
     picLink: {des: '研究所图片', type: 'string', required: true}
 }
 

@@ -26,16 +26,21 @@ exports.main = async (event, context) => {
     const currentUser = await db.collection('User').where({
         openid: wxContext.OPENID,
     }).get()
-    const attendStatus = await db.collection('UserToActivity').where({
-        activityId: event.info.activityId,
-        userId: currentUser.data[0]._id,
-    }).get().then(res => {
-        if (res.data.length > 0) {
-            return res.data[0].status
-        } else {
-            return -1
-        }
-    })
+    let attendStatus = -1
+    if (currentUser.data.length === 0) {
+        attendStatus = -1
+    } else {
+        attendStatus = await db.collection('UserToActivity').where({
+            activityId: event.info.activityId,
+            userId: currentUser.data[0]._id,
+        }).get().then(res => {
+            if (res.data.length > 0) {
+                return res.data[0].status
+            } else {
+                return -1
+            }
+        })
+    }
     return await db.collection('Activity').aggregate()
         .match({
             _id: event.info.activityId
