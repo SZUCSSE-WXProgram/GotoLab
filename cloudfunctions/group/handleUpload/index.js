@@ -20,10 +20,6 @@ exports.main = async (event, context) => {
     if (checkResult.code !== 'success') {
         return checkResult;
     }
-    const permissionCheck = await permission.isGroupAdmin(event.info._id)
-    if (permissionCheck.code !== 'success') {
-        return permissionCheck;
-    }
     return await db.collection('Files').add({
         data: {
             createTime: new Date(),
