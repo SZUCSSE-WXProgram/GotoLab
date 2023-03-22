@@ -68,8 +68,11 @@
 
 <view wx:if="{{permission===0}}">
   <view wx:if="{{!isAttend}}">
-    <view wx:if="{{isStart}}">
-      <button class="red">已开始</button>
+    <view wx:if="{{!isStart}}">
+      <button class="red">报名未开始</button>
+    </view>
+    <view wx:elif="{{isEnd}}">
+      <button class="red">报名已结束</button>
     </view>
     <view wx:elif="{{!signable}}">
       <button class="red">管理员设置不可报名</button>
@@ -85,7 +88,7 @@
     <view wx:if="{{isCheck}}">
       <button class="green">已签到</button>
     </view>
-    <view wx:elif="{{!isStart}}">
+    <view wx:elif="{{isStart&&!isEnd}}">
       <button class="blue" bindtap="cancel">取消报名</button>
     </view>
     <view wx:elif="{{!isCheck}}">
