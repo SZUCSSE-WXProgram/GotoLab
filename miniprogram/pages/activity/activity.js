@@ -82,7 +82,6 @@ Page({
       })
   },
   async tabclick(e) {
-    console.log(e)
     const {
       index
     } = e.currentTarget.dataset;

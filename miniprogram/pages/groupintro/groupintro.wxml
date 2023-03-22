@@ -20,7 +20,7 @@
 <!--page/one/index.wxml-->
 <view class="body">
   <view class="groupimg">
-    <image src="{{group.picLink}}"></image>
+    <image mode="widthFix"src="{{group.picLink}}"></image>
   </view>
   <view class="groupmsg">
     <view class="title">研究所介绍</view>
