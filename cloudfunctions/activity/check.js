@@ -166,11 +166,18 @@ async function ActivityAttendAble(activity_id) {
             des: '活动不可报名'
         }
     }
-    if (_activity.data[0].startTime < new Date()) {
+    if (new Date() < _activity.data[0].startTime) {
         return {
             code: 'fail',
             status: 402,
-            des: '活动已开始'
+            des: '活动还未开始报名'
+        }
+    }
+    if (new Date() > _activity.data[0].endTime) {
+        return {
+            code: 'fail',
+            status: 402,
+            des: '活动报名已经结束'
         }
     }
     const _attenders = await db.collection('UserToActivity').where({
