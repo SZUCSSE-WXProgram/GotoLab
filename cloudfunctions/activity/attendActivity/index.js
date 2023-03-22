@@ -32,6 +32,13 @@ exports.main = async (event, context) => {
     const currentUser = await db.collection('User').where({
         openid: wxContext.OPENID,
     }).get()
+    if (currentUser.data.length === 0) {
+        return {
+            code: 'fail',
+            status: 404,
+            des: '用户未注册'
+        }
+    }
     const cnt = await db.collection('UserToActivity').where({
         userId: currentUser.data[0]._id,
         activityId: event.info.activityId

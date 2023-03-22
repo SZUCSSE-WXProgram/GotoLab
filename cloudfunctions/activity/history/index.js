@@ -26,9 +26,9 @@ exports.main = async (event, context) => {
     }).get().then(res => {
         return res.data[0]._id
     }).catch(e => {
-        return null
+        return undefined
     })
-    if (currentUser === null) {
+    if (currentUser === undefined) {
         return {
             code: 'fail',
             des: '用户不存在',
