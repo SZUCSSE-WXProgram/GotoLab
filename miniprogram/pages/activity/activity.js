@@ -157,7 +157,7 @@ Page({
       offset: 0,
       limit: 5,
       value: "",
-      index: 0
+      index: 0 
     })
     this.gettype();
     await this.getList();
@@ -188,6 +188,11 @@ Page({
       offset: 0,
       limit: 5,
       value: "",
+      tabs: [{
+        _id: '',
+        typeName: "全部",
+        isActive: true
+      }, ],
     })
     this.getMyself();
     this.gettype();
