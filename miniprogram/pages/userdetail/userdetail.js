@@ -108,7 +108,7 @@ Page({
     for (let index = 0; index < grade.length; index++) {
       if (this.data.mygrade === grade[index]) {
         x = index
-        for (let j = 0; j < classList.length; j++) {
+        for (let j = 0; j < classList[index].length; j++) {
           if (this.data.myclass === classList[index][j])
             y = j
         }
