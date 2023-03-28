@@ -159,7 +159,7 @@ Page({
       value: "",
       index: 0 
     })
-    this.gettype();
+    await this.gettype();
     await this.getList();
     this.setValue();
   },
@@ -188,6 +188,7 @@ Page({
       offset: 0,
       limit: 5,
       value: "",
+      index:0,
       tabs: [{
         _id: '',
         typeName: "全部",
@@ -195,7 +196,7 @@ Page({
       }, ],
     })
     this.getMyself();
-    this.gettype();
+    await this.gettype();
     await this.getList();
     this.setValue();
     wx.stopPullDownRefresh({
