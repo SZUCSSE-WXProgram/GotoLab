@@ -35,7 +35,7 @@
     <view class="left iconfont icon-shizhong">
       开始时间
     </view>
-    <view class="right">
+    <view class="right flex">
       <picker mode="date" value="{{sdate}}" bindchange="bindsDateChange">
         <view>{{sdate}}-</view>
       </picker>
@@ -48,7 +48,7 @@
     <view class="left iconfont icon-shizhong1">
       结束时间
     </view>
-    <view class="right">
+    <view class="right flex">
       <picker mode="date" value="{{edate}}" bindchange="bindeDateChange">
         <view>{{edate}}-</view>
       </picker>
