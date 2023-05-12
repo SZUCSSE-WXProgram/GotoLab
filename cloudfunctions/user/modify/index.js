@@ -16,6 +16,7 @@ const _ = db.command;
 // 云函数入口函数
 exports.main = async (event, context) => {
     const wxContext = cloud.getWXContext()
+    const permissionCheck = await permission.isNotStudent()
     let info = {}
     for (let items of changeableItems) {
         if (event.info[items] && event.info[items] !== undefined && event.info[items] !== '') {
@@ -29,19 +30,25 @@ exports.main = async (event, context) => {
             status: 402,
         }
     }
+    if (permissionCheck.code !== 'success') {
+        delete info.stuid
+        delete info.name
+    }
     const checkResult = await validator.check(info, checkList.modifyCheck);
     if (checkResult.code !== 'success') {
         return checkResult;
     }
-    const stuidCheck = await db.collection('User').where({
-        stuid: info.stuid,
-        openid: _.neq(wxContext.OPENID),
-    }).count()
-    if (stuidCheck.total > 0) {
-        return {
-            code: 'fail',
-            des: '学号已存在！',
-            status: 402,
+    if (permissionCheck.code === 'success') {
+        const stuidCheck = await db.collection('User').where({
+            stuid: info.stuid,
+            openid: _.neq(wxContext.OPENID),
+        }).count()
+        if (stuidCheck.total > 0) {
+            return {
+                code: 'fail',
+                des: '学号已存在！',
+                status: 402,
+            }
         }
     }
     return await db.collection('User').where({
