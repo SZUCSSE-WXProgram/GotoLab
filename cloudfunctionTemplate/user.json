@@ -54,5 +54,14 @@
         "class": "a9ad01ce638e057d0134d1bd5fb7ecc6"
       }
     }
+  },
+  {
+    "name": "user.uploadUsers",
+    "value": {
+      "type": "uploadUsers",
+      "info": {
+        "fileID": "cloud://cloud1-6glxj0gh4232206c.636c-cloud1-6glxj0gh4232206c-1315640344/upload/test.xls"
+      }
+    }
   }
 ]

@@ -3,6 +3,8 @@ const getMyself = require('./getMyself/index');
 const modify = require('./modify/index');
 const manageUser = require('./manageUser/index')
 const getUsers = require('./getUsers/index')
+const uploadUsers = require('./uploadUsers/index')
+const handleUpload = require('./handleUpload/index')
 
 
 // 云函数入口函数
@@ -18,6 +20,10 @@ exports.main = async (event, context) => {
             return await manageUser.main(event, context);
         case 'getUsers':
             return await getUsers.main(event, context);
+        case 'uploadUsers':
+            return await uploadUsers.main(event, context);
+        case 'handleUpload':
+            return await handleUpload.main(event, context);
         default :
             return {
                 code: 'fail',

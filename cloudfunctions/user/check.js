@@ -48,6 +48,12 @@ exports.manageUserCheck = {
     email: {des: '邮箱', type: 'string', required: false, validator: [validateEmail]}
 }
 
+exports.uploadUserCheck = {
+    fileID: {des: '文件ID', type: 'string', required: true, validator: [validateExcel]},
+}
+exports.handleUploadCheck = {
+    fileID: {des: '文件ID', type: 'string', required: true},
+}
 async function uniqueStuid(stuid) {
     return await db.collection('User').where({
         stuid: stuid,
@@ -151,6 +157,21 @@ async function validateEmail(email) {
             code: 'fail',
             status: 402,
             des: '邮箱格式不正确'
+        }
+    }
+}
+
+async function validateExcel(fileID) {
+    if (fileID.endsWith('xlsx') || fileID.endsWith('xls')) {
+        return {
+            code: 'success',
+            status: 200,
+        }
+    } else {
+        return {
+            code: 'fail',
+            status: 402,
+            des: '文件格式不正确'
         }
     }
 }

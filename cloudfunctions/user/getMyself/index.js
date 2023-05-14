@@ -47,6 +47,7 @@ exports.main = async (event, context) => {
                     res.list[0].groups = _groups.data
                 })
             }
+
             delete res.list[0].class[0].gradeId
             res.list[0].class = res.list[0].class[0]
             res.list[0].grade = res.list[0].grade[0]
