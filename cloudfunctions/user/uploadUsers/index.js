@@ -38,7 +38,6 @@ exports.main = async (event, context) => {
         }
     }
     console.log('finish download')
-    
     const buffer = res.fileContent
     const reg = /^\d+$/;
     const users = {}
@@ -62,6 +61,13 @@ exports.main = async (event, context) => {
     const updateList = []
     const errorList = []
     const total = Object.keys(users).length
+    if(total>100){
+      return {
+        code:"fail",
+        status:402,
+        des:"每次最多导入100条数据！"
+      }
+    }
     for (let [key, value] of Object.entries(users)) {
         const task = db.collection('User').where({
             stuid: key
