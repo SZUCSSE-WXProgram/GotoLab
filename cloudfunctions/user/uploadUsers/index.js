@@ -20,6 +20,10 @@ exports.main = async (event, context) => {
     if (checkResult.code !== 'success') {
         return checkResult;
     }
+    const permissionCheck = await permission.isSuperAdmin()
+    if (permissionCheck.code !== 'success') {
+        return permissionCheck;
+    }
     const {fileID} = event.info
     let res;
     try {
@@ -34,10 +38,7 @@ exports.main = async (event, context) => {
         }
     }
     console.log('finish download')
-    const permissionCheck = await permission.isSuperAdmin()
-    if (permissionCheck.code !== 'success') {
-        return permissionCheck;
-    }
+    
     const buffer = res.fileContent
     const reg = /^\d+$/;
     const users = {}
