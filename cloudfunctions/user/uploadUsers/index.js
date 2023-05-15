@@ -67,6 +67,7 @@ exports.main = async (event, context) => {
                     data: {
                         stuid: key,
                         name: value,
+                        openid:"",
                     }
                 }).then(res => {
                     createList.push(key)

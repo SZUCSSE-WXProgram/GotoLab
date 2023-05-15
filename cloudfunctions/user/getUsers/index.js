@@ -40,7 +40,9 @@ exports.main = async (event, context) => {
                     regexp: '.*' + pageQuery.search,
                     options: 'i',
                 })
-            }]))
+            }]).and({
+                openid: _.neq("")
+            }))
             .lookup({
                 from: 'Class',
                 localField: 'class',
@@ -91,9 +93,11 @@ exports.main = async (event, context) => {
                     regexp: '.*' + pageQuery.search,
                     options: 'i',
                 })
-            }]).and({
+            }]).and([{
                 permission: pageQuery.permission
-            }))
+            }, {
+                openid: _.neq("")
+            }]))
             .lookup({
                 from: 'Class',
                 localField: 'class',

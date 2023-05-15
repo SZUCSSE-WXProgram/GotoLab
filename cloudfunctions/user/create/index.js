@@ -27,11 +27,25 @@ exports.main = async (event, context) => {
     if (checkResult.code !== 'success') {
         return checkResult
     }
-    return await db.collection('User').add({
+    const cnt = await db.collection('User').where({
+        stuid: info.stuid,
+        name: info.name,
+        openid: ""
+    }).count()
+    if (cnt.total === 0) {
+        return {
+            code: 'fail',
+            des: '学号与用户名不匹配或当前学号已经被其他账户注册',
+            status: 402,
+        }
+    }
+    return await db.collection('User').where({
+        stuid: info.stuid,
+        name: info.name,
+        openid: ""
+    }).update({
         data: {
             openid: info.openid,
-            name: info.name,
-            stuid: info.stuid,
             phone: info.phone,
             permission: 0,
             class: info.class,
@@ -52,3 +66,4 @@ exports.main = async (event, context) => {
         }
     })
 }
+

@@ -11,9 +11,9 @@ exports.registerCheck = {
         des: '学号',
         type: 'string',
         required: true,
-        minLength: 10,
+        minLength: 6,
         maxLength: 10,
-        validator: [uniqueStuid, isNumber]
+        validator: [isNumber]
     },
     name: {des: '姓名', type: 'string', required: true, minLength: 2, maxLength: 10},
     phone: {des: '手机号', type: 'string', required: true, minLength: 11, maxLength: 11, validator: [isNumber]},
@@ -27,9 +27,9 @@ exports.modifyCheck = {
         des: '学号',
         type: 'string',
         required: false,
-        minLength: 10,
+        minLength: 6,
         maxLength: 10,
-        validator: [uniqueStuid, isNumber]
+        validator: [isNumber]
     },
     name: {des: '姓名', type: 'string', required: false, minLength: 2, maxLength: 10},
     phone: {des: '手机号', type: 'string', required: false, minLength: 11, maxLength: 11, validator: [isNumber]},
@@ -54,6 +54,7 @@ exports.uploadUserCheck = {
 exports.handleUploadCheck = {
     fileID: {des: '文件ID', type: 'string', required: true},
 }
+
 async function uniqueStuid(stuid) {
     return await db.collection('User').where({
         stuid: stuid,
