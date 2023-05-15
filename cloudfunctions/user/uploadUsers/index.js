@@ -33,6 +33,7 @@ exports.main = async (event, context) => {
             status: 500,
         }
     }
+    console.log('finish download')
     const permissionCheck = await permission.isSuperAdmin()
     if (permissionCheck.code !== 'success') {
         return permissionCheck;
@@ -54,10 +55,12 @@ exports.main = async (event, context) => {
             status: 500,
         }
     }
+    console.log('finish parsing')
     const tasks = []
     const createList = []
     const updateList = []
     const errorList = []
+    const total = Object.keys(users).length
     for (let [key, value] of Object.entries(users)) {
         const task = db.collection('User').where({
             stuid: key
@@ -90,21 +93,17 @@ exports.main = async (event, context) => {
         })
         tasks.push(task)
     }
+    console.log('submitting tasks')
     // 提交所有任务
     return await Promise.all(tasks).then(res => {
-        createList.sort()
-        updateList.sort()
-        errorList.sort()
         return {
             code: 'success',
             des: '上传成功',
             status: 200,
+            total:total,
             createNumber: createList.length,
-            createList: createList,
             updateNumber: updateList.length,
-            updateList: updateList,
             errorNumber: errorList.length,
-            errorList: errorList,
         }
     }).catch(err => {
         return {
