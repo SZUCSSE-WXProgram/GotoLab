@@ -61,11 +61,18 @@ exports.main = async (event, context) => {
     const updateList = []
     const errorList = []
     const total = Object.keys(users).length
-    if(total>100){
+    if(total===0){
       return {
         code:"fail",
         status:402,
-        des:"每次最多导入100条数据！"
+        des:"无数据待导入！"
+      }
+    }
+    if(total>300){
+      return {
+        code:"fail",
+        status:402,
+        des:"每次最多导入300条数据！"
       }
     }
     for (let [key, value] of Object.entries(users)) {
