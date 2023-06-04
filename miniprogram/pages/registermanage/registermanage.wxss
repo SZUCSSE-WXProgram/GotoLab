@@ -1,0 +1,23 @@
+.text{
+  flex:1
+}
+input{
+  margin: 10rpx;
+  padding: 10rpx;
+  border-bottom:2rpx solid rgb(235, 234, 234) ;
+}
+.left{
+  font-size: 34rpx;
+}
+.ipt{
+  margin: 10rpx;
+  border-bottom:2rpx solid rgb(235, 234, 234) ;
+  padding: 25rpx 25rpx;
+  align-items: center;
+  background-color: white;
+}
+.notice{
+  margin: 30rpx 0;
+  font-size: 28rpx;
+  color: gray;
+}

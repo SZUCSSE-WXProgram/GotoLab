@@ -180,6 +180,13 @@
           "query": "",
           "launchMode": "default",
           "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/registermanage/registermanage",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
         }
       ]
     }

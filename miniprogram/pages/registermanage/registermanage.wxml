@@ -1,0 +1,13 @@
+<view class="title">注册管理</view>
+<view class="ipt">
+  <view class="left iconfont icon-fabu">
+    名单导入:
+  </view>
+  <input class="text" disabled="true" placeholder="{{text}}" bindtap="handleClick" />
+  <view class="notice">
+  注意事项：文件大小限制为2MB，记录条数限制为300条，文件格式要求第一列为用户学号，第二列为用户姓名，其中学号必须是在6到10位的纯数字，其他非法学号将被忽略，学号如果不重复将进行新增,重复将进行更新。 
+  </view>
+</view>
+<button class="btn blue" bindtap="upload">
+  导入
+</button>

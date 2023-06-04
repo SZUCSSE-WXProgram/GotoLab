@@ -28,6 +28,10 @@
     <view class="itemname iconfont icon-yonghu"> 班级管理</view>
     <view class="iconfont icon-chevron-right"></view>
   </navigator>
+  <navigator wx:if="{{type2}}" url="/pages/registermanage/registermanage">
+    <view class="itemname iconfont icon-zhucehuiyuan"> 注册管理</view>
+    <view class="iconfont icon-chevron-right"></view>
+  </navigator>
   <navigator wx:if="{{type2}}" url="/pages/mygroup/mygroup">
     <view class="itemname iconfont icon-gerenxinxi"> 研究所管理</view>
     <view class="iconfont icon-chevron-right"></view>

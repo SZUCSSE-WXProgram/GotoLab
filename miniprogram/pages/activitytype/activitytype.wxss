@@ -14,12 +14,6 @@
 .text{
   flex:1
 }
-.ipt{
-  padding: 15rpx 25rpx;
-  display: flex;
-  background-color: white;
-  align-items: center;
-}
 input{
   margin-left: 10rpx;
   border-bottom:2rpx solid rgb(235, 234, 234) ;
@@ -40,5 +34,6 @@ input{
   border-bottom:2rpx solid rgb(235, 234, 234) ;
   padding: 25rpx 25rpx;
   display: flex;
+  align-items: center;
   background-color: white;
 }
