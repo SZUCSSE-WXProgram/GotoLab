@@ -17,6 +17,8 @@ const $ = _.aggregate
 // 云函数入口函数
 exports.main = async (event, context) => {
     const wxContext = cloud.getWXContext()
+    console.log('User ID: ' + wxContext.OPENID)
+    console.log('Params: ' + JSON.stringify(event))
     const info = {
         userId: event.info.userId,
         activityId: event.info.activityId,

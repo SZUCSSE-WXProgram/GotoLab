@@ -1,6 +1,6 @@
 const cloud = require('wx-server-sdk')
 const permission = require('../util/permission.js')
-const validator = require('../util/validate.js')
+const validator = require('../util/validate')
 const checkList = require('../check')
 // 云环境初始化
 cloud.init({
@@ -11,9 +11,10 @@ cloud.init({
 const db = cloud.database({
     throwOnNotFound: false
 })
-
 const _ = db.command;
 const $ = _.aggregate
+const changeableItems = ['name', 'stuid', 'docid']
+
 // 云函数入口函数
 exports.main = async (event, context) => {
     const wxContext = cloud.getWXContext()
@@ -23,36 +24,15 @@ exports.main = async (event, context) => {
     if (permissionCheck.code !== 'success') {
         return permissionCheck;
     }
-    const checkResult = await validator.check(event.info, checkList.modifyCheck);
+    const checkResult = await validator.check(event.info, checkList.manageRegisterCheck);
     if (checkResult.code !== 'success') {
-        return checkResult
+        return checkResult;
     }
-    const info = {
-        gradeName: event.info.gradeName,
-        _id: event.info._id
-    }
-    const _cnt = await db.collection('Grade').where({
-        _id: _.neq(info._id),
-        gradeName: info.gradeName,
-        available: true
-    }).count()
-    if (_cnt.total !== 0) {
-        return {
-            code: 'fail',
-            des: '该年级已存在',
-            status: 402,
-        }
-    }
-    return await db.collection('Grade').doc(info._id).update({
-        data: {
-            gradeName: info.gradeName,
-        }
-    }).then(res => {
+    return await db.collection('User').doc(event.info.docid).remove().then(res => {
         return {
             code: 'success',
-            des: '修改成功',
+            des: '删除成功！',
             status: 200,
-            info: res,
         }
     }).catch(e => {
         return {

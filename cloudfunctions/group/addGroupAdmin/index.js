@@ -16,6 +16,9 @@ const _ = db.command;
 const $ = _.aggregate
 // 云函数入口函数
 exports.main = async (event, context) => {
+    const wxContext = cloud.getWXContext()
+    console.log('User ID: ' + wxContext.OPENID)
+    console.log('Params: ' + JSON.stringify(event))
     const checkResult = await validator.check(event.info, checkList.manageGroupAdminCheck)
     if (checkResult.code !== 'success') {
         return checkResult;

@@ -18,6 +18,8 @@ const batchSize = 50 //每次查询的数量
 // 云函数入口函数
 exports.main = async (event, context) => {
     const wxContext = cloud.getWXContext()
+    console.log('User ID: ' + wxContext.OPENID)
+    console.log('Params: ' + JSON.stringify(event))
     let info = {
         activityId: event.info.activityId,
     }

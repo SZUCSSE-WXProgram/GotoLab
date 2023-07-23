@@ -63,5 +63,14 @@
         "fileID": "cloud://cloud1-6glxj0gh4232206c.636c-cloud1-6glxj0gh4232206c-1315640344/upload/test.xls"
       }
     }
+  },
+  {
+    "name": "user.delRegister",
+    "value": {
+      "type": "delRegister",
+      "info": {
+        "docid": "7769e02464b80433002c9dc075bb7096"
+      }
+    }
   }
 ]

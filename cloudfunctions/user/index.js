@@ -5,8 +5,9 @@ const manageUser = require('./manageUser/index')
 const getUsers = require('./getUsers/index')
 const uploadUsers = require('./uploadUsers/index')
 const handleUpload = require('./handleUpload/index')
-
-
+const getRegisters = require('./getRegisters/index')
+const manageRegister = require('./manageRegister/index')
+const delRegister = require('./delRegister/index')
 // 云函数入口函数
 exports.main = async (event, context) => {
     switch (event.type) {
@@ -24,6 +25,12 @@ exports.main = async (event, context) => {
             return await uploadUsers.main(event, context);
         case 'handleUpload':
             return await handleUpload.main(event, context);
+        case 'getRegisters':
+            return await getRegisters.main(event, context);
+        case 'manageRegister':
+            return await manageRegister.main(event, context);
+        case 'delRegister':
+            return await delRegister.main(event, context);
         default :
             return {
                 code: 'fail',

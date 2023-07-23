@@ -54,6 +54,33 @@ exports.uploadUserCheck = {
 exports.handleUploadCheck = {
     fileID: {des: '文件ID', type: 'string', required: true},
 }
+exports.manageRegisterCheck = {
+    docid: {des: '文档id', type: 'string', required: true, validator: [validateRegister_id]},
+    stuid: {des: '学号', type: 'string', required: false, minLength: 10, maxLength: 10, validator: [isNumber]},
+    name: {des: '姓名', type: 'string', required: false, minLength: 2, maxLength: 10},
+}
+exports.delRegisterCheck = {
+    docid: {des: '文档id', type: 'string', required: true, validator: [validateRegister_id]},
+}
+
+async function validateRegister_id(_id) {
+    const _cnt = await db.collection('User').where({
+        _id: _id,
+        openid: _.eq("")
+    }).count()
+    if (_cnt.total === 1) {
+        return {
+            code: 'success',
+            status: 200,
+        }
+    } else {
+        return {
+            code: 'fail',
+            des: '用户不存在或已经注册！',
+            status: 402,
+        }
+    }
+}
 
 async function uniqueStuid(stuid) {
     return await db.collection('User').where({

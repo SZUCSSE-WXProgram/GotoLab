@@ -18,6 +18,8 @@ const $ = _.aggregate
 exports.main = async (event, context) => {
     const changeableFields = ['name', 'intro', 'limit', 'signable', 'startTime', 'endTime', 'location', 'type']
     const wxContext = cloud.getWXContext()
+    console.log('User ID: ' + wxContext.OPENID)
+    console.log('Params: ' + JSON.stringify(event))
     const checkResult = await validator.check(event.info, checkList.modifyCheck);
     if (checkResult.code !== 'success') {
         return checkResult

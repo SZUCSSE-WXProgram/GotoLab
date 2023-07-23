@@ -13,11 +13,11 @@ const db = cloud.database({
 })
 const _ = db.command;
 const $ = _.aggregate
-const changeableItems = ['name', 'stuid', 'phone', 'class', 'permission', 'docid', 'email']
+const changeableItems = ['name', 'stuid', 'docid']
 
 // 云函数入口函数
 exports.main = async (event, context) => {
-    const wxContext = cloud.getWXContext()
+    const wxContext = cloud.getWXContext();
     console.log('User ID: ' + wxContext.OPENID)
     console.log('Params: ' + JSON.stringify(event))
     const permissionCheck = await permission.isSuperAdmin()
@@ -28,11 +28,7 @@ exports.main = async (event, context) => {
     try {
         for (let items of changeableItems) {
             if (event.info && event.info[items] !== undefined && event.info[items] !== '') {
-                if (items === 'permission') {
-                    info[items] = Number(event.info[items])
-                } else {
-                    info[items] = event.info[items]
-                }
+                info[items] = event.info[items]
             }
         }
     } catch (e) {
@@ -42,39 +38,25 @@ exports.main = async (event, context) => {
             status: 500,
         }
     }
-    const checkResult = await validator.check(info, checkList.manageUserCheck);
+    const checkResult = await validator.check(info, checkList.manageRegisterCheck);
     if (checkResult.code !== 'success') {
         return checkResult;
     }
-    // 单独对学号进行校验
-    const stuidCheck = await db.collection('User').where({
-        stuid: info.stuid,
-        _id: _.neq(info.docid),
-    }).count()
-    if (stuidCheck.total > 0) {
-        return {
-            code: 'fail',
-            des: '学号已存在！',
-            status: 402,
-        }
-    }
-    if (Object.keys(info).length <= 1) {
-        return {
-            code: 'fail',
-            des: '没有需要修改的内容',
-            status: 402,
-        }
-    }
-    if (info.permission && info.permission === 1) {
-        return {
-            code: 'fail',
-            des: '不允许直接修改为研究所管理员，请在研究所管理中修改！',
-            status: 402,
+    if (info.stuid) {
+        const stuidCheck = await db.collection('User').where({
+            stuid: info.stuid,
+            _id: _.neq(info.docid),
+        }).count()
+        if (stuidCheck.total > 0) {
+            return {
+                code: 'fail',
+                des: '学号已存在！',
+                status: 402,
+            }
         }
     }
     const _id = info.docid
     delete info.docid
-    if (info.permission === 2 || info.permission === 0) info['groups'] = []
     return await db.collection('User').doc(_id).update({
         data: info,
     }).then(res => {
