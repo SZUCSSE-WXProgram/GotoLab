@@ -27,7 +27,7 @@ exports.main = async (event, context) => {
     if (checkResult.code !== 'success') {
         return checkResult
     }
-    return await db.collection(('Class')).doc(event.info._id).update({
+    return await db.collection('Class').doc(event.info._id).update({
         data: {
             available: false,
         },
