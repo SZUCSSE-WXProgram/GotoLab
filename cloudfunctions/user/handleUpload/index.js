@@ -27,11 +27,19 @@ exports.main = async (event, context) => {
             type: 'exports'
         }
     }).then(res => {
-        return {
-            code: 'success',
-            status: 200,
-            des: '上传成功',
-            info: res,
+        if (event.info.fileID.endsWith('xlsx') || event.info.fileID.endsWith('xls')) {
+            return {
+                code: 'success',
+                status: 200,
+                des: '上传成功',
+                info: res,
+            }
+        } else {
+            return {
+                code: 'fail',
+                status: 500,
+                des: '文件格式错误',
+            }
         }
     }).catch(e => {
             return {

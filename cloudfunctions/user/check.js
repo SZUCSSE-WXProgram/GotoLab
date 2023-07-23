@@ -52,7 +52,7 @@ exports.uploadUserCheck = {
     fileID: {des: '文件ID', type: 'string', required: true, validator: [validateExcel]},
 }
 exports.handleUploadCheck = {
-    fileID: {des: '文件ID', type: 'string', required: true, validator: [validateExcel]},
+    fileID: {des: '文件ID', type: 'string', required: true},
 }
 exports.manageRegisterCheck = {
     docid: {des: '文档id', type: 'string', required: true, validator: [validateRegister_id]},
