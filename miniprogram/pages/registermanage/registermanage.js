@@ -18,6 +18,14 @@ Page({
         const tempFilePaths = res.tempFiles[0].path
         const name = res.tempFiles[0].name
         const type = tempFilePaths.substring(tempFilePaths.lastIndexOf('.') + 1).toLowerCase()
+        const allowedType = ['xlsx', 'xls']
+        if (!allowedType.includes(type)) {
+          wx.showToast({
+            title: '非法的图片类型',
+            icon: 'error'
+          })
+          return
+        }
         const cloudPath = 'excel/' + new Date().getTime() + '.' + type
         wx.showLoading({
           title: '正在上传',
@@ -59,7 +67,7 @@ Page({
             wx.showToast({
               title: '上传成功',
             })
-          } else {
+          } else { 
             wx.showToast({
               title: res.result.des,
               icon: 'none',
