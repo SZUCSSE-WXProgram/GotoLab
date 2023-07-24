@@ -4,14 +4,15 @@ cloud.init({
     env: cloud.DYNAMIC_CURRENT_ENV
 })
 const db = cloud.database()
-
+const _ = db.command
 // 系统管理员鉴权
 exports.isSuperAdmin = async () => {
     const wxContext = cloud.getWXContext();
     return await db.collection('User').where({
-        openid: wxContext.OPENID
-    }).get().then(res => {
-        if (res.data[0].permission === 2) {
+        openid: wxContext.OPENID,
+        permission: 2
+    }).count().then(res => {
+        if (res.total > 0) {
             return {
                 code: 'success',
                 status: 200,
@@ -45,8 +46,8 @@ exports.isGroupAdmin = async (groupID) => {
     return await db.collection('User').where({
         openid: wxContext.OPENID,
         groups: groupID
-    }).get().then(res => {
-        if (res.data.length > 0) {
+    }).count().then(res => {
+        if (res.total > 0) {
             return {
                 code: 'success',
                 status: 200,
@@ -88,9 +89,10 @@ exports.isActivityAdmin = async (activityID) => {
 exports.isNotStudent = async () => {
     const wxContext = cloud.getWXContext();
     return await db.collection('User').where({
-        openid: wxContext.OPENID
-    }).get().then(res => {
-        if (res.data[0].permission === 1 || res.data[0].permission === 2) {
+        openid: wxContext.OPENID,
+        permission: _.or(_.eq(1), _.eq(2))
+    }).count().then(res => {
+        if (res.total > 0) {
             return {
                 code: 'success',
                 status: 200,
