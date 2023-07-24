@@ -1,0 +1,31 @@
+<!--pages/registercheck/registercheck.wxml-->
+<view class="top">
+  <view class="text">注册管理</view>
+  <view class="search_row">
+    <input value="{{search}}" placeholder="请输入姓名或学号" bindconfirm="handleInput"></input>
+  </view>
+  <navigator url="/pages/registermanage/registermanage">
+      <button class="butn green">导入</button>
+  </navigator>
+</view>
+<view class="list">
+  <view class="tabs">
+    <view class="tabs_title">
+      <view wx:for="{{tabs}}" wx:key="_id" class="title_item {{item.isActive?'active':''}}" bindtap="tabclick" data-index="{{index}}">{{item.typeName}} </view>
+    </view>
+  </view>
+  <view wx:for="{{users}}" wx:key="_id" class="head">
+    <view class="msg name">
+      <view class=" font">
+        姓名: {{item.name}}
+      </view>
+      <view class="font">
+        学号: {{item.stuid}}
+      </view>
+    </view>
+    <navigator url="/pages/registerdetail/registerdetail?name={{item.name}}&id={{item.stuid}}&_id={{item._id}}">
+      <button class="butn blue">编辑</button>
+    </navigator>
+    <button class="butn red" bindtap="delete" data-id="{{item._id}}">删除</button>
+  </view>
+</view>

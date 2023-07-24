@@ -1,0 +1,18 @@
+<view class="title">信息修改</view>
+<view class="body">
+	<view class="item">
+		<view class="left iconfont icon--Manager">
+			姓名
+		</view>
+		<input type="text" value="{{name}}" bindinput="handleInputName" />
+	</view>
+	<view class="item">
+		<view class="left iconfont icon-nav_icon_zhiduguanli">
+			学号
+		</view>
+		<input type="text" value="{{id}}" bindinput="handleInputID" />
+	</view>	
+</view>
+<view>
+    <button class="blue" bindtap="modify">修改</button>
+</view>

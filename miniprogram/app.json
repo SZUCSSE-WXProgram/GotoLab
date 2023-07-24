@@ -20,7 +20,9 @@
     "pages/attenderlist/attenderlist",
     "pages/grademanage/grademanage",
     "pages/exportsAttenders/exportsAttenders",
-    "pages/registermanage/registermanage"    
+    "pages/registermanage/registermanage",
+    "pages/registercheck/registercheck",
+    "pages/registerdetail/registerdetail" 
   ],
   "window": {
     "backgroundColor": "#F6F6F6",

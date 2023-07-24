@@ -28,7 +28,7 @@
     <view class="itemname iconfont icon-yonghu"> 班级管理</view>
     <view class="iconfont icon-chevron-right"></view>
   </navigator>
-  <navigator wx:if="{{type2}}" url="/pages/registermanage/registermanage">
+  <navigator wx:if="{{type2}}" url="/pages/registercheck/registercheck">
     <view class="itemname iconfont icon-zhucehuiyuan"> 注册管理</view>
     <view class="iconfont icon-chevron-right"></view>
   </navigator>
